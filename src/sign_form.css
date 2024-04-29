@@ -157,3 +157,11 @@ a {
     margin-top: 20px;
     justify-content: center;
 }
+
+.modal_login_button {
+    border: none;
+    border-radius: 5px;
+    background-color: #39A7FF;
+    color: white;
+    margin-top: 10px;
+}

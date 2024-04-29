@@ -151,13 +151,22 @@ i {
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    text-align: center;
-    height: 1vh;
-    margin-top: 50px;
+    height: auto;
+    margin-top: 20px;
+}
+
+.id_pw ul {
+    display: flex;
+    padding: 0; /* ul 요소의 내부 패딩을 제거합니다. */
+    list-style: none;
 }
 
 .id_pw li {
     padding: 8px 5px;
+}
+
+.id_pw li:not(:last-child) {
+    margin-right: 5px;
 }
 
 
@@ -190,7 +199,7 @@ i {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 10vh; /* 원하는 높이로 설정하세요 */
+    height: 10vh;
 }
 
 .login_button {
