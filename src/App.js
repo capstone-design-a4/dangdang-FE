@@ -7,24 +7,30 @@ import './login_form.css';
 import './searchid_form.css';
 import './searchpw_form.css';
 import './modal.css';
-import './homepage.css';
+import './logouthomepage.css';
 import './brand.css';
+import './loginhomepage.css';
+import './star.css';
 import SocialKakao from './kakaologin';
 import { useState } from 'react';
 import axios from 'axios';
 import { useEffect } from 'react';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { faX } from "@fortawesome/free-solid-svg-icons";
+
 
 function Navbar({ isLoggedIn, name, onLogout }) {
     return (
         <div className="nav">
             <div className="nav_logo">
                 <img src="당당이.png" alt="로고" className="logo_img" />
-                <Link to="/homepage" style={{ fontWeight: "bold" }}>당당</Link>
+                <Link to="/logouthomepage" style={{ fontWeight: "bold" }}>당당</Link>
             </div>
             <ul className="nav_menu">
-                <li><Link to="/homepage" className="home">홈</Link></li>
-                <li><Link to="/mypage">마이페이지</Link></li>
-                <li><Link to="/community">커뮤니티</Link></li>
+                <li><Link to="/loginhomepage" className="home">홈</Link></li>
+                <li><Link to="/mypage" className="mypage">마이페이지</Link></li>
+                <li><Link to="/community" className="community">커뮤니티</Link></li>
             </ul>
             <ul className="nav_login">
                 {isLoggedIn ? (
@@ -505,7 +511,7 @@ function KakaoLoginPage() {
     );
 }
 
-function HomePage() {
+function LogoutHomePage() {
     return (
       <div className="App">
         <div className="container">
@@ -525,9 +531,9 @@ function HomePage() {
   
               <div className="inbox_line"><a href="#">|</a></div>
   
-              <div className="hello_inbox_kcal">
-                <div className="inbox_kcal_ment">먹은 칼로리</div>
-                <a href="#" className="inbox_kcal">0kcal</a>
+              <div className="hello_inbox_caf">
+                <div className="inbox_caf_ment">카페인 섭취량</div>
+                <a href="#" className="inbox_caf">0mg</a>
               </div>
             </div>
             <button onClick={() => { window.location.href = '/login' }} className="login_sign_btn">로그인 | 회원가입</button>
@@ -538,7 +544,7 @@ function HomePage() {
         <div className="bbrand">
           <div className="bbrand_ment_plus">
             <div className="bbrand_ment">당당의 인기 프랜차이즈</div>
-            <Link to="/brandpage" className="brand_plus">더보기</Link>
+            <Link to="/brandpage" className="bbrand_plus">더보기</Link>
           </div>
   
           <div className="bbrand_top5">
@@ -565,31 +571,31 @@ function HomePage() {
             brand="스타벅스"
             name="아이스 카푸치노"
             sugar="9g"
-            calorie="118kcal"
+            caffeine="118mg"
           />
           <MenuCard
             imageSrc="아이스얼그레이티.png"
             brand="스타벅스"
             name="아이스 얼 그레이 티"
             sugar="0g"
-            calorie="0kcal"
+            caffeine="0mg"
           />
         </div>
   
         <div className="menu_pair">
           <MenuCard
             imageSrc="우롱티.png"
-            brand="스타벅스"
+            brand="공차"
             name="우롱티"
             sugar="0g"
-            calorie="5kcal"
+            caffeine="5mg"
           />
           <MenuCard
             imageSrc="페퍼민트.png"
             brand="컴포즈"
             name="페퍼민트"
             sugar="0g"
-            calorie="0.7kcal"
+            caffeine="0.7mg"
           />
         </div>
   
@@ -597,7 +603,7 @@ function HomePage() {
       </div>
     );
   }
-  
+
   function MenuCard(props) {
     return (
       <div className="menu_card">
@@ -610,7 +616,7 @@ function HomePage() {
           <div className="menu_detail">
             <span>당: {props.sugar}</span>
             <span>|</span>
-            <span>칼로리: {props.calorie}</span>
+            <span>카페인: {props.caffeine}</span>
           </div>
         </div>
       </div>
@@ -637,6 +643,277 @@ function HomePage() {
       </div>
     );
   }
+
+function LoginHomePage() {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const openModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
+
+    return (
+        <div className="App">
+          <div className="container">
+            <div className="hello_box">
+              <div className="date">3월 25일 목표!</div>
+                <img src="당당이.png" alt="로고" className="hello_logo" />
+                <div className="hello_user">
+                  <div className="hello_dang">25g</div>
+                  <div className="hello_ment">더 마실 수 있어요!</div>
+                </div>
+    
+                <div className="hello_inbox">
+                  <div className="hello_inbox_dang">
+                    <div className="inbox_dang_ment">당 섭취량</div>
+                    <a href="#" className="inbox_dang">0g</a>
+                  </div>
+                
+                  <div className="inbox_line"><a href="#">|</a></div>
+                
+                  <div className="hello_inbox_caf">
+                    <div className="inbox_caf_ment">카페인 섭취량</div>
+                    <a href="#" className="inbox_caf">53mg</a>
+                  </div>
+                </div>
+                <button onClick={openModal} className="goal_button">목표설정하기</button>
+              </div>
+              <StarToday />
+            </div>
+
+            {isModalOpen && (
+                <div className="modal">
+                <div className="modal-content">
+                    <span className="close" onClick={closeModal}>&times;</span>
+                    <div className="modal_goal_ment">목표설정하기</div>
+                    
+                    <div className="input_goal">
+                        <div className="input_dang">
+                            <input type="text" className="input_dang_ment" />
+                            <div className="input_dang_g">g</div>
+                        </div>
+                        <div className="input_caf">
+                            <input type="text" className="input_caf_ment" />
+                            <div className="input_caf_mg">mg</div>
+                        </div>
+                    </div>
+
+                    <div className="eat_ment">※일일 권장 당류, 카페인 섭취량</div>
+
+                    <div className="dang_men_women">
+                        <div className="men">
+                            <div className="men_ment">남성</div>
+                            <div className="men_dang">37g</div>
+                        </div>
+            
+                        <div className="dang_men_women_line"><a href="#">|</a></div>
+            
+                        <div className="women">
+                            <div className="women_ment">여성</div>
+                            <div className="women_dang">25g</div>
+                        </div>
+                    </div>
+
+                    <div className="caf_men_women">
+                        400mg
+                    </div>
+
+                    <div className="modal_buttons">
+                        <button type = "submit" className="ok_modal_button">확인</button>
+                    </div>
+                </div>
+                </div>
+            )}
+
+            <div className="Brand">
+              <div className="Brand_ment_plus">
+                <div className="Brand_ment">당당의 인기 프랜차이즈</div>
+                  <Link to="/brandpage" className="Brand_plus">더보기</Link>
+                </div>
+    
+                <div className="Brand_top5">
+                  <a href="#"><img src="스타벅스로고.png" alt="스타벅스 로고" /></a>
+                  <a href="#"><img src="메가로고.png" alt="메가 로고" /></a>
+                  <a href="#"><img src="컴포즈로고.png" alt="컴포즈 로고" /></a>
+                  <a href="#"><img src="빽다방로고.png" alt="빽다방 로고" /></a>
+                  <a href="#"><img src="이디야로고.png" alt="이디야 로고" /></a>
+                </div>
+              </div>
+            </div>
+      );
+}
+
+function StarToday() {
+    return (
+      <div className="star_today">
+        <div className="first_line"></div>
+        <div className="star_name_plus">
+          <div className="star_name">즐겨찾기</div>
+          <Link to="/starpage" className="star_plus">더보기</Link>
+        </div>
+  
+        <div className="star_container">
+          <div className="star">
+            <MenuCard
+              imageSrc="아이스카푸치노.png"
+              brand="스타벅스"
+              name="아이스 카푸치노"
+              sugar="9g"
+              caffeine="127mg"
+            />
+          </div>
+          <div className="star_right">
+            <FontAwesomeIcon icon={faHeart} style={{color: "#ff0000", fontSize: '40px',}} />
+            <button className="star_click">담기</button>
+          </div>
+        </div>
+  
+        <div className="middle_line"></div>
+        <div className="today_name_plus">
+          <div className="today_name">오늘 마신 음료</div>
+          <Link to="/todaypage" className="today_plus">더보기</Link>
+        </div>
+  
+        <div className="today_container">
+          <div className="today">
+            <MenuCard
+              imageSrc="아이스얼그레이티.png"
+              brand="스타벅스"
+              name="아이스 얼 그레이 티"
+              sugar="0g"
+              caffeine="53mg"
+            />
+          </div>
+          <div className="today_right">
+              <FontAwesomeIcon icon={faHeart} style={{color: "#ff0000", fontSize: '40px',}} />
+              <button className="today_click">삭제</button>
+          </div>
+        </div>
+  
+        <div className="last_line"></div>
+      </div>
+    );
+  }
+
+function StarPage() {
+    return (
+        <div>
+            <div className="title">즐겨찾기</div>
+
+            <div className="star_menu">
+                <div className="first_menu">
+                    <img src="아이스카푸치노.png" alt="아이스카푸치노" className="first_image" />
+
+                    <div className="first_content">
+                        <div className="first_brand_menu">
+                            <a href="#" className="first_brand">스타벅스</a>
+                            <a href="#" className="first_name">아이스 카푸치노</a>
+                        </div>
+
+                        <div className="first_detail">
+                            <a href="#">9g</a>
+                            <a href="#">|</a>
+                            <a href="#">118kcal</a>
+                        </div>
+                    </div>
+
+                    <div className="menu_right">
+                        <FontAwesomeIcon icon={faHeart} style={{ color: '#ff0000', fontSize: '40px' }} />
+                        <div className="click">담기</div>
+                    </div>
+                </div>
+
+                <div className="line"></div>
+
+                <div className="first_menu">
+                    <img src="아이스카푸치노.png" alt="아이스카푸치노" className="first_image" />
+
+                    <div className="first_content">
+                        <div className="first_brand_menu">
+                            <a href="#" className="first_brand">스타벅스</a>
+                            <a href="#" className="first_name">아이스 카푸치노</a>
+                        </div>
+
+                        <div className="first_detail">
+                            <a href="#">9g</a>
+                            <a href="#">|</a>
+                            <a href="#">118kcal</a>
+                        </div>
+                    </div>
+
+                    <div className="menu_right">
+                        <FontAwesomeIcon icon={faHeart} style={{ color: '#ff0000', fontSize: '40px' }} />
+                        <div className="click">담기</div>
+                    </div>
+                </div>
+
+                <div className="line"></div>
+            </div>
+        </div>
+    );
+
+}
+
+function TodayPage() {
+    return (
+        <div>
+            <div className="title">오늘 마신 음료</div>
+
+            <div className="star_menu">
+                <div className="first_menu">
+                    <img src="아이스카푸치노.png" alt="아이스카푸치노" className="first_image" />
+
+                    <div className="first_content">
+                        <div className="first_brand_menu">
+                            <a href="#" className="first_brand">스타벅스</a>
+                            <a href="#" className="first_name">아이스 카푸치노</a>
+                        </div>
+
+                        <div className="first_detail">
+                            <a href="#">9g</a>
+                            <a href="#">|</a>
+                            <a href="#">118kcal</a>
+                        </div>
+                    </div>
+
+                    <div className="menu_right">
+                        <FontAwesomeIcon icon={faHeart} style={{ color: '#ff0000', fontSize: '40px' }} />
+                        <div className="click">삭제</div>
+                    </div>
+                </div>
+
+                <div className="line"></div>
+
+                <div className="first_menu">
+                    <img src="아이스카푸치노.png" alt="아이스카푸치노" className="first_image" />
+
+                    <div className="first_content">
+                        <div className="first_brand_menu">
+                            <a href="#" className="first_brand">스타벅스</a>
+                            <a href="#" className="first_name">아이스 카푸치노</a>
+                        </div>
+
+                        <div className="first_detail">
+                            <a href="#">9g</a>
+                            <a href="#">|</a>
+                            <a href="#">118kcal</a>
+                        </div>
+                    </div>
+
+                    <div className="menu_right">
+                        <FontAwesomeIcon icon={faHeart} style={{ color: '#ff0000', fontSize: '40px' }} />
+                        <div className="click">삭제</div>
+                    </div>
+                </div>
+
+                <div className="line"></div>
+            </div>
+        </div>
+    );
+}
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 상태를 나타내는 상태
@@ -677,7 +954,17 @@ function App() {
             <div>
                 <Navbar isLoggedIn={isLoggedIn} name={name} onLogout={handleLogout} />
                 <Routes>
-                    <Route path="/homepage" element={<HomePage />} />
+                    {/* {isLoggedIn ? (
+                        <>
+                            <Route path="/logininhomepage" element={<LoginHomePage />} />
+                            <Route path="/brandpage" element={<BrandPage />} />
+                        </>
+                    ) : (
+                        <>
+                            <Route path="/logouthomepage" element={<LogoutHomePage />} />
+                            <Route path="/brandpage" element={<BrandPage />} />
+                        </>
+                    )} */}
                     <Route path="/sign" element={<SignUpPage />} />
                     <Route path="/login" element={<LoginPage onLogin={handleLogin} />} />
                     <Route path="/signformpage" element={<SignFormPage />} />
@@ -688,6 +975,10 @@ function App() {
                     <Route path="/kakaologin" element={<KakaoLoginPage />} />
                     <Route path="*" element={<NotFoundPage />} />
                     <Route path="/brandpage" element={<BrandPage />} />
+                    <Route path="/loginhomepage" element={<LoginHomePage />} />
+                    <Route path="/logouthomepage" element={<LogoutHomePage />} />
+                    <Route path="/starpage" element={<StarPage />} />
+                    <Route path="/todaypage" element={<TodayPage />} />
                 </Routes>
             </div>
         </Router>

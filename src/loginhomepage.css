@@ -130,11 +130,11 @@
     margin-top:7%;
   }
   
-  .hello_inbox_dang, .hello_inbox_kcal {
+  .hello_inbox_dang, .hello_inbox_caf {
     font-weight: bold;
   }
   
-  .hello_inbox_dang, .hello_inbox_kcal {
+  .hello_inbox_dang, .hello_inbox_caf {
     display: flex;
     flex-direction: column; 
     align-items: center;
@@ -150,15 +150,15 @@
     font-size: 64px;
   }
   
-  .inbox_dang_ment, .inbox_kcal_ment {
+  .inbox_dang_ment, .inbox_caf_ment {
     font-size: 20px;
   }
   
-  .inbox_dang, .inbox_kcal {
+  .inbox_dang, .inbox_caf {
     font-size: 30px;
   }
   
-  .login_sign_btn {
+  .goal_button {
     width: 100%;
     height: 60px;
     border: none;
@@ -177,26 +177,26 @@
   }
   
   
-  .recommend {
+  .star_today {
     width: 63%;
     height: 380px;
     justify-content: space-between;
   }
   
-  .recommend_name {
+  .star_name, .today_name {
     font-size: 20px;
     font-weight: bold;
     margin-top: 20px;
     margin-left: 10px;
   }
   
-  .first_line, .last_line {
+  .first_line, .middle_line, .last_line {
     width: auto;
     height: 3px;
     background-color: #008DDA;
   }
   
-  .first_line {
+  .first_line, .middle_line {
     margin-top: 10px;
   }
   
@@ -205,8 +205,6 @@
     margin-top: 20px;
     margin-right: 10%;
     margin-left: 10px;
-    flex: 0 0 calc(40% - 5px);
-
   }
   
   .menu_image_wrapper {
@@ -214,14 +212,13 @@
   }
   
   .menu_info {
-    margin-top: 30px;
+    margin-top: 15px;
   }
   
   .menu_image {
-    width: 130px;
-    height: 130px;
+    width: 100px;
+    height: 100px;
     border-radius: 15px;
-    box-shadow: 3px 3px 3px 3px #bfbfbf;
   }
   
   .menu_brand {
@@ -244,9 +241,48 @@
     margin-right: 5px;
   }
   
-  .menu_pair {
+  .star, .today {
     display: flex;
     flex-direction: row;
+    width: 100%;
+  }
+  
+  .star_click, .today_click {
+    width: 100px;
+    height: 50px;
+    background-color: #008DDA;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    border: none;
+    border-radius: 15px;
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+  }
+  
+  .star_right, .today_right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .star_container, .today_container {
+    display: flex;
+  }
+  
+  .star_name_plus, .today_name_plus {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .star_plus, .today_plus {
+    display: flex;
+    margin-top: 20px;
+    font-size: 16px;
+    color: #B4B4B8;
+    text-decoration: underline;
   }
   
   .last_line {
@@ -254,38 +290,38 @@
   }
   
   
-  .bbrand {
+  .Brand {
     width: 95%;
     margin-left: 30px;
     margin-top: 50px;
   }
   
-  .bbrand_ment_plus {
+  .Brand_ment_plus {
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
   
-  .bbrand_ment {
+  .Brand_ment {
     font-size: 23px;
     font-weight: bold;
     color: black;
   }
   
-  .bbrand_plus {
+  .Brand_plus {
     font-size: 16px;
     color: #B4B4B8;
     text-decoration: underline;
   }
   
-  .bbrand_top5 {
+  .Brand_top5 {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     margin-top: 20px;
   }
   
-  .bbrand_top5 a {
+  .Brand_top5 a {
     flex: 1 1 18%;
     margin: 10px;
     display: flex;
@@ -293,11 +329,10 @@
     min-width: 100px;
   }
   
-  .bbrand_top5 img {
+  .Brand_top5 img {
     max-width: 100%;
     max-height: 100%;
     border-radius: 15px;
-    box-shadow: 3px 3px 3px #bfbfbf;
   }
   
   @media screen and (max-width: 960px) {
@@ -310,32 +345,47 @@
     }
   
     .hello_login_sign,
-    .recommend,
-    .bbrand {
+    .star_today,
+    .Brand {
         width: 90%;
         margin-bottom: 20px;
         justify-content: center;
     }
   
-    .recommend_name {
+    .star_name, .today_name {
         display:flex;
         align-self: flex-start;
         font-size: 14px;
         writing-mode: horizontal-tb !important;
     }
   
-    .menu_pair {
+    .star, .today {
         width: 100%;
         margin-bottom: 10px;
         flex-direction: column;
     }
   
-    .recommend {
+    .star_today {
         margin-left: 4.5%;
         margin-top: 10%;
     }
   
-    .bbrand {
-      margin-top: 65%;
+    .menu_brand, .menu_name {
+      font-size: 15px;
+    }
+  
+    .menu_detail {
+      font-size: 13px;
+    }
+  
+    .star_click, .today_click {
+      width: 80px;
+      height: 40px;
+      font-size: 20px;
+    }
+  
+    .Brand {
+      margin-top: 5%;
     }
   }
+  
