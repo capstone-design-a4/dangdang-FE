@@ -1,4 +1,6 @@
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 
 function StarbucksPage() {
     return (
@@ -9,7 +11,7 @@ function StarbucksPage() {
                     <div className="bdboxdown">
                         <div className="bdsrh">
                             <input type="text" className="bdtext" placeholder=" 음료 검색하기" />
-                            <button type="submit"><i className="fa-solid fa-magnifying-glass"></i></button>
+                            <button type="submit"><FontAwesomeIcon icon={faMagnifyingGlass} /></button>
                         </div>
 
                         <ul className="bdsort">

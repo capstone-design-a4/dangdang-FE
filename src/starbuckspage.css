@@ -54,10 +54,6 @@
 
 }
 
-input::placeholder{
-    color: #87C4FF;
-}
-
 .bdsort {
     display: flex; 
     list-style: none;
