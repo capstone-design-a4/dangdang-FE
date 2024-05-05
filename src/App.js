@@ -928,7 +928,7 @@ function CommunityPage() {
                     <Link to="/postpage">글쓰기</Link>
                 </div>
 
-                    <div className="mid_second">
+                    {/* <div className="mid_second">
                         <select name="post_sort" className="post_sort">
                             <option value="제목/내용" selected>제목/내용</option>
                             <option value="작성자">작성자</option>
@@ -936,8 +936,8 @@ function CommunityPage() {
 
                         <input type="text" className="community_searchtext" placeholder=" 검색어를 입력해주세요" />
 
-                        <input type="button" className="community_searchbtn" value="검색" />
-                    </div>
+                        <button type="submit" className="communitypage_searchbtn">검색</button>
+                    </div> */}
 
                     <ul className="mid_third">
                         <li className="recent_list"><a href="">최신순</a></li>
@@ -992,7 +992,8 @@ function CommunityPage() {
                                 <div className="reco">10</div>
                             </div>
                         </div>
-                        <div className="board_page">
+
+                        <div className="community_board_page">
                             <a href="#" className="bt first">{'<<'}</a>
                             <a href="#" className="bt prev">{'<'}</a>
                             <a href="#" className="num on">1</a>
@@ -1002,6 +1003,16 @@ function CommunityPage() {
                             <a href="#" className="num">5</a>
                             <a href="#" className="bt next">{'>'}</a>
                             <a href="#" className="bt last">{'>>'}</a>
+                        </div>
+
+                        <div className="community_post_search">
+                            <select name="post_sort" className="post_sort">
+                                <option value="제목/내용 selected">제목/내용</option>
+                                <option value="작성자">작성자</option>
+                            </select>
+
+                            <input type="text" className="community_searchtext" placeholder=" 검색어를 입력해주세요" />
+                            <button type="submit" className="community_searchbtn">검색</button>
                         </div>
                     </div>
                 </div>

@@ -119,34 +119,9 @@ a {
 
 .mid_second{
     display: flex;
+    justify-content: center;
     text-align: center;
-}
-
-.post_sort, .community_searchtext, .community_searchbtn{
-    font-size: 1.5rem;
-}
-
-input::placeholder{
-    font-size: 1rem;
-}
-
-.post_sort{
-    border-color: #EFEFEF;
-    font-size: 1rem;
-}
-
-.community_searchtext{
-    margin-left: 3%;
-    border-color: #EFEFEF;
-    color: #EFEFEF;
-}
-
-.community_searchbtn{
-    width: 55%;
-    background-color: #87C4FF;
-    border-style: none;
-    color: #FFFFFF;
-    font-size: 1.3rem;
+    width: 50%;
 }
 
 .mid_third{
@@ -232,13 +207,13 @@ input::placeholder{
     width: 10%;
 }
 
-.board_page{
+.community_board_page{
     margin-top: 5%;
     text-align: center;
     font-size: 0;
 }
 
-.board_page a{
+.community_board_page a{
     display: inline-block;
     width: 32px;
     height: 43px;
@@ -249,18 +224,18 @@ input::placeholder{
     line-height: 100%;
 }
 
-.board_page a.bt{
+.community_board_page a.bt{
     padding-top: 10px;
     font-size: 1.2rem;
     letter-spacing: -1px;
 }
 
-.board_page a.num{
+.community_board_page a.num{
     padding-top: 9px;
     font-size: 1.4rem;
 }
 
-.board_page a.num.on{
+.community_board_page a.num.on{
     border-color: #008DDA;
     background: #39A7FF;
     color: #FFFFFF;
@@ -268,6 +243,13 @@ input::placeholder{
 
 .border_page a:first-child {
     border-left: 1px solid #008DDA;
+}
+
+.community_post_search{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2%;
 }
 
 @media all and (max-width: 960px) {
@@ -291,10 +273,6 @@ input::placeholder{
         font-size: 0.9rem;
     }
 
-    .post_sort, .community_searchtext, .community_searchbtn{
-        font-size: 80%;
-    }
-
     .mid_first{
         font-size: 0.9rem;
     }
@@ -303,12 +281,16 @@ input::placeholder{
         font-size: 0.8rem;
     }
 
-    .board_page{
-        margin-top: 30%;
+    .community_board_page{
+        margin-top: 10%;
     }
 
     input::placeholder{
         font-size: 0.8rem;
+    }
+
+    .community_post_search {
+        margin-top: 5%;
     }
 }
 
