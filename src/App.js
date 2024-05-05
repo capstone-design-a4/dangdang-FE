@@ -21,6 +21,7 @@ import TodayPage from './TodayPage.js';
 import CommunityPage from './CommunityPage.js';
 import PostPage from './PostPage.js';
 import CommentPage from './CommentPage.js';
+import StarbucksPage from './StarbucksPage.js';
 
 import './login.css';
 import './sign.css';
@@ -36,6 +37,7 @@ import './star.css';
 import './community.css';
 import './post.css';
 import './comment.css';
+import './starbuckspage.css';
 import { useState } from 'react';
 import axios from 'axios';
 import { useEffect } from 'react';
@@ -113,6 +115,7 @@ function App() {
                     <Route path="/communitypage" element={<CommunityPage />} />
                     <Route path="/postpage" element={<PostPage />} />
                     <Route path="/commentpage" element={<CommentPage />} />
+                    <Route path="/starbuckspage" element={<StarbucksPage />} />
                 </Routes>
             </div>
         </Router>

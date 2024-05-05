@@ -25,12 +25,10 @@ function TodayPage() {
                     </div>
 
                     <div className="menu_right">
-                        <FontAwesomeIcon icon={faHeart} style={{ color: '#ff0000', fontSize: '40px' }} />
+                        <FontAwesomeIcon icon={ faHeart } style={{ color: '#ff0000', fontSize: '40px' }} />
                         <div className="click">삭제</div>
                     </div>
                 </div>
-
-                <div className="line"></div>
 
                 <div className="first_menu">
                     <img src="아이스카푸치노.png" alt="아이스카푸치노" className="first_image" />
@@ -49,12 +47,10 @@ function TodayPage() {
                     </div>
 
                     <div className="menu_right">
-                        <FontAwesomeIcon icon={faHeart} style={{ color: '#ff0000', fontSize: '40px' }} />
+                        <FontAwesomeIcon icon={ faHeart } style={{ color: '#ff0000', fontSize: '40px' }} />
                         <div className="click">삭제</div>
                     </div>
                 </div>
-
-                <div className="line"></div>
             </div>
         </div>
     );

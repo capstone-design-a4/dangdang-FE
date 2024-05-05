@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function BrandPage() {
     return (
@@ -6,7 +7,7 @@ function BrandPage() {
             <div className="brand_ment">당당의 인기 프랜차이즈</div>
 
             <div className="brand">
-                <a href="#"><img src="스타벅스로고.png" alt="스타벅스 로고" /></a>
+                <Link to = '/starbuckspage'><img src="스타벅스로고.png" alt="스타벅스 로고" /></Link>
                 <a href="#"><img src="메가로고.png" alt="메가 로고" /></a>
                 <a href="#"><img src="컴포즈로고.png" alt="컴포즈 로고" /></a>
                 <a href="#"><img src="빽다방로고.png" alt="빽다방 로고" /></a>

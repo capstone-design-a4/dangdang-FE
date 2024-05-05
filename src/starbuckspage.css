@@ -1,12 +1,78 @@
-.title {
-    background-color: #EAECEE;
-    color: black;
-    font-weight: bold;
-    font-size: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.bkcolor {
+    max-width: 100%;
+    background-color: #00A762;
+
+}
+
+.bdbox{
+    max-width: 90%;
     height: 100px;
+    margin: 0 auto;
+}
+
+.bdboxup{
+    color: #FFFFFF;
+    font-weight: bold;
+    font-size:40px;
+}
+
+.bdboxdown{
+    display: flex;
+    justify-content: space-between;
+}
+
+.bdsrh{
+    width:35%;
+    height: 40px;
+    position: relative;
+    display: flex;
+}
+
+.bdsrh input{
+    width: 100%;
+    border-radius: 15px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-style: none;
+    background-color: #FFFFFF;
+}
+
+.bdsrh button{
+    position: absolute;
+    top: 5px;
+    bottom: 5px;
+    right: 5px;
+    border-radius: 15px;
+    border-style: none;
+    background-color: #87C4FF;
+}
+
+.bdsrh button i{
+    background-color: 87C4FF;
+    font-size:large;
+    color: #FFFFFF;
+
+}
+
+input::placeholder{
+    color: #87C4FF;
+}
+
+.bdsort {
+    display: flex; 
+    list-style: none;
+    padding-left: 0;
+    font-weight: bold;
+    color:#D7D7D7;
+}
+
+.bdsort li {
+    padding-left: 10px;
+
+}
+
+.basic{
+    color: #000000;
 }
 
 
@@ -35,7 +101,7 @@
 .first_content {
     margin-left: 20px;
     width:30%;
-    margin-right: auto; /*추가*/
+    margin-right: auto;
 }
 
 .first_brand_menu_name {
@@ -78,7 +144,6 @@
 .menu_right {
     display: flex;
     align-items: center;
-    /* margin-left: 68%;  삭제*/
 }
 
 i {
