@@ -13,7 +13,7 @@ const SocialKakao = () => {
 
     const currentPage = window.location.pathname;
     
-    const buttonText = currentPage === '/login' ? '카카오로 간편 로그인' : '카카오로 간편가입하기';
+    const buttonText = currentPage === '/loginsign' ? '카카오로 간편 로그인' : '카카오로 간편가입하기';
 
     return (
         <button onClick={handleLogin} className="kakao_ment">{buttonText}</button>
