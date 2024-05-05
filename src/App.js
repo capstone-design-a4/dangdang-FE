@@ -11,14 +11,16 @@ import './logouthomepage.css';
 import './brand.css';
 import './loginhomepage.css';
 import './star.css';
+import './community.css';
+import './post.css';
+import './comment.css';
 import SocialKakao from './kakaologin';
 import { useState } from 'react';
 import axios from 'axios';
 import { useEffect } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
-import { faX } from "@fortawesome/free-solid-svg-icons";
-
+import { faThumbsUp } from '@fortawesome/free-solid-svg-icons';
 
 function Navbar({ isLoggedIn, name, onLogout }) {
     return (
@@ -30,7 +32,7 @@ function Navbar({ isLoggedIn, name, onLogout }) {
             <ul className="nav_menu">
                 <li><Link to="/loginhomepage" className="home">홈</Link></li>
                 <li><Link to="/mypage" className="mypage">마이페이지</Link></li>
-                <li><Link to="/community" className="community">커뮤니티</Link></li>
+                <li><Link to="/communitypage" className="community">커뮤니티</Link></li>
             </ul>
             <ul className="nav_login">
                 {isLoggedIn ? (
@@ -915,6 +917,261 @@ function TodayPage() {
     );
 }
 
+function CommunityPage() {
+    return (
+        <div>
+            <div className="community_all">
+                <div className="community_top">오늘도 당당하게</div>
+
+                <div className="community_mid">
+                    <div className="mid_first">
+                    <Link to="/postpage">글쓰기</Link>
+                </div>
+
+                    <div className="mid_second">
+                        <select name="post_sort" className="post_sort">
+                            <option value="제목/내용" selected>제목/내용</option>
+                            <option value="작성자">작성자</option>
+                        </select>
+
+                        <input type="text" className="community_searchtext" placeholder=" 검색어를 입력해주세요" />
+
+                        <input type="button" className="community_searchbtn" value="검색" />
+                    </div>
+
+                    <ul className="mid_third">
+                        <li className="recent_list"><a href="">최신순</a></li>
+                        <li> | </li>
+                        <li className="recommend_list"><a href="">추천순</a></li>
+                    </ul>
+                </div>
+
+                <div className="community_bottom">
+                    <div className="board_list_wrap">
+                        <div className="board_list">
+                            <div className="top">
+                                <div className="num">번호</div>
+                                <div className="c_title">제목</div>
+                                <div className="writer">작성자</div>
+                                <div className="count">조회</div>
+                                <div className="reco">추천</div>
+                            </div>
+                            <div>
+                                <div className="num">5</div>
+                                <div className="c_title"><Link to = "/commentpage">글 제목이 들어갑니다.</Link></div>
+                                <div className="writer">오영현</div>
+                                <div className="count">33</div>
+                                <div className="reco">10</div>
+                            </div>
+                            <div>
+                                <div className="num">4</div>
+                                <div className="c_title"><a href="#">글 제목이 들어갑니다.</a></div>
+                                <div className="writer">오영현</div>
+                                <div className="count">33</div>
+                                <div className="reco">10</div>
+                            </div>
+                            <div>
+                                <div className="num">3</div>
+                                <div className="c_title"><a href="#">글 제목이 들어갑니다.</a></div>
+                                <div className="writer">오영현</div>
+                                <div className="count">33</div>
+                                <div className="reco">10</div>
+                            </div>
+                            <div>
+                                <div className="num">2</div>
+                                <div className="c_title"><a href="#">글 제목이 들어갑니다.</a></div>
+                                <div className="writer">오영현</div>
+                                <div className="count">33</div>
+                                <div className="reco">10</div>
+                            </div>
+                            <div>
+                                <div className="num">1</div>
+                                <div className="c_title"><a href="#">글 제목이 들어갑니다.</a></div>
+                                <div className="writer">오영현</div>
+                                <div className="count">33</div>
+                                <div className="reco">10</div>
+                            </div>
+                        </div>
+                        <div className="board_page">
+                            <a href="#" className="bt first">{'<<'}</a>
+                            <a href="#" className="bt prev">{'<'}</a>
+                            <a href="#" className="num on">1</a>
+                            <a href="#" className="num">2</a>
+                            <a href="#" className="num">3</a>
+                            <a href="#" className="num">4</a>
+                            <a href="#" className="num">5</a>
+                            <a href="#" className="bt next">{'>'}</a>
+                            <a href="#" className="bt last">{'>>'}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+}
+
+function PostPage() {
+    const [title, setTitle] = useState('');
+    const [selectedCafe, setSelectedCafe] = useState('선택');
+  
+    const handleTitleChange = (event) => {
+      setTitle(event.target.value);
+    };
+  
+    const handleCafeSelect = (event) => {
+      setSelectedCafe(event.target.value);
+      setTitle(`[${event.target.value}] `);
+    };
+  
+    return (
+      <div>
+        <div className="dangdang_ment">오늘도 당당하게</div>
+
+        <div className="p_title">
+          <div className="title_row">
+            <div className="title_name">제목</div>
+  
+            <select className="cafe_select" onChange={handleCafeSelect} value={selectedCafe}>
+              <option value="선택">카페선택</option>
+              <option value="스타벅스">스타벅스</option>
+              <option value="메가커피">메가커피</option>
+              <option value="컴포즈커피">컴포즈커피</option>
+              <option value="빽다방">빽다방</option>
+              <option value="이디야">이디야</option>
+              <option value="투썸플레이스">투썸플레이스</option>
+              <option value="엔젤리너스">엔젤리너스</option>
+              <option value="공차">공차</option>
+              <option value="청자다방">청자다방</option>
+              <option value="벌크커피">벌크커피</option>
+              <option value="자유">자유</option>
+            </select>
+          </div>
+  
+          <input
+            type="text"
+            className="title_text"
+            placeholder="제목을 입력하세요."
+            value={title}
+            onChange={handleTitleChange}
+          />
+        </div>
+  
+        <div className="content">
+          <div className="content_name">내용</div>
+          <input type="text" className="content_text" />
+        </div>
+  
+        <div className="post_button">
+          <button type="button" className="back_button">뒤로가기</button>
+          <button type="submit" className="submit_button">등록</button>
+        </div>
+      </div>
+    );  
+}
+
+function CommentPage() {
+    return (
+        <div>
+            <div className="comment">
+                <div className="comment_top">
+                    <div className="post_title">
+                        <h3 className="post_title1">[스타벅스]</h3>
+                        <h3 className="post_title2">이거 정말 맛있어요!</h3>
+                    </div>
+
+                    <div className="Info">
+                        <dl>
+                            <dt>작성자</dt>
+                            <dd>박성빈</dd>
+                        </dl>
+                        <div className="Info2">
+                            <dl>
+                                <dt>날짜</dt>
+                                <dd>2024.03.24</dd>
+                            </dl>
+                            <dl>
+                                <dt>조회수</dt>
+                                <dd>3회</dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <div className="writing">
+                        떠나는 길에 네가 내게 말했지<br />
+                        너는 바라는 게 너무나 많아<br />
+                        잠깐이라도 널 안 바라보면<br />
+                        머리에 불이 나버린다니까<br />
+                        나는 흐르려는 눈물을 참고<br />
+                        하려던 얘길 어렵게 누르고<br />
+                        그래, 미안해라는 한 마디로<br />
+                        너랑 나눈 날들 마무리했었지<br />
+                        달디달고, 달디달고, 달디단, 밤양갱, 밤양갱<br />
+                        내가 먹고 싶었던 건, 달디단, 밤양갱, 밤양갱이야<br />
+                    </div>
+                    <div className="btn_view">
+                        <a href="#">수정</a>
+                    </div>
+
+                    <div className="reco_box">
+                        <div className="btn_reco">
+                            <a href="#"><FontAwesomeIcon icon={faThumbsUp} /></a>
+                            <div className="reco_cnt">추천 2</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="comment_mid">
+                    <div className="comment_cnt">댓글 23개</div>
+                    <div className="comment1">
+                        <div className="user">
+                            <div className="user_name">조계현</div>
+                            <div className="date">2024.03.24 19:36</div>
+                        </div>
+                        <div className="write">저도 나중에 먹어보고 싶어요!</div>
+                    </div>
+                    <div className="comment2">
+                        <div className="user">
+                            <div className="user_name">조계현</div>
+                            <div className="date">2024.03.24 19:36</div>
+                        </div>
+                        <div className="write">저도 나중에 먹어보고 싶어요!</div>
+                    </div>
+                    <div className="comment3">
+                        <div className="user">
+                            <div className="user_name">조계현</div>
+                            <div className="date">2024.03.24 19:36</div>
+                        </div>
+                        <div className="write">저도 나중에 먹어보고 싶어요!</div>
+                    </div>
+                </div>
+
+                <div className="comment_bottom">
+                    <div className="comment_page">
+                        <a href="#" className="bt first">&lt;&lt;</a>
+                        <a href="#" className="bt prev">&lt;</a>
+                        <a href="#" className="num on">1</a>
+                        <a href="#" className="num">2</a>
+                        <a href="#" className="num">3</a>
+                        <a href="#" className="num">4</a>
+                        <a href="#" className="num">5</a>
+                        <a href="#" className="bt next">&gt;</a>
+                        <a href="#" className="bt last">&gt;&gt;</a>
+                    </div>
+
+                    <div className="post_search">
+                        <select name="post_sort" className="post_sort">
+                            <option value="제목/내용 selected">제목/내용</option>
+                            <option value="작성자">작성자</option>
+                        </select>
+
+                        <input type="text" className="community_searchtext" placeholder=" 검색어를 입력해주세요" />
+                        <button type="submit" className="community_searchbtn">검색</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+}
+
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 상태를 나타내는 상태
     const [name, setUserName] = useState(''); // 로그인한 사용자 이름을 나타내는 상태
@@ -979,6 +1236,9 @@ function App() {
                     <Route path="/logouthomepage" element={<LogoutHomePage />} />
                     <Route path="/starpage" element={<StarPage />} />
                     <Route path="/todaypage" element={<TodayPage />} />
+                    <Route path="/communitypage" element={<CommunityPage />} />
+                    <Route path="/postpage" element={<PostPage />} />
+                    <Route path="/commentpage" element={<CommentPage />} />
                 </Routes>
             </div>
         </Router>
