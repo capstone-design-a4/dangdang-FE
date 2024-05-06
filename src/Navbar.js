@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom'; // BrowserRouter에서 Link를 바로 불러옵니다.
+import { Link } from 'react-router-dom';
 import './navbar.css';
 
 function Navbar({ isLoggedIn, name, onLogout }) {

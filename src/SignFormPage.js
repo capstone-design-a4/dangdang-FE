@@ -89,7 +89,6 @@ function SignFormPage() {
                     <div className="modal-content">
                         <span className="close" onClick={() => setIsSignUpSuccess(false)}>&times;</span>
                         <div className="success_message">회원가입을 성공하였습니다.</div>
-                        {/* 로그인하러 가기 버튼 추가 */}
                         <button className="modal_login_button" onClick={() => window.location.href = '/loginformpage'}>로그인하러 가기</button>
                     </div>
                 </div>

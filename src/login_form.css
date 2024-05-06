@@ -77,7 +77,7 @@ i {
 
 .id_pw ul {
     display: flex;
-    padding: 0; /* ul 요소의 내부 패딩을 제거합니다. */
+    padding: 0;
     list-style: none;
 }
 

@@ -71,7 +71,6 @@ function LoginFormPage() {
                 </div>
             </div>
 
-            {/* 모달 표시 */}
             {showModal && (
                 <div className="modal">
                     <div className="modal-content">

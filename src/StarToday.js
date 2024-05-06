@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
-import MenuCard from './MenuCard'; // MenuCard 컴포넌트 불러오기
+import MenuCard from './MenuCard';
 
 function StarToday() {
     return (

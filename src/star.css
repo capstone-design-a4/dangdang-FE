@@ -35,7 +35,7 @@
 .first_content {
     margin-left: 20px;
     width:30%;
-    margin-right: auto; /*추가*/
+    margin-right: auto;
 }
 
 .first_brand_menu_name {
@@ -78,7 +78,6 @@
 .menu_right {
     display: flex;
     align-items: center;
-    /* margin-left: 68%;  삭제*/
 }
 
 i {
