@@ -4,6 +4,7 @@ import StarToday from './StarToday';
 
 function LoginHomePage() {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [todayDate, setTodayDate] = useState(getTodayDate());
 
     const openModal = () => {
         setIsModalOpen(true);
@@ -13,28 +14,45 @@ function LoginHomePage() {
         setIsModalOpen(false);
     };
 
+    function getTodayDate() {
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = today.getMonth() + 1;
+        const day = today.getDate();
+        return `${year}년 ${month}월 ${day}일`;
+    }
+
     return (
         <div className="App">
             <div className="container">
                 <div className="hello_box">
-                    <div className="date">3월 25일 목표!</div>
+                    <div className="date">{todayDate} 목표!</div>
                     <img src="당당이.png" alt="로고" className="hello_logo" />
                     <div className="hello_user">
-                        <div className="hello_dang">25g</div>
+                        <div className="hello_dang">12g</div>
                         <div className="hello_ment">더 마실 수 있어요!</div>
                     </div>
 
-                    <div className="hello_inbox">
-                        <div className="hello_inbox_dang">
-                            <div className="inbox_dang_ment">당 섭취량</div>
-                            <a href="#" className="inbox_dang">0g</a>
+                    <div className="login_dang_caf_kcal">
+                        <div className="login_dang">
+                            <img src="당.png" alt="당 이미지" className="dang_img" />
+                            <div className="login_dang_graph">
+                                <div className="eat_dang_graph">13g</div>
+                            </div>
                         </div>
 
-                        <div className="inbox_line"><a href="#">|</a></div>
+                        <div className="login_caf">
+                            <img src="카페인.png" alt="카페인 이미지" className="caf_img" />
+                            <div className="login_caf_graph">
+                                <div className="eat_caf_graph">239mg</div>
+                            </div>
+                        </div>
 
-                        <div className="hello_inbox_caf">
-                            <div className="inbox_caf_ment">카페인 섭취량</div>
-                            <a href="#" className="inbox_caf">53mg</a>
+                        <div className="login_kcal">
+                            <img src="칼로리.png" alt="칼로리 이미지" className="kcal_img" />
+                            <div className="login_kcal_graph">
+                                <div className="eat_kcal_graph">43kcal</div>
+                            </div>
                         </div>
                     </div>
                     <button onClick={openModal} className="goal_button">목표설정하기</button>
@@ -95,7 +113,7 @@ function LoginHomePage() {
                 <div className="Brand_top5">
                     <Link to="/starbuckspage"><img src="스타벅스로고.png" alt="스타벅스 로고" /></Link>
                     <a href="#"><img src="메가로고.png" alt="메가 로고" /></a>
-                    <a href="#"><img src="컴포즈로고.png" alt="컴포즈 로고" /></a>
+                    <a href="#"><img src="컴포즈로고.png" alt="컴포즈 로고" /></a>
                     <a href="#"><img src="빽다방로고.png" alt="빽다방 로고" /></a>
                     <a href="#"><img src="이디야로고.png" alt="이디야 로고" /></a>
                 </div>

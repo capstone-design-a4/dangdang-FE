@@ -8,7 +8,7 @@
   
   .date {
     font-size: 20px;
-    color: white;
+    color: black;
     margin-left: 15px;
     margin-top: 10px;
     font-weight: bold;
@@ -39,45 +39,55 @@
     color: white;
   }
   
-  .hello_inbox {
-    width: 360px;
-    height: 100px;
+
+  .login_dang_caf_kcal {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .login_dang, .login_caf, .login_kcal {
+    display: flex;
+    align-items: center;
+    margin-top: 3%;
+    margin-left: 3%;
+  }
+  
+  .dang_img, .caf_img, .kcal_img {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .login_dang_graph, .login_caf_graph, .login_kcal_graph {
+    width: 80%;
+    height: 30px;
     background-color: white;
-    border-radius: 15px;
-    margin: 60px auto;
-    display: flex;
-    justify-content: space-around; 
-    align-items: center;
-    margin-top:7%;
-  }
-  
-  .hello_inbox_dang, .hello_inbox_caf {
+    margin-left: 5%;
+    border-radius: 50px;
     font-weight: bold;
-  }
-  
-  .hello_inbox_dang, .hello_inbox_caf {
-    display: flex;
-    flex-direction: column; 
-    align-items: center;
-    list-style: none;
-    margin: 0 4px;
-  }
-  
-  .inbox_line {
     display: flex;
     align-items: center;
-    justify-content: center;
-    margin: 0 -30px;
-    font-size: 64px;
   }
-  
-  .inbox_dang_ment, .inbox_caf_ment {
-    font-size: 20px;
+
+  .eat_dang_graph {
+    background-color: #39A7FF;
+    width: 50%;
+    height: 30px;
+    border-radius: 50px;
   }
-  
-  .inbox_dang, .inbox_caf {
-    font-size: 30px;
+
+  .eat_caf_graph {
+    background-color: #39A7FF;
+    width: 63%;
+    height: 30px;
+    border-radius: 50px;
   }
+
+  .eat_dang_graph, .eat_caf_graph, .eat_kcal_graph {
+    padding-left: 15px;
+    display: flex;
+    align-items: center;
+  }
+
   
   .goal_button {
     width: 100%;
@@ -87,7 +97,7 @@
     background-color:#39A7FF;
     color: white;
     font-size: 25px;
-    margin-top : 20px;
+    margin-top : 10%;
   }
   
   
@@ -254,6 +264,7 @@
     max-width: 100%;
     max-height: 100%;
     border-radius: 15px;
+    box-shadow: 3px 3px 3px #bfbfbf;
   }
   
   @media screen and (max-width: 960px) {

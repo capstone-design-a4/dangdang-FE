@@ -1,5 +1,3 @@
-// RecommendedMenu.js
-
 import React from 'react';
 import MenuCard from './MenuCard';
 
