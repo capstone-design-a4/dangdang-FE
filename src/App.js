@@ -47,7 +47,6 @@ import { useEffect } from 'react';
 function KakaoLoginPage() {
     return (
         <div>
-            {/* 카카오 로그인 페이지 내용 */}
             <SocialKakao />
         </div>
     );
