@@ -8,7 +8,7 @@
   
   .date {
     font-size: 20px;
-    color: black;
+    color: white !important;
     margin-left: 15px;
     margin-top: 10px;
     font-weight: bold;
