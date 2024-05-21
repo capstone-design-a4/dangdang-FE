@@ -105,7 +105,7 @@ function App() {
                     <Route path="/loginformpage" element={<LoginFormPage />} />
                     <Route path="/searchidpage" element={<SearchIDPage />} />
                     <Route path="/searchpwform" element={<SearchPwForm />} />
-                    <Route path="/logouthomepage" element={<LogoutHomePage />} />
+                    <Route path="/" element={<LogoutHomePage />} />
                     <Route path="/recommendedmenu" element={<RecommendedMenu />} />
                     <Route path="/menucard" element={<MenuCard />} />
                     <Route path="/brandpage" element={<BrandPage />} />

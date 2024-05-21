@@ -30,7 +30,7 @@
 }
 
 .imagechange_button, .goal_setting, .information_edit, .logout_button{
-    width: 200%;
+    width: 150%;
     height:45px;
     border-radius: 15px;
     font-weight: 700;
@@ -63,7 +63,7 @@
   background-color: #D9D9D9;
   height: 200px;
   border-radius: 15%;
-  width: 180%;
+  width: 150%;
   text-align: center;
 }
 

@@ -57,21 +57,21 @@ function CommentPage() {
                     <div className="comment1">
                         <div className="user">
                             <div className="user_name">조계현</div>
-                            <div className="date">2024.03.24 19:36</div>
+                            <div className="comment_date">2024.03.24 19:36</div>
                         </div>
                         <div className="write">저도 나중에 먹어보고 싶어요!</div>
                     </div>
                     <div className="comment2">
                         <div className="user">
                             <div className="user_name">조계현</div>
-                            <div className="date">2024.03.24 19:36</div>
+                            <div className="comment_date">2024.03.24 19:36</div>
                         </div>
                         <div className="write">저도 나중에 먹어보고 싶어요!</div>
                     </div>
                     <div className="comment3">
                         <div className="user">
                             <div className="user_name">조계현</div>
-                            <div className="date">2024.03.24 19:36</div>
+                            <div className="comment_date">2024.03.24 19:36</div>
                         </div>
                         <div className="write">저도 나중에 먹어보고 싶어요!</div>
                     </div>

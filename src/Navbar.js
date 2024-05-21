@@ -7,7 +7,7 @@ function Navbar({ isLoggedIn, name, onLogout }) {
         <div className="nav">
             <div className="nav_logo">
                 <img src="당당이.png" alt="로고" className="logo_img" />
-                <Link to="/logouthomepage" style={{ fontWeight: "bold" }}>당당</Link>
+                <Link to="/" style={{ fontWeight: "bold" }}>당당</Link>
             </div>
             <ul className="nav_menu">
                 <li><Link to="/loginhomepage" className="home">홈</Link></li>

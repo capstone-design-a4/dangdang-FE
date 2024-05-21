@@ -28,8 +28,8 @@ function PostPage() {
               <option value="컴포즈커피">컴포즈커피</option>
               <option value="빽다방">빽다방</option>
               <option value="이디야">이디야</option>
-              <option value="투썸플레이스">투썸플레이스</option>
-              <option value="엔젤리너스">엔젤리너스</option>
+              <option value="할리스">할리스</option>
+              <option value="더벤티">더벤티</option>
               <option value="공차">공차</option>
               <option value="청자다방">청자다방</option>
               <option value="벌크커피">벌크커피</option>
