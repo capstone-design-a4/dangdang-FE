@@ -9,14 +9,14 @@ function RecommendedMenu() {
   
         <div className="menu_pair">
           <MenuCard
-            imageSrc="아이스카푸치노.png"
+            imageSrc="ice_cappuccino.png"
             brand="스타벅스"
             name="아이스 카푸치노"
             sugar="9g"
             caffeine="118mg"
           />
           <MenuCard
-            imageSrc="아이스얼그레이티.png"
+            imageSrc="ice_ealgrey.png"
             brand="스타벅스"
             name="아이스 얼 그레이 티"
             sugar="0g"
@@ -26,14 +26,14 @@ function RecommendedMenu() {
   
         <div className="menu_pair">
           <MenuCard
-            imageSrc="우롱티.png"
+            imageSrc="oolong.png"
             brand="공차"
             name="우롱티"
             sugar="0g"
             caffeine="5mg"
           />
           <MenuCard
-            imageSrc="페퍼민트.png"
+            imageSrc="peppermint.png"
             brand="컴포즈"
             name="페퍼민트"
             sugar="0g"

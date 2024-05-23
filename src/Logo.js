@@ -4,7 +4,7 @@ function Logo({ message }) {
     return (
         <div className="logo">
             <div className="center_logo">
-                <img src="당당이.png" alt="로고" className="logo_img" />
+                <img src="dangdang.png" alt="로고" className="logo_img" />
                 <div className="logo_ment" style={{ fontWeight: "bold" }}>당당</div>
             </div>
             <div className="logo_message">

@@ -9,7 +9,7 @@ function TodayPage() {
 
             <div className="star_menu">
                 <div className="first_menu">
-                    <img src="아이스카푸치노.png" alt="아이스카푸치노" className="first_image" />
+                    <img src="ice_cappuccino.png" alt="아이스카푸치노" className="first_image" />
 
                     <div className="first_content">
                         <div className="first_brand_menu">
@@ -31,7 +31,7 @@ function TodayPage() {
                 </div>
 
                 <div className="first_menu">
-                    <img src="아이스카푸치노.png" alt="아이스카푸치노" className="first_image" />
+                    <img src="ice_cappuccino.png" alt="아이스카푸치노" className="first_image" />
 
                     <div className="first_content">
                         <div className="first_brand_menu">

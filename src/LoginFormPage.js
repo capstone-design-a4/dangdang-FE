@@ -43,7 +43,7 @@ function LoginFormPage() {
             <div>
                 <div className="logo">
                     <div className="center_logo">
-                        <img src="당당이.png" alt="로고" className="logo_img" />
+                        <img src="dangdang.png" alt="로고" className="logo_img" />
                         <div className="logo_ment">당당</div>
                     </div>
 

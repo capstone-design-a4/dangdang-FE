@@ -60,7 +60,7 @@ function MyPage() {
             <div className="page">
                 <div className="page_left">
                     <div className="page_box">
-                        <img src={previewUrl || "당당이.png"} alt="당당 프로필" className="login_img" />
+                        <img src={previewUrl || "dangdang.png"} alt="당당 프로필" className="login_img" />
                     </div>
 
                     <div className="my_name">당을줄이자 님</div>
@@ -87,7 +87,7 @@ function MyPage() {
                             {previewUrl ? (
                                 <img src={previewUrl} alt="프로필 이미지" />
                             ) : (
-                                <img src="당당이.png" alt="당당 프로필" />
+                                <img src="dangdang.png" alt="당당 프로필" />
                             )}
                         </div>
                         <div className="file_select">

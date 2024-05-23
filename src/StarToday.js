@@ -16,7 +16,7 @@ function StarToday() {
             <div className="star_container">
                 <div className="star">
                     <MenuCard
-                        imageSrc="아이스카푸치노.png"
+                        imageSrc="ice_cappuccino.png"
                         brand="스타벅스"
                         name="아이스 카푸치노"
                         sugar="9g"
@@ -38,7 +38,7 @@ function StarToday() {
             <div className="today_container">
                 <div className="today">
                     <MenuCard
-                        imageSrc="아이스얼그레이티.png"
+                        imageSrc="ice_ealgrey.png"
                         brand="스타벅스"
                         name="아이스 얼 그레이 티"
                         sugar="0g"
