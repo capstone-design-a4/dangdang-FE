@@ -1,240 +1,272 @@
 .hello_box {
-    width: 30%;
-    height: 380px;
-    background-color: #87C4FF;
-    border-radius: 15px;
-    margin-left: 30px;
-  }
-  
-  .date {
-    font-size: 20px;
-    color: #FFFFFF !important;
-    margin-left: 15px;
-    margin-top: 10px;
-    font-weight: bold;
-  }
-  
-  .hello_logo {
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    margin-top: 15px;
-    margin-left: 20px;
-    float: left;
-  }
-  
-  .hello_user {
-    margin-top: 20px;
-    margin-left: 110px;
-    font-weight: bold;
-  }
-  
-  .hello_dang {
-    font-size: 30px;
-    color: white;
-  }
-  
-  .hello_ment {
-    font-size: 24px;
-    color: white;
-  }
+  width: 30%;
+  height: 380px;
+  background-color: #87C4FF;
+  border-radius: 15px;
+  margin-left: 30px;
+}
+
+.date {
+  font-size: 20px;
+  color: #FFFFFF !important;
+  margin-left: 15px;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.hello_logo {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  margin-top: 15px;
+  margin-left: 20px;
+  float: left;
+}
+
+.hello_user {
+  margin-top: 20px;
+  margin-left: 110px;
+  font-weight: bold;
+}
+
+.hello_dang {
+  font-size: 30px;
+  color: white;
+}
+
+.hello_ment {
+  font-size: 24px;
+  color: white;
+}
 
 
 
-  .logout_dang_caf_kcal {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .logout_dang, .logout_caf, .logout_kcal {
-    display: flex;
-    align-items: center;
-    margin-top: 3%;
-    margin-left: 3%;
-  }
-  
-  .dang_img, .caf_img, .kcal_img {
-    width: 40px;
-    height: 40px;
-  }
-  
-  .logout_dang_graph, .logout_caf_graph, .logout_kcal_graph {
-    width: 75%;
-    height: 30px;
-    background-color: white;
-    margin-left: 5%;
-    border-radius: 50px;
-    font-weight: bold;
-    padding-left: 15px;
-    display: flex;
-    align-items: center;
-  }
-  
+.logout_dang_caf_kcal {
+  display: flex;
+  flex-direction: column;
+}
 
-  .login_sign_btn {
-    width: 100%;
-    height: 60px;
-    border: none;
-    border-radius: 15px;
-    background-color:#39A7FF;
-    color: white;
-    font-size: 25px;
-    margin-top : 10%;
-  }
-  
-  .container {
-    display: flex;
-    gap: 50px;
-    width: 100%;
-  }
-  
-  
-  .recommend {
-    width: 63%;
-    height: 380px;
-    justify-content: space-between;
-  }
-  
-  .recommend_name {
-    font-size: 20px;
-    font-weight: bold;
-    margin-top: 20px;
-    margin-left: 10px;
-    margin-bottom: 20px;
-  }
-  
-  .first_line, .last_line {
-    width: auto;
-    height: 3px;
-    background-color: #008DDA;
-  }
-  
-  .first_line {
-    margin-top: 10px;
-  }
-  
-  .menu_card {
-    display: flex;
-    margin-top: 20px;
-    margin-right: 10%;
-    margin-left: 10px;
-    flex: 0 0 calc(40% - 5px);
+.logout_dang, .logout_caf, .logout_kcal {
+  display: flex;
+  align-items: center;
+  margin-top: 3%;
+  margin-left: 3%;
+}
 
-  }
-  
-  .menu_image_wrapper {
-    margin-right: 20px;
-  }
-  
-  .menu_info {
-    margin-top: 30px;
-  }
-  
-  .menu_image {
-    width: 130px;
-    height: 130px;
-    border-radius: 15px;
-    box-shadow: 3px 3px 3px 3px #bfbfbf;
-  }
-  
-  .menu_brand {
-    color: #AEAEAE;
-    font-size: 20px;
-    font-weight: bold;
-  }
-  
-  .menu_name {
-    font-weight: bold;
-    font-size: 20px;
-  }
-  
-  .menu_detail {
-    font-size: 16px;
-    font-weight: bold;
-  }
-  
-  .menu_detail span {
-    margin-right: 5px;
-  }
-  
-  .menu_pair {
-    display: flex;
-    flex-direction: row;
-    margin-top: 30px;
-  }
-  
-  .last_line {
-    margin-top: 30px;
-  }
-  
-  
-  .bbrand {
-    width: 95%;
-    margin-left: 30px;
-    margin-top: 50px;
-  }
-  
-  .bbrand_ment_plus {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .bbrand_ment {
-    font-size: 23px;
-    font-weight: bold;
-    color: black;
-  }
-  
-  .bbrand_plus {
-    font-size: 16px;
-    color: #B4B4B8;
-    text-decoration: underline;
-  }
-  
-  .bbrand_top5 {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-top: 20px;
-  }
-  
-  .bbrand_top5 a {
-    flex: 1 1 18%;
-    margin: 10px;
-    display: flex;
-    justify-content: center;
-    min-width: 100px;
-  }
-  
-  .bbrand_top5 img {
-    max-width: 100%;
-    max-height: 100%;
-    border-radius: 15px;
-    box-shadow: 3px 3px 3px #bfbfbf;
-  }
+.dang_img, .caf_img, .kcal_img {
+  width: 40px;
+  height: 40px;
+  margin-left: 8px;
+}
+
+.logout_dang_graph, .logout_caf_graph, .logout_kcal_graph {
+  width: 75%;
+  height: 30px;
+  background-color: white;
+  margin-left: 5%;
+  border-radius: 50px;
+  font-weight: bold;
+  padding-left: 15px;
+  display: flex;
+  align-items: center;
+}
+
+
+.login_sign_btn {
+  width: 100%;
+  height: 60px;
+  border: none;
+  border-radius: 15px;
+  background-color:#39A7FF;
+  color: white;
+  font-size: 25px;
+  margin-top : 10%;
+}
+
+.container {
+  display: flex;
+  gap: 50px;
+  width: 100%;
+}
+
+
+.recommend {
+  width: 63%;
+  height: 380px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.recommend_name {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 20px;
+  margin-left: 10px;
+  margin-bottom: 20px;
+}
+
+.first_line, .last_line {
+  width: auto;
+  height: 3px;
+  background-color: #008DDA;
+}
+
+.first_line {
+  margin-top: 10px;
+}
+
+.menu_card {
+  perspective: 1000px;
+  display: flex;
+  margin-top: 20px;
+  margin-right: 10%;
+  margin-left: 10px;
+}
+
+.menu_image, .menu_detail {
+  width: 100px;
+  height: 100px;
+  border-radius: 15px;
+  box-shadow: 2px 2px 2px 2px #bfbfbf;
+}
+
+.menu_image_wrapper {
+  position: relative;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  margin-right: 20px;
+}
+
+.menu_card:hover .menu_image_wrapper {
+  transform: rotateY(180deg);
+}
+
+
+.menu_image {
+  z-index: 2;
+  transform: rotateY(0deg);
+}
+
+.menu_info {
+  margin-top: 25px;
+}
+
+.menu_brand {
+  color: #AEAEAE;
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.menu_name {
+  font-weight: bold;
+  font-size: 25px;
+}
+
+.menu_detail {
+  z-index: 1;
+  transform: rotateY(180deg); /* 뒷면으로 회전 */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute; /* 이미지를 기준으로 절대 위치 설정 */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #eee; /* 뒷면 배경색 */
+  backface-visibility: hidden; /* 뒷면 감춤 */
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.menu_detail span {
+  margin-right: 5px;
+}
+
+.menuGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 20px; /* 메뉴 카드 간의 간격 조절 */
+}
+
+.menuGrid > * {
+  width: 100%; /* 각 메뉴 카드를 그리드 셀에 가득 채우도록 설정 */
+}
+
+
+.last_line {
+  margin-top: 30px;
+}
+
+
+.bbrand {
+  width: 95%;
+  margin-left: 30px;
+  margin-top: 50px;
+}
+
+.bbrand_ment_plus {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bbrand_ment {
+  font-size: 23px;
+  font-weight: bold;
+  color: black;
+}
+
+.bbrand_plus {
+  font-size: 16px;
+  color: #B4B4B8;
+  text-decoration: underline;
+}
+
+.bbrand_top5 {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.bbrand_top5 a {
+  flex: 1 1 18%;
+  margin: 10px;
+  display: flex;
+  justify-content: center;
+  min-width: 100px;
+}
+
+.bbrand_top5 img {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 15px;
+  box-shadow: 3px 3px 3px #bfbfbf;
+}
 
 
 .modal-content {
-  width: 20%;
-  height: 40%;
+width: 20%;
+height: 40%;
 }
 
-  .modal_goal_ment {
-    width: 200px;
-    height: 30px;
-    background-color: #39A7FF;
-    color: white;
-    border-radius: 15px;
-    display: flex;
-    align-items: center;
-    text-align: center;
-    justify-content: center;
-    font-size: 20px;
-    font-weight: bold;
-    margin: 0 auto;
-  }
-  
+.modal_goal_ment {
+  width: 200px;
+  height: 30px;
+  background-color: #39A7FF;
+  color: white;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0 auto;
+}
+
 .input_dang, .input_caf {
   display: flex;
   align-items: center;
@@ -249,121 +281,120 @@
 }
 
 .input_dang_ment, .input_caf_ment {
-    background-color: #EAECEE;
-    width: 100px;
-    height: 30px;
-    border-radius: 15px;
-    border: none;
-}
-
-.input_dang_g, .input_caf_mg {
-    float: left;
-}
-
-.eat_ment {
-    margin-top: 15px;
-}
-
-.dang_men_women {
-    background-color: #EAECEE;
-    width: 100%;
-    height: 100px;
-    border-radius: 15px;
-    display: flex;
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    gap: 40px;
-    margin-top: 10px;
-}
-
-.caf_men_women {
   background-color: #EAECEE;
-    width: 100%;
-    height: 30px;
-    border-radius: 15px;
-    display: flex;
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    margin-top: 10px;
-}
-
-.modal-content {
-  margin: 0 auto;
-}
-
-.men_ment, .women_ment {
-  font-size: 20px;
-}
-
-.men_dang, .women_dang {
-  font-size: 32px;
-}
-
-.dang_men_women_line {
-  font-size: 40px;
-}
-
-.modal_buttons {
-  float: right;
-  margin-top: 20px;
-}
-
-.ok_modal_button {
-  float: left;
-}
-
-.ok_modal_button {
-  background-color: #EAECEE;
-  width: 100%;
+  width: 100px;
+  height: 30px;
   border-radius: 15px;
   border: none;
 }
 
+.input_dang_g, .input_caf_mg {
+  float: left;
+}
+
+.eat_ment {
+  margin-top: 15px;
+}
+
+.dang_men_women {
+  background-color: #EAECEE;
+  width: 100%;
+  height: 100px;
+  border-radius: 15px;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  gap: 40px;
+  margin-top: 10px;
+}
+
+.caf_men_women {
+background-color: #EAECEE;
+  width: 100%;
+  height: 30px;
+  border-radius: 15px;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.modal-content {
+margin: 0 auto;
+}
+
+.men_ment, .women_ment {
+font-size: 20px;
+}
+
+.men_dang, .women_dang {
+font-size: 32px;
+}
+
+.dang_men_women_line {
+font-size: 40px;
+}
+
+.modal_buttons {
+float: right;
+margin-top: 20px;
+}
+
+.ok_modal_button {
+float: left;
+}
+
+.ok_modal_button {
+background-color: #EAECEE;
+width: 100%;
+border-radius: 15px;
+border: none;
+}
+
+.dang_card_img, .caf_card_img, .kcal_card_img {
+  width: 20px;
+  height: 20px;
+}
+
 @media screen and (max-width: 960px) {
-    .container {
-        flex-direction: column;
-    }
-  
-    .hello_box {
+  .container {
+      flex-direction: column;
+  }
+
+  .hello_box {
+    width: 90%;
+  }
+
+  .hello_login_sign,
+  .recommend,
+  .bbrand {
       width: 90%;
-    }
-  
-    .hello_login_sign,
-    .recommend,
-    .bbrand {
-        width: 90%;
-        margin-bottom: 20px;
-        justify-content: center;
-    }
-  
-    .recommend_name {
+      margin-bottom: 20px;
+      justify-content: center;
+  }
+
+  .recommend_name {
         display:flex;
         align-self: flex-start;
         font-size: 14px;
         writing-mode: horizontal-tb !important;
-    }
-  
-    .menu_pair {
-        width: 100%;
-        margin-bottom: 10px;
-        flex-direction: column;
-    }
-  
-    .recommend {
+  }
+
+  .recommend {
         margin-left: 4.5%;
         margin-top: 10%;
-    }
-  
-    .bbrand {
-      margin-top: 50%;
-    }
+  }
 
-    .modal-content {
+  .bbrand {
+      margin-top: 50%;
+  }
+
+  .modal-content {
       width : 60%;
       height: 40%;
-    }
+  }
 }

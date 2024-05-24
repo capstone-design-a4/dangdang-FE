@@ -131,46 +131,6 @@
     margin-top: 10px;
   }
   
-  .menu_card {
-    display: flex;
-    margin-top: 20px;
-    margin-right: 10%;
-    margin-left: 10px;
-  }
-  
-  .menu_image_wrapper {
-    margin-right: 20px;
-  }
-  
-  .menu_info {
-    margin-top: 15px;
-  }
-  
-  .menu_image {
-    width: 100px;
-    height: 100px;
-    border-radius: 15px;
-  }
-  
-  .menu_brand {
-    color: #AEAEAE;
-    font-size: 20px;
-    font-weight: bold;
-  }
-  
-  .menu_name {
-    font-weight: bold;
-    font-size: 20px;
-  }
-  
-  .menu_detail {
-    font-size: 16px;
-    font-weight: bold;
-  }
-  
-  .menu_detail span {
-    margin-right: 5px;
-  }
   
   .star, .today {
     display: flex;

@@ -23,7 +23,7 @@ function LogoutHomePage() {
                     <img src="dangdang.png" alt="로고" className="hello_logo" />
                     <div className="hello_user">
                         <div className="hello_dang">0g</div>
-                        <div className="hello_ment">로그인 후 이용가능합니다.</div>
+                        <div className="hello_ment">더 마실 수 있어요!</div>
                     </div>
                     
                     <div className="logout_dang_caf_kcal">
