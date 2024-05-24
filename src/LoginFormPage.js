@@ -25,7 +25,7 @@ function LoginFormPage() {
             console.log(response);
             if (response.status === 200) {
                 // 로그인 성공
-                window.location.href = ''; // 로그인 후 이동할 페이지
+                window.location.href = '/loginhomepage'; // 로그인 후 이동할 페이지
             } else {
                 // 로그인 실패
                 setErrorMessage(response.data.message);

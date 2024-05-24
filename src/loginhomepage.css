@@ -262,10 +262,6 @@
         margin-top: 10%;
     }
   
-    .menu_brand, .menu_name {
-      font-size: 15px;
-    }
-  
     .menu_detail {
       font-size: 13px;
     }
@@ -277,6 +273,10 @@
     }
   
     .Brand {
-      margin-top: 5%;
+      margin-top: 0.5%;
+    }
+
+    .menu_brand, .menu_name {
+      font-size: 15px;
     }
   }

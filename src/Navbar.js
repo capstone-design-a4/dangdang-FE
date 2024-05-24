@@ -2,22 +2,22 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './navbar.css';
 
-function Navbar({ isLoggedIn, name, onLogout }) {
+function Navbar({ isLoggedIn, userName, onLogout }) {
     return (
         <div className="nav">
             <div className="nav_logo">
                 <img src="dangdang.png" alt="로고" className="logo_img" />
-                <Link to="/" style={{ fontWeight: "bold" }}>당당</Link>
+                <Link to="/logouthomepage" style={{ fontWeight: "bold" }}>당당</Link>
             </div>
             <ul className="nav_menu">
                 <li><Link to="/loginhomepage" className="home">홈</Link></li>
-                <li><Link to="/mypage" className="mypage">마이페이지</Link></li>
-                <li><Link to="/communitypage" className="community">커뮤니티</Link></li>
+                <li><Link to="/empty" className="mypage">마이페이지</Link></li>
+                <li><Link to="/empty" className="community">커뮤니티</Link></li>
             </ul>
             <ul className="nav_login">
                 {isLoggedIn ? (
                     <>
-                        <li><span>{name}님</span></li>
+                        <li><span>{userName}님</span></li>
                         <li><a href="#">|</a></li>
                         <li><a href="#" onClick={onLogout}>로그아웃</a></li>
                     </>

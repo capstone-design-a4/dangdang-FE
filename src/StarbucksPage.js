@@ -32,20 +32,21 @@ function StarbucksPage() {
             </div>
 
             <div className="star_menu">
-                {Object.values(menuData).map((item) => (
+                {Object.values(menuData).map((data) => (
                     <MenuCard
-                        key={item.id}
-                        imageSrc={item.imageUrl}
-                        brand={item.cafeName}
-                        name={item.name}
-                        sugar={`${item.sugar}g`}
-                        calorie={`${item.calorie}kcal`}
-                        caffeine={`${item.caffeine}mg`}
-                        bookmarked={item.bookmarked}
+                        key={data.id}
+                        imageSrc={data.imageUrl}
+                        brand={data.cafeName}
+                        name={data.name}
+                        sugar={`${data.sugar}g`}
+                        calorie={`${data.calorie}kcal`}
+                        caffeine={`${data.caffeine}mg`}
+                        bookmarked={data.bookmarked}
                     />
-                    
                 ))}
             </div>
+
+
         </div>
     );
 }

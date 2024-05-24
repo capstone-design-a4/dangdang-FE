@@ -21,6 +21,7 @@ function StarToday() {
                         name="아이스 카푸치노"
                         sugar="9g"
                         caffeine="127mg"
+                        calorie="100kcal"
                     />
                 </div>
                 <div className="star_right">
@@ -43,6 +44,7 @@ function StarToday() {
                         name="아이스 얼 그레이 티"
                         sugar="0g"
                         caffeine="53mg"
+                        calorie="100kcal"
                     />
                 </div>
                 <div className="today_right">

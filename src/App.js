@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Navbar from './Navbar.js';
 import SignUp from './SignUp';
 import Login from './Login.js';
@@ -105,7 +105,8 @@ function App() {
                     <Route path="/loginformpage" element={<LoginFormPage />} />
                     <Route path="/searchidpage" element={<SearchIDPage />} />
                     <Route path="/searchpwform" element={<SearchPwForm />} />
-                    <Route path="/" element={<LogoutHomePage />} />
+                    <Route path="/" element={<Navigate to="/logouthomepage" />} />
+                    <Route path="/logouthomepage" element={<LogoutHomePage />} />
                     <Route path="/recommendedmenu" element={<RecommendedMenu />} />
                     <Route path="/menucard" element={<MenuCard />} />
                     <Route path="/brandpage" element={<BrandPage />} />
