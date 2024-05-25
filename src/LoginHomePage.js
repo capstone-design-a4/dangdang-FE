@@ -45,8 +45,6 @@ function LoginHomePage() {
         }
     };
     
-    
-
     return (
         <div className="App">
             <div className="container">

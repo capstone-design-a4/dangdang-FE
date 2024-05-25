@@ -19,13 +19,14 @@ function LoginFormPage( { onLogin }) {
                 userId: e.target.email.value,
                 password: e.target.password.value,
             };
-            console.log(params);
+            // console.log(params);
             const response = await axios.post('http://localhost:8080/login', {}, { params });
     
-            console.log(response.data)
-            console.log(response.data.userId)
+            // console.log(response.data)
+            // console.log(response.data.userId)
             
-            console.log(response);
+            // console.log(response);
+            
             if (response.status === 200) {
                 // 로그인 성공
                 onLogin(params.userId);

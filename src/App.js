@@ -108,7 +108,7 @@ function App() {
                     <Route path="/recommendedmenu" element={<RecommendedMenu />} />
                     <Route path="/menucard" element={<MenuCard />} />
                     <Route path="/brandpage" element={<BrandPage />} />
-                    <Route path="/loginhomepage" element={<LoginHomePage />} />
+                    <Route path="/loginhomepage" element={<LoginHomePage userId={userId} />} />
                     <Route path="/startoday" element={<StarToday />} />
                     <Route path="/starpage" element={<StarPage />} />
                     <Route path="/todaypage" element={<TodayPage />} />
