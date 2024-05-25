@@ -81,11 +81,12 @@ function App() {
     };
 
     const handleLogin = (userId) => {
+        const username = userId.split('@')[0];
         setIsLoggedIn(true);
-        setUserId(userId);
+        setUserId(username);
         localStorage.setItem('isLoggedIn', 'true');
-        localStorage.setItem('userId', userId);
-    }
+        localStorage.setItem('userId', username);
+    }    
 
     return (
         <Router>

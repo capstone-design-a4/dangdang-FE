@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import StarToday from './StarToday';
+import axios from 'axios';
 
 function LoginHomePage() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [todayDate, setTodayDate] = useState(getTodayDate());
+    const [sugarGoal, setSugarGoal] = useState('');
+    const [caffeineGoal, setCaffeineGoal] = useState('');
 
     const openModal = () => {
         setIsModalOpen(true);
@@ -21,6 +24,28 @@ function LoginHomePage() {
         const day = today.getDate();
         return `${year}년 ${month}월 ${day}일`;
     }
+    
+    const setGoal = async () => {
+        try {
+            const response = await axios.put(`http://localhost:8080/api/record/goal?sugar_goal=${sugarGoal}&caffeine_goal=${caffeineGoal}`, {}, {
+                headers: {
+                    'X-Auth-Username': 'user', // 실제 사용자 이름으로 변경하세요.
+                    'X-Auth-Authorities': 'USER_ROLE' // 실제 권한으로 변경하세요.
+                }
+            });
+            console.log(response.data);
+            if (response.status === 200) {
+                setTodayDate(getTodayDate()); // 목표 설정 후 오늘 날짜 갱신
+                closeModal();
+            } else {
+                console.log('Error:', response.status);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
+    
+    
 
     return (
         <div className="App">
@@ -68,11 +93,11 @@ function LoginHomePage() {
 
                         <div className="input_goal">
                             <div className="input_dang">
-                                <input type="text" className="input_dang_ment" />
+                                <input type="text" className="input_dang_ment" value={sugarGoal} onChange={(e) => setSugarGoal(e.target.value)} />
                                 <div className="input_dang_g">g</div>
                             </div>
                             <div className="input_caf">
-                                <input type="text" className="input_caf_ment" />
+                                <input type="text" className="input_caf_ment" value={caffeineGoal} onChange={(e) => setCaffeineGoal(e.target.value)} />
                                 <div className="input_caf_mg">mg</div>
                             </div>
                         </div>
@@ -98,7 +123,7 @@ function LoginHomePage() {
                         </div>
 
                         <div className="modal_buttons">
-                            <button type="submit" className="ok_modal_button">확인</button>
+                            <button type="submit" className="ok_modal_button" onClick={setGoal}>확인</button>
                         </div>
                     </div>
                 </div>
