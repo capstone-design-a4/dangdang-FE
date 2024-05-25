@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './navbar.css';
 
-function Navbar({ isLoggedIn, userName, onLogout }) {
+function Navbar({ isLoggedIn, name, onLogout }) {
     return (
         <div className="nav">
             <div className="nav_logo">
@@ -17,13 +17,13 @@ function Navbar({ isLoggedIn, userName, onLogout }) {
             <ul className="nav_login">
                 {isLoggedIn ? (
                     <>
-                        <li><span>{userName}님</span></li>
+                        <li><span>{name}님</span></li>
                         <li><a href="#">|</a></li>
-                        <li><a href="#" onClick={onLogout}>로그아웃</a></li>
+                        <li><a href="/" onClick={onLogout}>로그아웃</a></li>
                     </>
                 ) : (
                     <>
-                        <li><Link to="/loginpage">로그인</Link></li>
+                        <li><Link to="/loginformpage">로그인</Link></li>
                         <li><a href="#">|</a></li>
                         <li><Link to="/signuppage">회원가입</Link></li>
                     </>

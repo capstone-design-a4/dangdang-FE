@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Navbar from './Navbar.js';
 import SignUp from './SignUp';
@@ -40,9 +40,7 @@ import './post.css';
 import './comment.css';
 import './starbuckspage.css';
 import './mypage.css';
-import { useState } from 'react';
 import axios from 'axios';
-import { useEffect } from 'react';
 
 function KakaoLoginPage() {
     return (
@@ -58,51 +56,50 @@ function NotFoundPage() {
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [name, setUserName] = useState('');
+    const [userId, setUserId] = useState('');
+
+    useEffect(() => {
+        const storedIsLoggedIn = localStorage.getItem('isLoggedIn');
+        const storedUserId = localStorage.getItem('userId');
+    
+        if (storedIsLoggedIn && storedUserId) {
+            setIsLoggedIn(storedIsLoggedIn === 'true');
+            setUserId(storedUserId);
+        }
+    }, []);
 
     useEffect(() => {
         console.log("isLoggedIn:", isLoggedIn);
-        console.log("userName:", name);
-    }, [isLoggedIn, name]);
+        console.log("name:", userId);
+    }, [isLoggedIn, userId]);
 
     const handleLogout = () => {
         setIsLoggedIn(false);
-        setUserName('');
-    };    
-
-    const handleLogin = async (name, password) => {
-        console.log('Login attempt:', name);
-        try {
-            const response = await axios.post('http://localhost:8080/login', { name, password });
-            console.log('Login response:', response);
-            if (response.status === 200 && response.data) {
-                if (response.data.success) {
-                    setIsLoggedIn(true);
-                    setUserName(name);
-                } else {
-                    console.log('Login failed:', response.data.message);
-                }
-            } else {
-                console.log('Login failed: Unexpected response');
-            }
-        } catch (error) {
-            console.error('Login error:', error);
-        }
+        setUserId('');
+        localStorage.removeItem('isLoggedIn');
+        localStorage.removeItem('userId');
     };
-    
+
+    const handleLogin = (userId) => {
+        setIsLoggedIn(true);
+        setUserId(userId);
+        localStorage.setItem('isLoggedIn', 'true');
+        localStorage.setItem('userId', userId);
+    }
+
     return (
         <Router>
             <div>
-                <Navbar isLoggedIn={isLoggedIn} name={name} onLogout={handleLogout} />
+                <Navbar isLoggedIn={isLoggedIn} name={userId} onLogout={handleLogout} />
                 <Routes>
                     <Route path="/kakaologinpage" element={<KakaoLoginPage />} />
-                    <Route path="/login" element={<Login />} />
+                    <Route path="/login" element={<Login onLogin={handleLogin} />} />
                     <Route path="/signup" element={<SignUp />} />
                     <Route path="/signuppage" element={<SignUpPage />} />
                     <Route path="/loginpage" element={<LoginPage onLogin={handleLogin} />} />
-                    <Route path="*" element={ <NotFoundPage /> } />
+                    <Route path="*" element={<NotFoundPage />} />
                     <Route path="/signformpage" element={<SignFormPage />} />
-                    <Route path="/loginformpage" element={<LoginFormPage />} />
+                    <Route path="/loginformpage" element={<LoginFormPage onLogin={handleLogin} />} />
                     <Route path="/searchidpage" element={<SearchIDPage />} />
                     <Route path="/searchpwform" element={<SearchPwForm />} />
                     <Route path="/" element={<Navigate to="/logouthomepage" />} />
