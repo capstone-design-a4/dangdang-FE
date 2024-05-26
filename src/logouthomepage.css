@@ -389,7 +389,7 @@ height: 40%;
   }
 
   .bbrand {
-    margin-top: 35%;
+    margin-top: 50%;
   }
 
   .modal-content {
@@ -402,8 +402,8 @@ height: 40%;
     grid-gap: 5px;
   }
 
-  .menu_image {
+  /* .menu_image {
     width: 80px;
     height: 80px;
-  }
+  } */
 }

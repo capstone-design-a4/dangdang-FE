@@ -95,6 +95,7 @@ i {
     margin-left: 20px;
 }
 
+
 @media all and (max-width: 960px) {
     .first_content{
         width: 300px;

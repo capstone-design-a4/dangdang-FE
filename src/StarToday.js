@@ -93,8 +93,6 @@ function StarToday() {
 
             </div>
 
-            <div className="middle_line"></div>
-
             <div className="today_name_plus">
                 <div className="today_name">오늘 마신 음료</div>
                 <Link to="/todaypage" className="today_plus">더보기</Link>
@@ -120,8 +118,6 @@ function StarToday() {
                 <div className="none" style={{fontSize:'15px', display: 'flex', color:'grey', justifyContent:'center', alignItems:'center'}}>담긴 음료가 없습니다.</div>
             )}
             </div>
-
-            <div className="last_line"></div>
         </div>
     );
 }
