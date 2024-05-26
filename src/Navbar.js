@@ -26,7 +26,7 @@ function Navbar({ isLoggedIn, name, onLogout }) {
                     </>
                 ) : (
                     <>
-                        <li><Link to="/loginformpage">로그인</Link></li>
+                        <li><Link to="/loginpage">로그인</Link></li>
                         <li><a href="#">|</a></li>
                         <li><Link to="/signuppage">회원가입</Link></li>
                     </>

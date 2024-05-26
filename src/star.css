@@ -13,6 +13,7 @@
 .star_menu {
     width: 90%;
     margin: 0 auto;
+    justify-content: center;
 }
 
 .first_menu {
@@ -78,6 +79,7 @@
 .menu_right {
     display: flex;
     align-items: center;
+    gap: 20px;
 }
 
 i {

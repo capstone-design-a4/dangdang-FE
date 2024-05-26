@@ -164,6 +164,34 @@ i {
 }
 
 
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px; 
+}
+
+.pagination button {
+    background-color: #f0f0f0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0 5px;
+    padding: 5px 10px;
+    transition: background-color 0.3s ease;
+}
+
+.pagination button:hover {
+    background-color: #ddd;
+}
+
+.pagination button.active {
+    background-color: #39A7FF;
+    color: #fff;
+}
+
+
+
 @media all and (max-width: 960px) {
     .first_content{
         width: 300px;
