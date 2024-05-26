@@ -71,16 +71,16 @@ function StarToday() {
                 <Link to="/starpage" className="star_plus">더보기</Link>
             </div>
 
-            <div className="star_container">
+            <div className="star_container" style = {{minHeight:'123.5px'}}>
             {bookmarkedDrinks.length > 0 ? (
                 <div className="star" key={bookmarkedDrinks[0].id}>
                     <MenuCard
-                    imageSrc={bookmarkedDrinks[0].imageUrl}
-                    brand={bookmarkedDrinks[0].cafeName}
-                    name={bookmarkedDrinks[0].name}
-                    sugar={`${bookmarkedDrinks[0].sugar}g`}
-                    caffeine={`${bookmarkedDrinks[0].caffeine}mg`}
-                    calorie={`${bookmarkedDrinks[0].calorie}kcal`}
+                        imageSrc={bookmarkedDrinks[0].imageUrl}
+                        brand={bookmarkedDrinks[0].cafeName}
+                        name={bookmarkedDrinks[0].name}
+                        sugar={`${bookmarkedDrinks[0].sugar}g`}
+                        caffeine={`${bookmarkedDrinks[0].caffeine}mg`}
+                        calorie={`${bookmarkedDrinks[0].calorie}kcal`}
                     />
                     <div className="star_right">
                         <FontAwesomeIcon icon={faHeart} style={{ color: heartColors[bookmarkedDrinks[0].id], fontSize: '40px' }} onClick={() => handleHeartClick(bookmarkedDrinks[0].id)} />
@@ -88,7 +88,7 @@ function StarToday() {
                     </div>
                 </div>
             ) : (
-                <div className="none">담긴 음료가 없습니다.</div>
+                <div className="none" style={{fontSize:'15px', display: 'flex', color:'grey', justifyContent:'center', alignItems:'center'}}>담긴 음료가 없습니다.</div>
             )}
 
             </div>
@@ -100,7 +100,7 @@ function StarToday() {
                 <Link to="/todaypage" className="today_plus">더보기</Link>
             </div>
 
-            <div className="today_container">
+            <div className="today_container" style = {{minHeight:'123.5px'}}>
                 {todayDrinks.length > 0 ? (
                     <div className="today">
                     <MenuCard
@@ -117,7 +117,7 @@ function StarToday() {
                     </div>
                 </div>
             ) : (
-                <div className="none">담긴 음료가 없습니다.</div>
+                <div className="none" style={{fontSize:'15px', display: 'flex', color:'grey', justifyContent:'center', alignItems:'center'}}>담긴 음료가 없습니다.</div>
             )}
             </div>
 

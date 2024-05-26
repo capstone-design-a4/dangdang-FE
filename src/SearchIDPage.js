@@ -12,7 +12,12 @@ function SearchIDPage() {
     const handleSearchId = async () => {
         try {
             // API를 호출하여 아이디를 찾음
-            const response = await axios.post('http://localhost:8080/findId', { phoneNumber, name });
+            const response = await axios.get('http://localhost:8080/api/member/info', {
+                headers: {
+                    'X-Auth-Username': 'user',
+                    'X-Auth-Authorities': 'USER_ROLE'
+                }
+            });
             const foundId = response.data.id; // 찾은 아이디
 
             // 찾은 아이디를 상태에 저장

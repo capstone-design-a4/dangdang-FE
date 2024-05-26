@@ -81,11 +81,10 @@ function App() {
     };
 
     const handleLogin = (userId) => {
-        const username = userId.split('@')[0];
         setIsLoggedIn(true);
-        setUserId(username);
+        setUserId(userId);
         localStorage.setItem('isLoggedIn', 'true');
-        localStorage.setItem('userId', username);
+        localStorage.setItem('userId', userId);
     }    
 
     return (

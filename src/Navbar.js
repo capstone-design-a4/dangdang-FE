@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import './navbar.css';
 
 function Navbar({ isLoggedIn, name, onLogout }) {
+    const username = name.split('@')[0];
     const homePage = isLoggedIn ? "/loginhomepage" : "/";
 
     return (
@@ -19,7 +20,7 @@ function Navbar({ isLoggedIn, name, onLogout }) {
             <ul className="nav_login">
                 {isLoggedIn ? (
                     <>
-                        <li><span>{name}님</span></li>
+                        <li><span>{username}님</span></li>
                         <li><a href="#">|</a></li>
                         <li><a href="/" onClick={onLogout}>로그아웃</a></li>
                     </>
