@@ -1,20 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import MenuCard from './MenuCard';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 
 function StarbucksPage() {
     const [menuData, setMenuData] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:8080/api/drink/list/%EC%8A%A4%ED%83%80%EB%B2%85%EC%8A%A4')
-            .then(response => {
+        axios.get('http://localhost:8080/api/drink/list/%EC%8A%A4%ED%83%80%EB%B2%85%EC%8A%A4', {
+            headers: {
+                'X-Auth-Username': 'user',
+                'X-Auth-Authorities': 'USER_ROLE'
+            }
+        })
+        .then(response => {
+            if (Array.isArray(response.data)) {
                 setMenuData(response.data);
-            })
-            .catch(error => {
-                console.error('There was an error fetching the data!', error);
-            });
+            } else {
+                console.error('The response data is not an array:', response.data);
+            }
+        })
+        .catch(error => {
+            console.error('There was an error fetching the data!', error);
+        });
     }, []);
 
     return (
@@ -32,7 +41,7 @@ function StarbucksPage() {
             </div>
 
             <div className="star_menu">
-                {Object.values(menuData).map((data) => (
+                {Array.isArray(menuData) && menuData.map((data) => (
                     <MenuCard
                         key={data.id}
                         imageSrc={data.imageUrl}
@@ -45,9 +54,8 @@ function StarbucksPage() {
                     />
                 ))}
             </div>
-
-
         </div>
     );
 }
+
 export default StarbucksPage;
