@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import StarToday from './StarToday';
 import axios from 'axios';
+import UserContext from './UserContext';
 
 function LoginHomePage() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [todayDate, setTodayDate] = useState(getTodayDate());
     const [sugarGoal, setSugarGoal] = useState('');
     const [caffeineGoal, setCaffeineGoal] = useState('');
+    const { user } = useContext(UserContext); // 컨텍스트에서 사용자 정보 가져오기
 
     const openModal = () => {
         setIsModalOpen(true);
@@ -26,22 +28,24 @@ function LoginHomePage() {
     }
     
     const setGoal = async () => {
-        try {
-            const response = await axios.put(`http://localhost:8080/api/record/goal?sugar_goal=${sugarGoal}&caffeine_goal=${caffeineGoal}`, {}, {
-                headers: {
-                    'X-Auth-Username': 'user', // 실제 사용자 이름으로 변경하세요.
-                    'X-Auth-Authorities': 'USER_ROLE' // 실제 권한으로 변경하세요.
+        if (user.isLoggedIn) { // 사용자가 로그인 되어 있을 때만 목표 설정
+            try {
+                const response = await axios.put(`http://localhost:8080/api/record/goal?sugar_goal=${sugarGoal}&caffeine_goal=${caffeineGoal}`, {}, {
+                    headers: {
+                        'X-Auth-Username': user.userId, // 사용자 정보 사용
+                        'X-Auth-Authorities': user.authorities // 사용자 권한 정보 사용
+                    }
+                });
+                console.log(response.data);
+                if (response.status === 200) {
+                    setTodayDate(getTodayDate()); // 목표 설정 후 오늘 날짜 갱신
+                    closeModal();
+                } else {
+                    console.log('Error:', response.status);
                 }
-            });
-            console.log(response.data);
-            if (response.status === 200) {
-                setTodayDate(getTodayDate()); // 목표 설정 후 오늘 날짜 갱신
-                closeModal();
-            } else {
-                console.log('Error:', response.status);
+            } catch (error) {
+                console.error('Error:', error);
             }
-        } catch (error) {
-            console.error('Error:', error);
         }
     };
     
@@ -80,7 +84,7 @@ function LoginHomePage() {
                     </div>
                     <button onClick={openModal} className="goal_button">목표설정하기</button>
                 </div>
-                <StarToday />
+                <StarToday isLoggedIn={user.isLoggedIn} userId={user.userId} />
             </div>
 
             {isModalOpen && (

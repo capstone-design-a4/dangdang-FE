@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import MenuCard from './MenuCard';
+import UserContext from './UserContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 
@@ -10,25 +11,32 @@ function StarbucksPage() {
     const [pageGroup, setPageGroup] = useState(0);
     const itemsPerPage = 10;
     const pagesPerGroup = 10;
+    const { user } = useContext(UserContext); // 컨텍스트에서 사용자 정보 가져오기
 
     useEffect(() => {
-        axios.get('http://localhost:8080/api/drink/list/%EC%8A%A4%ED%83%80%EB%B2%85%EC%8A%A4', {
-            headers: {
-                'X-Auth-Username': 'user',
-                'X-Auth-Authorities': 'USER_ROLE'
+        const fetchData = async () => {
+            if (user.isLoggedIn) { // 사용자가 로그인 되어 있을 때만 데이터를 가져옵니다.
+                try {
+                    const response = await axios.get('http://localhost:8080/api/drink/list/%EC%8A%A4%ED%83%80%EB%B2%85%EC%8A%A4', {
+                        headers: {
+                            'X-Auth-Username': user.userId, // 사용자 정보 사용
+                            'X-Auth-Authorities': user.authorities // 사용자 권한 정보 사용
+                        }
+                    });
+
+                    if (Array.isArray(response.data)) {
+                        setMenuData(response.data);
+                    } else {
+                        console.error('The response data is not an array:', response.data);
+                    }
+                } catch (error) {
+                    console.error('There was an error fetching the data!', error);
+                }
             }
-        })
-        .then(response => {
-            if (Array.isArray(response.data)) {
-                setMenuData(response.data);
-            } else {
-                console.error('The response data is not an array:', response.data);
-            }
-        })
-        .catch(error => {
-            console.error('There was an error fetching the data!', error);
-        });
-    }, []);
+        };
+
+        fetchData();
+    }, [user]); // 'user' 상태가 업데이트 될 때마다 useEffect 실행
 
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;

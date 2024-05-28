@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Navbar from './Navbar.js';
 import SignUp from './SignUp';
@@ -23,6 +23,7 @@ import PostPage from './PostPage.js';
 import CommentPage from './CommentPage.js';
 import StarbucksPage from './StarbucksPage.js';
 import MyPage from './MyPage.js';
+import UserContext, { UserProvider } from './UserContext';
 
 import './login.css';
 import './sign.css';
@@ -55,42 +56,17 @@ function NotFoundPage() {
 }
 
 function App() {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [userId, setUserId] = useState('');
+    const { user, handleLogin, handleLogout } = useContext(UserContext);
 
     useEffect(() => {
-        const storedIsLoggedIn = localStorage.getItem('isLoggedIn');
-        const storedUserId = localStorage.getItem('userId');
-    
-        if (storedIsLoggedIn && storedUserId) {
-            setIsLoggedIn(storedIsLoggedIn === 'true');
-            setUserId(storedUserId);
-        }
-    }, []);
-
-    useEffect(() => {
-        console.log("isLoggedIn:", isLoggedIn);
-        console.log("name:", userId);
-    }, [isLoggedIn, userId]);
-
-    const handleLogout = () => {
-        setIsLoggedIn(false);
-        setUserId('');
-        localStorage.removeItem('isLoggedIn');
-        localStorage.removeItem('userId');
-    };
-
-    const handleLogin = (userId) => {
-        setIsLoggedIn(true);
-        setUserId(userId);
-        localStorage.setItem('isLoggedIn', 'true');
-        localStorage.setItem('userId', userId);
-    }    
+        console.log("isLoggedIn:", user.isLoggedIn);
+        console.log("name:", user.userId);
+    }, [user]);
 
     return (
         <Router>
             <div>
-                <Navbar isLoggedIn={isLoggedIn} name={userId} onLogout={handleLogout} />
+                <Navbar isLoggedIn={user.isLoggedIn} name={user.userId} onLogout={handleLogout} />
                 <Routes>
                     <Route path="/kakaologinpage" element={<KakaoLoginPage />} />
                     <Route path="/login" element={<Login onLogin={handleLogin} />} />
@@ -107,7 +83,7 @@ function App() {
                     <Route path="/recommendedmenu" element={<RecommendedMenu />} />
                     <Route path="/menucard" element={<MenuCard />} />
                     <Route path="/brandpage" element={<BrandPage />} />
-                    <Route path="/loginhomepage" element={<LoginHomePage userId={userId} />} />
+                    <Route path="/loginhomepage" element={<LoginHomePage userId={user.userId} />} />
                     <Route path="/startoday" element={<StarToday />} />
                     <Route path="/starpage" element={<StarPage />} />
                     <Route path="/todaypage" element={<TodayPage />} />
@@ -122,4 +98,10 @@ function App() {
     );
 }
 
-export default App;
+export default function MainApp() {
+    return (
+        <UserProvider>
+            <App />
+        </UserProvider>
+    );
+}

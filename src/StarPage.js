@@ -1,73 +1,98 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import MenuCard from './MenuCard';
 import axios from 'axios';
+import UserContext from './UserContext';
 
 function StarPage() {
     const [bookmarkedDrinks, setBookmarkedDrinks] = useState([]);
     const [todayDrinks, setTodayDrinks] = useState([]);
-    const [heartColors, setHeartColors] = useState({});
+    const { user } = useContext(UserContext);
 
     useEffect(() => {
         const fetchBookmarkedDrinks = async () => {
-            try {
-                const response = await axios.get('http://localhost:8080/api/drink/bookmark', {
-                    headers: {
-                        'X-Auth-Username': 'user',
-                        'X-Auth-Authorities': 'USER_ROLE'
-                    }
-                });
-
-                if (response.data) {
-                    setBookmarkedDrinks(response.data);
-                    const initialHeartColors = {};
-                    response.data.forEach(drink => {
-                        initialHeartColors[drink.id] = "#ff0000";
+            if (user.isLoggedIn) {
+                try {
+                    const response = await axios.get('http://localhost:8080/api/drink/bookmark', {
+                        headers: {
+                            'X-Auth-Username': user.userId,
+                            'X-Auth-Authorities': user.authorities
+                        }
                     });
-                    setHeartColors(initialHeartColors);
+
+                    if (response.data) {
+                        setBookmarkedDrinks(response.data);
+                    }
+                } catch (error) {
+                    console.error("Error fetching bookmarked drinks: ", error);
                 }
-            } catch (error) {
-                console.error("Error fetching bookmarked drinks: ", error);
             }
         };
 
         const fetchTodayDrinks = async () => {
-            try {
-                const response = await axios.get('http://localhost:8080/api/drink-record', {
-                    headers: {
-                        'X-Auth-Username': 'user',
-                        'X-Auth-Authorities': 'USER_ROLE'
-                    }
-                });
+            if (user.isLoggedIn) {
+                try {
+                    const response = await axios.get('http://localhost:8080/api/drink-record', {
+                        headers: {
+                            'X-Auth-Username': user.userId,
+                            'X-Auth-Authorities': user.authorities
+                        }
+                    });
 
-                if (response.data) {
-                    setTodayDrinks(response.data);
+                    if (response.data) {
+                        setTodayDrinks(response.data);
+                    }
+                } catch (error) {
+                    console.error("Error fetching today's drinks: ", error);
                 }
-            } catch (error) {
-                console.error("Error fetching today's drinks: ", error);
             }
         };
 
         fetchBookmarkedDrinks();
         fetchTodayDrinks();
-    }, []);
+    }, [user]);
 
-    const handleHeartClick = (id) => {
-        setBookmarkedDrinks(bookmarkedDrinks.filter(drink => drink.id !== id));
-        setHeartColors({...heartColors, [id]: "#ffffff"});
+    const handleHeartClick = async (id) => {
+        try {
+            await axios.delete(`http://localhost:8080/api/bookmark?drinkId=${id}`, {
+                headers: {
+                    'X-Auth-Username': user.userId,
+                    'X-Auth-Authorities': user.authorities
+                }
+            });
+
+            const updatedBookmarkedDrinks = bookmarkedDrinks.filter(drink => drink.id !== id);
+            setBookmarkedDrinks(updatedBookmarkedDrinks);
+        } catch (error) {
+            console.error("Error deleting the drink from bookmarks: ", error);
+        }
     };
 
-    const handleDeleteClick = (id) => {
-        setTodayDrinks(todayDrinks.filter(drink => drink.id !== id));
+    const handleStarClick = async (id) => {
+        const drinkToAdd = bookmarkedDrinks.find(drink => drink.id === id);
+        if (drinkToAdd) {
+            try {
+                await axios.post(`http://localhost:8080/api/drink-record?drinkId=${id}`, null, {
+                    headers: {
+                        'X-Auth-Username': user.userId,
+                        'X-Auth-Authorities': user.authorities
+                    }
+                });
+
+                setTodayDrinks([...todayDrinks, drinkToAdd]);
+            } catch (error) {
+                console.error("Error adding the drink to today's drinks: ", error);
+            }
+        }
     };
 
     return (
         <div>
             <div className="title">즐겨찾기</div>
 
-            <div className="star_menu" style = {{minHeight:'123.5px'}}>
-            {bookmarkedDrinks.length > 0 ? (
+            <div className="star_menu" style={{ minHeight: '123.5px' }}>
+                {bookmarkedDrinks.length > 0 ? (
                     bookmarkedDrinks.map((bookmarkedDrink) => (
                         <div className="first_menu" key={bookmarkedDrink.id}>
                             <MenuCard
@@ -79,13 +104,13 @@ function StarPage() {
                                 calorie={`${bookmarkedDrink.calorie}kcal`}
                             />
                             <div className="menu_right">
-                                <FontAwesomeIcon icon={faHeart} style={{ color: heartColors[bookmarkedDrink.id], fontSize: '40px' }} onClick={() => handleHeartClick(bookmarkedDrink.id)} />
-                                <button className="star_click">담기</button>
+                                <FontAwesomeIcon icon={faHeart} style={{ color: '#ff0000', fontSize: '40px' }} onClick={() => handleHeartClick(bookmarkedDrink.id)} />
+                                <button className="star_click" onClick={() => handleStarClick(bookmarkedDrink.id)}>담기</button>
                             </div>
                         </div>
                     ))
                 ) : (
-                    <div className="none" style={{fontSize:'20px', display: 'flex', color:'grey', justifyContent:'center', alignItems:'center', marginTop:'20px'}}>담긴 음료가 없습니다.</div>
+                    <div className="none" style={{ fontSize: '20px', display: 'flex', color: 'grey', justifyContent: 'center', alignItems: 'center', marginTop: '20px' }}>담긴 음료가 없습니다.</div>
                 )}
             </div>
         </div>

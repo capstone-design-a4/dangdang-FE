@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom'; // Link 컴포넌트 추가
 
-function LoginFormPage( { onLogin }) {
+function LoginFormPage({ onLogin }) {
     const [errorMessage, setErrorMessage] = useState(''); // 오류 메시지 상태
     const [showModal, setShowModal] = useState(false); // 모달 표시 여부 상태
 
@@ -19,14 +19,8 @@ function LoginFormPage( { onLogin }) {
                 userId: e.target.email.value,
                 password: e.target.password.value,
             };
-            // console.log(params);
-            const response = await axios.post('http://localhost:8080/login', {}, { params });
-    
-            // console.log(response.data)
-            // console.log(response.data.userId)
-            
-            // console.log(response);
-            
+            const response = await axios.post('http://localhost:8080/login', {}, { params, withCredentials: true });
+   
             if (response.status === 200) {
                 // 로그인 성공
                 onLogin(params.userId);
