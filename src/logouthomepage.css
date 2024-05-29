@@ -282,7 +282,7 @@ height: 40%;
 }
 
 .input_dang_ment, .input_caf_ment {
-  background-color: #EAECEE;
+  background-color: #E0F4FF;
   width: 100px;
   height: 30px;
   border-radius: 15px;
@@ -298,7 +298,7 @@ height: 40%;
 }
 
 .dang_men_women {
-  background-color: #EAECEE;
+  background-color: #E0F4FF;
   width: 100%;
   height: 100px;
   border-radius: 15px;
@@ -312,7 +312,7 @@ height: 40%;
 }
 
 .caf_men_women {
-  background-color: #EAECEE;
+  background-color: #E0F4FF;
   width: 100%;
   height: 30px;
   border-radius: 15px;
@@ -346,14 +346,16 @@ height: 40%;
 }
 
 .ok_modal_button {
+  background-color: #E0F4FF;
   float: left;
 }
 
 .ok_modal_button {
-  background-color: #EAECEE;
+  background-color: #39A7FF;
   width: 100%;
   border-radius: 15px;
   border: none;
+  color: #FFFFFF;
 }
 
 .dang_card_img, .caf_card_img, .kcal_card_img {

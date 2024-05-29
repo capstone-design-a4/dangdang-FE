@@ -60,31 +60,73 @@ function StarToday() {
         fetchTodayDrinks();
     }, [user]);
 
-    const handleHeartClick = async id => {
+    async function handleHeartClick(id) {
+        const isBookmarked = bookmarkedDrinks.some(drink => drink.id === id);
+
         try {
-            await axios.delete(`http://localhost:8080/api/drink-bookmark?drinkId=${id}`, {
-                headers: {
-                    'X-Auth-Username': user.userId,
-                    'X-Auth-Authorities': user.authorities
+            if (isBookmarked) {
+                // 북마크 해제
+                const response = await axios.delete(`http://localhost:8080/api/bookmark?drinkId=${id}`, {
+                    headers: {
+                        'X-Auth-Username': user.userId,
+                        'X-Auth-Authorities': user.authorities
+                    }
+                });
+
+                if (response.status === 200) {
+                    const updatedBookmarkedDrinks = bookmarkedDrinks.filter(drink => drink.id !== id);
+                    setBookmarkedDrinks(updatedBookmarkedDrinks);
+                    setHeartColors({ ...heartColors, [id]: "#cccccc" });
+                } else {
+                    console.error("Failed to delete from bookmarks, server responded with a status other than 200");
                 }
-            });
-    
-            const updatedBookmarkedDrinks = bookmarkedDrinks.filter(drink => drink.id !== id);
-            setBookmarkedDrinks(updatedBookmarkedDrinks);
-            setHeartColors({ ...heartColors, [id]: "#ffffff" });
+            } else {
+                // 북마크 추가
+                const drinkToAdd = todayDrinks.find(drink => drink.drink.id === id);
+                if (drinkToAdd) {
+                    const response = await axios.post(`http://localhost:8080/api/bookmark?drinkId=${id}`, null, {
+                        headers: {
+                            'X-Auth-Username': user.userId,
+                            'X-Auth-Authorities': user.authorities
+                        }
+                    });
 
-            const drinkToAdd = bookmarkedDrinks.find(drink => drink.id === id);
-            if (drinkToAdd) {
-                setTodayDrinks([...todayDrinks, drinkToAdd]);
+                    if (response.status === 200) {
+                        setBookmarkedDrinks([...bookmarkedDrinks, drinkToAdd.drink]);
+                        setHeartColors({ ...heartColors, [id]: "#ff0000" });
+                    } else {
+                        console.error("Failed to add to bookmarks, server responded with a status other than 200");
+                    }
+                }
             }
-
-            setTodayDrinks(todayDrinks.filter(drink => drink.id !== id));
-    
         } catch (error) {
-            console.error("Error deleting drink from bookmarks: ", error);
+            console.error("Error toggling bookmark: ", error);
+        }
+    }
+
+    const handleStarClick = async (id) => {
+        const drinkToAdd = bookmarkedDrinks.find(drink => drink.id === id);
+        if (drinkToAdd) {
+            try {
+                const response = await axios.post(`http://localhost:8080/api/drink-record?drinkId=${id}`, null, {
+                    headers: {
+                        'X-Auth-Username': user.userId,
+                        'X-Auth-Authorities': user.authorities
+                    }
+                });
+
+                if (response.status === 200) {
+                    const addedDrinkRecord = response.data; // 서버에서 반환되는 새롭게 추가된 DrinkRecord의 데이터
+                    const fullDrinkInfo = { ...addedDrinkRecord, drink: drinkToAdd };
+                    setTodayDrinks([...todayDrinks, fullDrinkInfo]);
+                } else {
+                    console.error("Failed to add drink to today's drinks, server responded with a status other than 200");
+                }
+            } catch (error) {
+                console.error("Error adding the drink to today's drinks: ", error);
+            }
         }
     };
-    
 
     const handleDeleteClick = async id => {
         try {
@@ -104,7 +146,11 @@ function StarToday() {
             console.error("Error deleting drink record: ", error);
         }
     };
-    
+
+    const getHeartColor = (drinkId) => {
+        return bookmarkedDrinks.some(drink => drink.id === drinkId) ? "#ff0000" : "#cccccc";
+    };
+
     return (
         <div className="star_today">
             <div className="first_line"></div>
@@ -117,16 +163,16 @@ function StarToday() {
                 {bookmarkedDrinks.length > 0 ? (
                     <div className="star" key={bookmarkedDrinks[0].id}>
                         <MenuCard
-                            imageSrc={bookmarkedDrinks[0].imageUrl}
-                            brand={bookmarkedDrinks[0].cafeName}
-                            name={bookmarkedDrinks[0].name}
-                            sugar={`${bookmarkedDrinks[0].sugar}g`}
-                            caffeine={`${bookmarkedDrinks[0].caffeine}mg`}
-                            calorie={`${bookmarkedDrinks[0].calorie}kcal`}
+                            imageSrc={bookmarkedDrinks[0]?.imageUrl}
+                            brand={bookmarkedDrinks[0]?.cafeName}
+                            name={bookmarkedDrinks[0]?.name}
+                            sugar={`${bookmarkedDrinks[0]?.sugar}g`}
+                            caffeine={`${bookmarkedDrinks[0]?.caffeine}mg`}
+                            calorie={`${bookmarkedDrinks[0]?.calorie}kcal`}
                         />
                         <div className="star_right">
-                            <FontAwesomeIcon icon={faHeart} style={{ color: heartColors[bookmarkedDrinks[0].id], fontSize: '40px' }} onClick={() => handleHeartClick(bookmarkedDrinks[0].id)} />
-                            <button className="star_click">담기</button>
+                            <FontAwesomeIcon icon={faHeart} style={{ color: heartColors[bookmarkedDrinks[0]?.id], fontSize: '40px' }} onClick={() => handleHeartClick(bookmarkedDrinks[0]?.id)} />
+                            <button className="star_click" onClick={() => handleStarClick(bookmarkedDrinks[0]?.id)}>담기</button>
                         </div>
                     </div>
                 ) : (
@@ -143,16 +189,16 @@ function StarToday() {
                 {todayDrinks.length > 0 ? (
                     <div className="today">
                         <MenuCard
-                            imageSrc={todayDrinks[0].drink.imageUrl}
-                            brand={todayDrinks[0].drink.cafeName}
-                            name={todayDrinks[0].drink.name}
-                            sugar={`${todayDrinks[0].drink.sugar}g`}
-                            caffeine={`${todayDrinks[0].drink.caffeine}mg`}
-                            calorie={`${todayDrinks[0].drink.calorie}kcal`}
+                            imageSrc={todayDrinks[0]?.drink?.imageUrl}
+                            brand={todayDrinks[0]?.drink?.cafeName}
+                            name={todayDrinks[0]?.drink?.name}
+                            sugar={`${todayDrinks[0]?.drink?.sugar}g`}
+                            caffeine={`${todayDrinks[0]?.drink?.caffeine}mg`}
+                            calorie={`${todayDrinks[0]?.drink?.calorie}kcal`}
                         />
                         <div className="today_right">
-                            <FontAwesomeIcon icon={faHeart} style={{ color: "#ff0000", fontSize: '40px' }} onClick={() => handleHeartClick(todayDrinks[0].id)} />
-                            <button className="today_click" onClick={() => handleDeleteClick(todayDrinks[0].id)}>삭제</button>
+                            <FontAwesomeIcon icon={faHeart} style={{ color: getHeartColor(todayDrinks[0]?.drink?.id), fontSize: '40px' }} onClick={() => handleHeartClick(todayDrinks[0]?.drink?.id)} />
+                            <button className="today_click" onClick={() => handleDeleteClick(todayDrinks[0]?.id)}>삭제</button>
                         </div>
                     </div>
                 ) : (

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import MenuCard from './MenuCard';
@@ -7,83 +7,130 @@ import UserContext from './UserContext';
 
 function TodayPage() {
     const [drinkRecords, setDrinkRecords] = useState([]);
-    const [todayDrinks, setTodayDrinks] = useState([]);
     const [heartColors, setHeartColors] = useState({});
-    const { user } = useContext(UserContext); // 컨텍스트에서 사용자 정보 가져오기
+    const { user } = useContext(UserContext);
 
     useEffect(() => {
         const fetchData = async () => {
-            if (user.isLoggedIn) { // 사용자가 로그인 되어 있을 때만 데이터를 가져옵니다.
+            if (user.isLoggedIn) {
                 try {
                     const result = await axios.get('http://localhost:8080/api/drink-record', {
                         headers: {
                             'accept': '*/*',
-                            'X-Auth-Username': user.userId, // 사용자 정보 사용
-                            'X-Auth-Authorities': user.authorities // 사용자 권한 정보 사용
+                            'X-Auth-Username': user.userId,
+                            'X-Auth-Authorities': user.authorities
                         }
                     });
                     setDrinkRecords(result.data);
+
+                    const bookmarkResponse = await axios.get('http://localhost:8080/api/drink/bookmark', {
+                        headers: {
+                            'X-Auth-Username': user.userId,
+                            'X-Auth-Authorities': user.authorities
+                        }
+                    });
+
+                    const initialHeartColors = {};
+                    result.data.forEach(record => {
+                        initialHeartColors[record.drink.id] = bookmarkResponse.data.some(bookmarkedDrink => bookmarkedDrink.id === record.drink.id) ? "#ff0000" : "#cccccc";
+                    });
+                    setHeartColors(initialHeartColors);
                 } catch (error) {
                     console.error("Error fetching drink records: ", error);
                 }
             }
         };
         fetchData();
-    }, [user]); // 'user' 상태가 업데이트 될 때마다 useEffect 실행
+    }, [user]);
 
-    const handleHeartClick = async (id) => {
+    async function handleHeartClick(id) {
+        const isBookmarked = heartColors[id] === "#ff0000";
+
         try {
-            const updatedDrinks = drinkRecords.map((record) => {
-                if (record.drink.id === id) {
-                    // Toggle the bookmarked status of the drink
-                    const updatedDrink = { ...record.drink, bookmarked: !record.drink.bookmarked };
-                    const updatedRecord = { ...record, drink: updatedDrink };
-    
-                    return updatedRecord;
+            if (isBookmarked) {
+                // 북마크 해제
+                const response = await axios.delete(`http://localhost:8080/api/bookmark?drinkId=${id}`, {
+                    headers: {
+                        'X-Auth-Username': user.userId,
+                        'X-Auth-Authorities': user.authorities
+                    }
+                });
+
+                if (response.status === 200) {
+                    const updatedDrinkRecords = drinkRecords.map(record =>
+                        record.drink.id === id ? { ...record, drink: { ...record.drink, bookmarked: false } } : record
+                    );
+                    setDrinkRecords(updatedDrinkRecords);
+                    setHeartColors({ ...heartColors, [id]: "#cccccc" });
+                } else {
+                    console.error("Failed to delete from bookmarks, server responded with a status other than 200");
                 }
-                return record;
-            });
-    
-            // Update the state locally
-            setDrinkRecords(updatedDrinks);
-    
-            // Find the drink that was clicked and add it to today's drinks
-            const clickedDrink = updatedDrinks.find((record) => record.drink.id === id);
-            if (clickedDrink && clickedDrink.drink.bookmarked) {
-                setTodayDrinks([...todayDrinks, clickedDrink]);
             } else {
-                // If the drink was unbookmarked, remove it from today's drinks
-                setTodayDrinks(todayDrinks.filter((drink) => drink.id !== id));
+                // 북마크 추가
+                const response = await axios.post(`http://localhost:8080/api/bookmark?drinkId=${id}`, null, {
+                    headers: {
+                        'X-Auth-Username': user.userId,
+                        'X-Auth-Authorities': user.authorities
+                    }
+                });
+
+                if (response.status === 200) {
+                    const updatedDrinkRecords = drinkRecords.map(record =>
+                        record.drink.id === id ? { ...record, drink: { ...record.drink, bookmarked: true } } : record
+                    );
+                    setDrinkRecords(updatedDrinkRecords);
+                    setHeartColors({ ...heartColors, [id]: "#ff0000" });
+                } else if (response.status === 409) {
+                    // 북마크 추가가 이미 되어 있을 경우 Conflict 상태 처리
+                    const updatedDrinkRecords = drinkRecords.map(record =>
+                        record.drink.id === id ? { ...record, drink: { ...record.drink, bookmarked: true } } : record
+                    );
+                    setDrinkRecords(updatedDrinkRecords);
+                    setHeartColors({ ...heartColors, [id]: "#ff0000" });
+                    console.warn(`Drink with id ${id} is already bookmarked.`);
+                } else {
+                    console.error("Failed to add to bookmarks, server responded with a status other than 200");
+                }
             }
-    
-            // Make an API call to update the backend database
-            await axios.put(`http://localhost:8080/api/drink-record/${id}`, { bookmarked: clickedDrink.drink.bookmarked });
-    
         } catch (error) {
-            console.error("Error updating drink record: ", error);
+            if (error.response && error.response.status === 409) {
+                // 북마크 추가가 이미 되어 있을 경우 Conflict 상태 처리
+                const updatedDrinkRecords = drinkRecords.map(record =>
+                    record.drink.id === id ? { ...record, drink: { ...record.drink, bookmarked: true } } : record
+                );
+                setDrinkRecords(updatedDrinkRecords);
+                setHeartColors({ ...heartColors, [id]: "#ff0000" });
+                console.warn(`Drink with id ${id} is already bookmarked.`);
+            } else {
+                console.error("Error toggling bookmark: ", error);
+            }
         }
-    };
-    
-    
-    
+    }
+
     const handleDeleteClick = async (id) => {
         try {
-            await axios.delete(`http://localhost:8080/api/drink-record/${id}`, {
+            const response = await axios.delete(`http://localhost:8080/api/drink-record?drinkRecordId=${id}`, {
                 headers: {
                     accept: '*/*',
                     'X-Auth-Username': user.userId,
                     'X-Auth-Authorities': user.authorities
                 }
             });
-    
-            // Update local state to reflect deletion
-            setDrinkRecords(drinkRecords.filter(record => record.drink.id !== id));
-    
+
+            if (response.status === 200) {
+                setDrinkRecords(drinkRecords.filter(record => record.id !== id));
+            } else {
+                console.error("Failed to delete the drink record from the API");
+            }
         } catch (error) {
             console.error("Error deleting drink record: ", error);
         }
     };
-    
+
+    const getHeartColor = (drinkId) => {
+        return heartColors[drinkId] || "#cccccc";
+    };
+
     return (
         <div>
             <div className="title">오늘 마신 음료</div>
@@ -100,8 +147,9 @@ function TodayPage() {
                                 calorie={`${record.drink.calorie}kcal`}
                             />
                             <div className="menu_right">
-                                <FontAwesomeIcon icon={faHeart} style={{ color: record.drink.bookmarked ? 'red' : '#D9D9D9', fontSize: '40px' }} onClick={() => handleHeartClick(record.drink.id)} />
-                                <button className="today_click" onClick={() => todayDrinks.length > 0 && handleDeleteClick(todayDrinks[0].id)}>삭제</button>                            </div>
+                                <FontAwesomeIcon icon={faHeart} style={{ color: getHeartColor(record.drink.id), fontSize: '40px' }} onClick={() => handleHeartClick(record.drink.id)} />
+                                <button className="today_click" onClick={() => handleDeleteClick(record.id)}>삭제</button>
+                            </div>
                         </div>
                     ))
                 ) : (

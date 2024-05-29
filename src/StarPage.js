@@ -87,6 +87,7 @@ function StarPage() {
         }
     };
 
+
     return (
         <div>
             <div className="title">즐겨찾기</div>
