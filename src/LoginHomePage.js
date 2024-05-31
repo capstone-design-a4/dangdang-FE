@@ -112,7 +112,7 @@ function LoginHomePage() {
                                 <div className="men_dang">37g</div>
                             </div>
 
-                            <div className="dang_men_women_line"><a href="#">|</a></div>
+                            <div className="dang_men_women_line"><a href="">|</a></div>
 
                             <div className="women">
                                 <div className="women_ment">여성</div>
@@ -139,10 +139,10 @@ function LoginHomePage() {
 
                 <div className="Brand_top5">
                     <Link to="/starbuckspage"><img src="starbucks.png" alt="스타벅스 로고" /></Link>
-                    <a href="#"><img src="mega.png" alt="메가 로고" /></a>
-                    <a href="#"><img src="compose.png" alt="컴포즈 로고" /></a>
-                    <a href="#"><img src="baek.png" alt="빽다방 로고" /></a>
-                    <a href="#"><img src="ediya.png" alt="이디야 로고" /></a>
+                    <Link to="/megapage"><img src="mega.png" alt="메가 로고" /></Link>
+                    <Link to="/composepage"><img src="compose.png" alt="컴포즈 로고" /></Link>
+                    <Link to="/baekpage"><img src="baek.png" alt="빽다방 로고" /></Link>
+                    <Link to="/ediyapage"><img src="ediya.png" alt="이디야 로고" /></Link>
                 </div>
             </div>
         </div>

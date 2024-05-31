@@ -22,6 +22,14 @@ import CommunityPage from './CommunityPage.js';
 import PostPage from './PostPage.js';
 import CommentPage from './CommentPage.js';
 import StarbucksPage from './StarbucksPage.js';
+import ComposePage from './ComposePage.js';
+import MegaPage from './MegaPage.js';
+import BaekPage from './BaekPage.js';
+import EdiyaPage from './EdiyaPage.js';
+import HollysPage from './HollysPage.js';
+import TheventiPage from './TheventiPage.js';
+import GongchaPage from './GongchaPage.js';
+import CheongjaPage from './CheongjaPage.js';
 import MyPage from './MyPage.js';
 import UserContext, { UserProvider } from './UserContext';
 
@@ -40,6 +48,14 @@ import './community.css';
 import './post.css';
 import './comment.css';
 import './starbuckspage.css';
+import './composepage.css';
+import './megapage.css';
+import './baekpage.css';
+import './ediyapage.css';
+import './hollyspage.css';
+import './theventipage.css';
+import './gongchapage.css';
+import './cheongjapage.css';
 import './mypage.css';
 import axios from 'axios';
 
@@ -91,6 +107,14 @@ function App() {
                     <Route path="/postpage" element={<PostPage />} />
                     <Route path="/commentpage" element={<CommentPage />} />
                     <Route path="/starbuckspage" element={<StarbucksPage />} />
+                    <Route path="/composepage" element={<ComposePage />} />
+                    <Route path="/megapage" element={<MegaPage />} />
+                    <Route path="/baekpage" element={<BaekPage />} />
+                    <Route path="/ediyapage" element={<EdiyaPage />} />
+                    <Route path="/hollyspage" element={<HollysPage />} />
+                    <Route path="/theventipage" element={<TheventiPage />} />
+                    <Route path="/gongchapage" element={<GongchaPage />} />
+                    <Route path="/cheongjapage" element={<CheongjaPage />} />
                     <Route path="/mypage" element={<MyPage />} />
                 </Routes>
             </div>

@@ -6,7 +6,7 @@ import { faHeart } from '@fortawesome/free-solid-svg-icons';
 // import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import UserContext from './UserContext';
 
-function StarbucksPage() {
+function CheongjaPage() {
     const [menuData, setMenuData] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [pageGroup, setPageGroup] = useState(0);
@@ -67,7 +67,7 @@ function StarbucksPage() {
     };
     
     useEffect(() => {
-        axios.get('http://localhost:8080/api/drink/list/스타벅스', {
+        axios.get('http://localhost:8080/api/drink/list/청자다방', {
             headers: {
                 'X-Auth-Username': user.userId,
                 'X-Auth-Authorities': user.authorities
@@ -117,10 +117,10 @@ function StarbucksPage() {
 
     return (
         <div>
-            <div className="bkcolor">
+            <div className="bkcolor_cheongja">
                 <div className="bdbox">
-                    <img src="starbucks.png" alt="로고" className="starbucks_logo" />
-                    <div className="bdboxup">스타벅스</div>
+                    <img src="cheongja.png" alt="로고" className="cheongja_logo" />
+                    <div className="bdboxup">청자다방</div>
                     <div className="bdboxdown">
                          {/* <div className="bdsrh">
                             <input type="text" className="bdtext" placeholder=" 음료 검색하기" />
@@ -174,4 +174,4 @@ function StarbucksPage() {
     );
 }
 
-export default StarbucksPage;
+export default CheongjaPage;
