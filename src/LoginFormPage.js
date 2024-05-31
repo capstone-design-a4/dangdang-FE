@@ -71,13 +71,14 @@ function LoginFormPage({ onLogin }) {
             </div>
 
             {showModal && (
-                <div className="modal">
-                    <div className="modal-content">
+                <div className="modal login-modal">
+                    <div className="modal-content login-modal-content">
                         <span className="close" onClick={closeModal}>&times;</span>
                         <div className="error_message">{errorMessage}</div>
                     </div>
                 </div>
             )}
+
         </form>
     );
 }

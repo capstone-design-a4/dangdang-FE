@@ -74,8 +74,8 @@ function SignFormPage() {
 
             {/* 회원가입 실패 모달 */}
             {showModal && (
-                <div className="modal">
-                    <div className="modal-content">
+                <div className="sign-modal">
+                    <div className="sign-modal-content">
                         <span className="close" onClick={closeModal}>&times;</span>
                         <div className="error_message">{errorMessage}</div>
                         <div className="retry_message">다시 시도해주세요.</div>
@@ -85,8 +85,8 @@ function SignFormPage() {
 
             {/* 회원가입 성공 모달 */}
             {isSignUpSuccess && (
-                <div className="modal">
-                    <div className="modal-content">
+                <div className="sign-modal">
+                    <div className="sign-modal-content">
                         <span className="close" onClick={() => setIsSignUpSuccess(false)}>&times;</span>
                         <div className="success_message">회원가입을 성공하였습니다.</div>
                         <button className="modal_login_button" onClick={() => window.location.href = '/loginformpage'}>로그인하러 가기</button>
