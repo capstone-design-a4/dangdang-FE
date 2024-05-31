@@ -76,13 +76,13 @@ function App() {
 
     useEffect(() => {
         console.log("isLoggedIn:", user.isLoggedIn);
-        console.log("name:", user.userId);
+        console.log("name:", user.email);
     }, [user]);
 
     return (
         <Router>
             <div>
-                <Navbar isLoggedIn={user.isLoggedIn} name={user.userId} onLogout={handleLogout} />
+                <Navbar isLoggedIn={user.isLoggedIn} name={user.email} onLogout={handleLogout} />
                 <Routes>
                     <Route path="/kakaologinpage" element={<KakaoLoginPage />} />
                     <Route path="/login" element={<Login onLogin={handleLogin} />} />

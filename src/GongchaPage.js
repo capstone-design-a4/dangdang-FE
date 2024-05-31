@@ -22,13 +22,13 @@ function GongchaPage() {
             const response = isBookmarked 
                 ? await axios.delete(`http://localhost:8080/api/bookmark?drinkId=${id}`, {
                     headers: {
-                        'X-Auth-Username': user.userId,
+                        'X-Auth-Username': user.email,
                         'X-Auth-Authorities': user.authorities
                     }
                 })
                 : await axios.post(`http://localhost:8080/api/bookmark?drinkId=${id}`, null, {
                     headers: {
-                        'X-Auth-Username': user.userId,
+                        'X-Auth-Username': user.email,
                         'X-Auth-Authorities': user.authorities
                     }
                 });
@@ -50,7 +50,7 @@ function GongchaPage() {
             try {
                 const response = await axios.post(`http://localhost:8080/api/drink-record?drinkId=${id}`, null, {
                     headers: {
-                        'X-Auth-Username': user.userId,
+                        'X-Auth-Username': user.email,
                         'X-Auth-Authorities': user.authorities
                     }
                 });
@@ -69,7 +69,7 @@ function GongchaPage() {
     useEffect(() => {
         axios.get('http://localhost:8080/api/drink/list/공차', {
             headers: {
-                'X-Auth-Username': user.userId,
+                'X-Auth-Username': user.email,
                 'X-Auth-Authorities': user.authorities
             }
         })
@@ -89,7 +89,7 @@ function GongchaPage() {
         .catch(error => {
             console.error('There was an error fetching the data!', error);
         });
-    }, [user.authorities, user.userId]);
+    }, [user.authorities, user.email]);
 
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;

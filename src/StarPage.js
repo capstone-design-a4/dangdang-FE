@@ -16,7 +16,7 @@ function StarPage() {
                 try {
                     const response = await axios.get('http://localhost:8080/api/drink/bookmark', {
                         headers: {
-                            'X-Auth-Username': user.userId,
+                            'X-Auth-Username': user.email,
                             'X-Auth-Authorities': user.authorities
                         }
                     });
@@ -35,7 +35,7 @@ function StarPage() {
                 try {
                     const response = await axios.get('http://localhost:8080/api/drink-record', {
                         headers: {
-                            'X-Auth-Username': user.userId,
+                            'X-Auth-Username': user.email,
                             'X-Auth-Authorities': user.authorities
                         }
                     });
@@ -57,7 +57,7 @@ function StarPage() {
         try {
             await axios.delete(`http://localhost:8080/api/bookmark?drinkId=${id}`, {
                 headers: {
-                    'X-Auth-Username': user.userId,
+                    'X-Auth-Username': user.email,
                     'X-Auth-Authorities': user.authorities
                 }
             });
@@ -75,7 +75,7 @@ function StarPage() {
             try {
                 await axios.post(`http://localhost:8080/api/drink-record?drinkId=${id}`, null, {
                     headers: {
-                        'X-Auth-Username': user.userId,
+                        'X-Auth-Username': user.email,
                         'X-Auth-Authorities': user.authorities
                     }
                 });

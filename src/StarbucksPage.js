@@ -17,18 +17,26 @@ function StarbucksPage() {
     const itemsPerPage = 10;
     const pagesPerGroup = 10;
 
+    useEffect(() => {
+        sessionStorage.setItem('userEmail', user.email);
+        sessionStorage.setItem('userAuthorities', user.authorities);
+    }, [user.email, user.authorities]);
+
+    const sessionEmail = sessionStorage.getItem('userEmail');
+    const sessionAuthorities = sessionStorage.getItem('userAuthorities');
+
     const handleHeartClick = async (id, isBookmarked) => {
         try {
             const response = isBookmarked 
                 ? await axios.delete(`http://localhost:8080/api/bookmark?drinkId=${id}`, {
                     headers: {
-                        'X-Auth-Username': user.userId,
+                        'X-Auth-Username': user.email,
                         'X-Auth-Authorities': user.authorities
                     }
                 })
                 : await axios.post(`http://localhost:8080/api/bookmark?drinkId=${id}`, null, {
                     headers: {
-                        'X-Auth-Username': user.userId,
+                        'X-Auth-Username': user.email,
                         'X-Auth-Authorities': user.authorities
                     }
                 });
@@ -50,7 +58,7 @@ function StarbucksPage() {
             try {
                 const response = await axios.post(`http://localhost:8080/api/drink-record?drinkId=${id}`, null, {
                     headers: {
-                        'X-Auth-Username': user.userId,
+                        'X-Auth-Username': user.email,
                         'X-Auth-Authorities': user.authorities
                     }
                 });
@@ -69,11 +77,12 @@ function StarbucksPage() {
     useEffect(() => {
         axios.get('http://localhost:8080/api/drink/list/스타벅스', {
             headers: {
-                'X-Auth-Username': user.userId,
-                'X-Auth-Authorities': user.authorities
+                'X-Auth-Username': sessionEmail,
+                'X-Auth-Authorities': sessionAuthorities
             }
         })
         .then(response => {
+            console.log('API 응답:', response.data);
             if (Array.isArray(response.data)) {
                 setMenuData(response.data);
 
@@ -83,13 +92,13 @@ function StarbucksPage() {
                 });
                 setButtonTexts(initialButtonTexts);
             } else {
-                console.error('The response data is not an array:', response.data);
+                console.error('응답 데이터가 배열이 아닙니다:', response.data);
             }
         })
         .catch(error => {
-            console.error('There was an error fetching the data!', error);
+            console.error('데이터를 가져오는 중 오류가 발생했습니다!', error);
         });
-    }, [user.authorities, user.userId]);
+    }, [sessionAuthorities, sessionEmail]);
 
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;

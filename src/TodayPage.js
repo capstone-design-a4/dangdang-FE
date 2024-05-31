@@ -17,7 +17,7 @@ function TodayPage() {
                     const result = await axios.get('http://localhost:8080/api/drink-record', {
                         headers: {
                             'accept': '*/*',
-                            'X-Auth-Username': user.userId,
+                            'X-Auth-Username': user.email,
                             'X-Auth-Authorities': user.authorities
                         }
                     });
@@ -25,7 +25,7 @@ function TodayPage() {
 
                     const bookmarkResponse = await axios.get('http://localhost:8080/api/drink/bookmark', {
                         headers: {
-                            'X-Auth-Username': user.userId,
+                            'X-Auth-Username': user.email,
                             'X-Auth-Authorities': user.authorities
                         }
                     });
@@ -51,7 +51,7 @@ function TodayPage() {
                 // 북마크 해제
                 const response = await axios.delete(`http://localhost:8080/api/bookmark?drinkId=${id}`, {
                     headers: {
-                        'X-Auth-Username': user.userId,
+                        'X-Auth-Username': user.email,
                         'X-Auth-Authorities': user.authorities
                     }
                 });
@@ -69,7 +69,7 @@ function TodayPage() {
                 // 북마크 추가
                 const response = await axios.post(`http://localhost:8080/api/bookmark?drinkId=${id}`, null, {
                     headers: {
-                        'X-Auth-Username': user.userId,
+                        'X-Auth-Username': user.email,
                         'X-Auth-Authorities': user.authorities
                     }
                 });
@@ -112,7 +112,7 @@ function TodayPage() {
             const response = await axios.delete(`http://localhost:8080/api/drink-record?drinkRecordId=${id}`, {
                 headers: {
                     accept: '*/*',
-                    'X-Auth-Username': user.userId,
+                    'X-Auth-Username': user.email,
                     'X-Auth-Authorities': user.authorities
                 }
             });

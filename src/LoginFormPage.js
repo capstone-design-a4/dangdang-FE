@@ -16,14 +16,14 @@ function LoginFormPage({ onLogin }) {
 
         try {
             const params = {
-                userId: e.target.email.value,
+                email: e.target.email.value,
                 password: e.target.password.value,
             };
             const response = await axios.post('http://localhost:8080/login', {}, { params, withCredentials: true });
    
             if (response.status === 200) {
                 // 로그인 성공
-                onLogin(params.userId);
+                onLogin(params.email);
                 window.location.href = '/loginhomepage';
             } else {
                 // 로그인 실패

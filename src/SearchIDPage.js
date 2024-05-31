@@ -59,7 +59,7 @@ function SearchIDPage() {
             </div>
 
             {/* 아이디가 찾아진 경우에만 표시 */}
-            {foundId && <SearchIdForm userId={foundId} />} {/* SearchIdForm 컴포넌트 렌더링 */}
+            {foundId && <SearchIdForm email={foundId} />} {/* SearchIdForm 컴포넌트 렌더링 */}
         </div>
     );
 }

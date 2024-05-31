@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 function SignFormPage() {
-    const [isSignUpSuccess, setIsSignUpSuccess] = useState(false); // 회원가입 성공 여부 상태
-    const [showModal, setShowModal] = useState(false); // 모달 표시 여부 상태
-    const [errorMessage, setErrorMessage] = useState(''); // 회원가입 실패 시 오류 메시지 상태
+    const [isSignUpSuccess, setIsSignUpSuccess] = useState(false);
+    const [showModal, setShowModal] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
 
     const closeModal = () => {
         setShowModal(false);
@@ -15,27 +15,24 @@ function SignFormPage() {
 
         try {
             const joinData = {
-                loginId: e.target.email.value,
                 email: e.target.email.value,
                 password: e.target.password.value,
-                passwordCheck: e.target.password.value,
+                passwordCheck: e.target.passwordCheck.value,
                 name: e.target.name.value,
                 gender: e.target.gender.value,
-                phoneNumber: e.target.phonenumber.value
+                phone: e.target.phone.value // phoneNumber를 phone으로 변경
             };
-  
+
             const response = await axios.post('http://localhost:8080/join', joinData);
 
-            console.log(response.data); // 회원가입 성공 메시지 출력
+            console.log(response.data);
 
-            // 회원가입 성공 시
             setIsSignUpSuccess(true);
 
         } catch (error) {
-            // 에러 처리
             if (error.response) {
                 console.error('Error response:', error.response.data);
-                setErrorMessage(error.response.data.message); // 서버에서 반환된 오류 메시지 설정
+                setErrorMessage(error.response.data.message);
             } else if (error.request) {
                 console.error('No response received:', error.request);
                 setErrorMessage('서버로부터 응답이 없습니다.');
@@ -44,7 +41,6 @@ function SignFormPage() {
                 setErrorMessage('요청 설정 중 오류가 발생했습니다.');
             }
 
-            // 회원가입 실패 시 모달 표시
             setShowModal(true);
         }
     };
@@ -59,11 +55,12 @@ function SignFormPage() {
                 </div>
                 <form onSubmit={handleSubmit}>
                     <div className="form">
-                        <input type="email" className="email" name="email" placeholder="이메일 주소" />
-                        <input type="password" className="password" name="password" placeholder="비밀번호(8자~12자, 영문+숫자)" />
-                        <input type="text" className="name" name="name" placeholder="이름" />
-                        <input type="tel" className="phonenumber" name="phonenumber" placeholder="핸드폰번호(-없이 입력해주세요)" />
-                        <select name="gender" className="gender">
+                        <input type="email" className="email" name="email" placeholder="이메일 주소" required />
+                        <input type="password" className="password" name="password" placeholder="비밀번호(8자~12자, 영문+숫자)" required />
+                        <input type="password" className="password" name="passwordCheck" placeholder="비밀번호 재입력(8자~12자, 영문+숫자)" required />
+                        <input type="text" className="name" name="name" placeholder="이름" required />
+                        <input type="tel" className="phonenumber" name="phone" placeholder="핸드폰번호(-없이 입력해주세요)" required /> {/* name 속성을 phone으로 변경 */}
+                        <select name="gender" className="gender" required>
                             <option value="MALE">남자</option>
                             <option value="FEMALE">여자</option>
                         </select>

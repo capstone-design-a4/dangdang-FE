@@ -6,41 +6,41 @@ const UserContext = createContext();
 export const UserProvider = ({ children }) => {
     const [user, setUser] = useState({
         isLoggedIn: false,
-        userId: '',
+        email: '',
         authorities: 'USER_ROLE'
     });
 
     useEffect(() => {
         const storedIsLoggedIn = localStorage.getItem('isLoggedIn');
-        const storedUserId = localStorage.getItem('userId');
+        const storedUserId = localStorage.getItem('email');
 
         if (storedIsLoggedIn && storedUserId) {
             setUser({
                 isLoggedIn: storedIsLoggedIn === 'true',
-                userId: storedUserId,
+                email: storedUserId,
                 authorities: 'USER_ROLE' // 기본 권한
             });
         }
     }, []);
 
-    const handleLogin = (userId) => {
+    const handleLogin = (email) => {
         setUser({
             isLoggedIn: true,
-            userId,
+            email,
             authorities: 'USER_ROLE' // 기본 권한
         });
         localStorage.setItem('isLoggedIn', 'true');
-        localStorage.setItem('userId', userId);
+        localStorage.setItem('email', email);
     };
 
     const handleLogout = () => {
         setUser({
             isLoggedIn: false,
-            userId: '',
+            email: '',
             authorities: 'USER_ROLE' // 기본 권한
         });
         localStorage.removeItem('isLoggedIn');
-        localStorage.removeItem('userId');
+        localStorage.removeItem('email');
     };
 
     return (

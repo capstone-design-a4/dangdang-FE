@@ -18,18 +18,22 @@ function StarToday() {
                 try {
                     const response = await axios.get('http://localhost:8080/api/drink/bookmark', {
                         headers: {
-                            'X-Auth-Username': user.userId,
+                            'X-Auth-Username': user.email,
                             'X-Auth-Authorities': user.authorities
                         }
                     });
 
-                    if (response.data) {
+                    console.log("bookmarkedDrinks response:", response.data);  // 콘솔 로그 추가
+
+                    if (Array.isArray(response.data)) {
                         setBookmarkedDrinks(response.data);
                         const initialHeartColors = {};
                         response.data.forEach(drink => {
                             initialHeartColors[drink.id] = "#ff0000";
                         });
                         setHeartColors(initialHeartColors);
+                    } else {
+                        console.error("Bookmarked drinks data is not an array");
                     }
                 } catch (error) {
                     console.error("Error fetching bookmarked drinks: ", error);
@@ -42,13 +46,17 @@ function StarToday() {
                 try {
                     const response = await axios.get('http://localhost:8080/api/drink-record', {
                         headers: {
-                            'X-Auth-Username': user.userId,
+                            'X-Auth-Username': user.email,
                             'X-Auth-Authorities': user.authorities
                         }
                     });
 
-                    if (response.data) {
+                    console.log("todayDrinks response:", response.data);  // 콘솔 로그 추가
+
+                    if (Array.isArray(response.data)) {
                         setTodayDrinks(response.data);
+                    } else {
+                        console.error("Today's drinks data is not an array");
                     }
                 } catch (error) {
                     console.error("Error fetching today's drinks: ", error);
@@ -68,7 +76,7 @@ function StarToday() {
                 // 북마크 해제
                 const response = await axios.delete(`http://localhost:8080/api/bookmark?drinkId=${id}`, {
                     headers: {
-                        'X-Auth-Username': user.userId,
+                        'X-Auth-Username': user.email,
                         'X-Auth-Authorities': user.authorities
                     }
                 });
@@ -86,7 +94,7 @@ function StarToday() {
                 if (drinkToAdd) {
                     const response = await axios.post(`http://localhost:8080/api/bookmark?drinkId=${id}`, null, {
                         headers: {
-                            'X-Auth-Username': user.userId,
+                            'X-Auth-Username': user.email,
                             'X-Auth-Authorities': user.authorities
                         }
                     });
@@ -110,7 +118,7 @@ function StarToday() {
             try {
                 const response = await axios.post(`http://localhost:8080/api/drink-record?drinkId=${id}`, null, {
                     headers: {
-                        'X-Auth-Username': user.userId,
+                        'X-Auth-Username': user.email,
                         'X-Auth-Authorities': user.authorities
                     }
                 });
@@ -132,7 +140,7 @@ function StarToday() {
         try {
             const response = await axios.delete(`http://localhost:8080/api/drink-record?drinkRecordId=${id}`, {
                 headers: {
-                    'X-Auth-Username': user.userId,
+                    'X-Auth-Username': user.email,
                     'X-Auth-Authorities': user.authorities
                 }
             });
@@ -171,7 +179,7 @@ function StarToday() {
                             calorie={`${bookmarkedDrinks[0]?.calorie}kcal`}
                         />
                         <div className="star_right">
-                            <FontAwesomeIcon icon={faHeart} style={{ color: heartColors[bookmarkedDrinks[0]?.id], fontSize: '40px' }} onClick={() => handleHeartClick(bookmarkedDrinks[0]?.id)} />
+                            <FontAwesomeIcon icon={faHeart} style={{ color: getHeartColor(bookmarkedDrinks[0]?.id), fontSize: '40px' }} onClick={() => handleHeartClick(bookmarkedDrinks[0]?.id)} />
                             <button className="star_click" onClick={() => handleStarClick(bookmarkedDrinks[0]?.id)}>담기</button>
                         </div>
                     </div>

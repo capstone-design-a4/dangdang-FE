@@ -32,7 +32,7 @@ function LoginHomePage() {
             try {
                 const response = await axios.put(`http://localhost:8080/api/record/goal?sugar_goal=${sugarGoal}&caffeine_goal=${caffeineGoal}`, {}, {
                     headers: {
-                        'X-Auth-Username': user.userId, // 사용자 정보 사용
+                        'X-Auth-Username': user.email, // 사용자 정보 사용
                         'X-Auth-Authorities': user.authorities // 사용자 권한 정보 사용
                     }
                 });
@@ -84,7 +84,7 @@ function LoginHomePage() {
                     </div>
                     <button onClick={openModal} className="goal_button">목표설정하기</button>
                 </div>
-                <StarToday isLoggedIn={user.isLoggedIn} userId={user.userId} />
+                <StarToday isLoggedIn={user.isLoggedIn} email={user.email} />
             </div>
 
             {isModalOpen && (

@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import './navbar.css';
+import UserContext from './UserContext';
 
-function Navbar({ isLoggedIn, name, onLogout }) {
-    const username = name.split('@')[0];
-    const homePage = isLoggedIn ? "/loginhomepage" : "/";
+function Navbar() {
+    const { user, handleLogout } = useContext(UserContext);
+    const name = user.email ? user.email.split('@')[0] : ''; // email이 유효한 경우에만 사용
+    const homePage = user.isLoggedIn ? '/loginhomepage' : '/';
 
     return (
         <div className="nav">
@@ -18,11 +20,11 @@ function Navbar({ isLoggedIn, name, onLogout }) {
                 <li><Link to="*" className="community">커뮤니티</Link></li>
             </ul>
             <ul className="nav_login">
-                {isLoggedIn ? (
+                {user.isLoggedIn ? (
                     <>
-                        <li><span>{username}님</span></li>
+                        <li><span>{name}님</span></li>
                         <li><a href="#">|</a></li>
-                        <li><a href="/" onClick={onLogout}>로그아웃</a></li>
+                        <li><a href="/" onClick={handleLogout}>로그아웃</a></li>
                     </>
                 ) : (
                     <>

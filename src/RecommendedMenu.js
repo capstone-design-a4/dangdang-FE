@@ -11,7 +11,7 @@ function RecommendedMenu() {
                 setMenuItems(response.data);
             })
             .catch(error => {
-                console.error('There was an error fetching the data!', error);
+                console.error('데이터를 불러오는 도중 오류가 발생했습니다!', error);
             });
     }, []);
 
@@ -21,7 +21,7 @@ function RecommendedMenu() {
             <div className="recommend_name">추천메뉴</div>
 
             <div className="menuGrid">
-                {menuItems.map((item) => (
+                {Array.isArray(menuItems) && menuItems.map((item) => (
                     <MenuCard
                         key={item.id}
                         imageSrc={item.imageUrl}
