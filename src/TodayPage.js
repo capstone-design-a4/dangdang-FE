@@ -17,8 +17,6 @@ function TodayPage() {
                     const result = await axios.get('http://localhost:8080/api/drink-record', {
                         headers: {
                             'accept': '*/*',
-                            'X-Auth-Username': user.email,
-                            'X-Auth-Authorities': user.authorities
                         }
                     });
                     setDrinkRecords(result.data);
