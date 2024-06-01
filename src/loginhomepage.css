@@ -70,14 +70,14 @@
 
 .eat_dang_graph {
   background-color: #39A7FF;
-  width: 50%;
+  /* width: 50%; */
   height: 30px;
   border-radius: 50px;
 }
 
 .eat_caf_graph {
   background-color: #39A7FF;
-  width: 63%;
+  /* width: 63%; */
   height: 30px;
   border-radius: 50px;
 }

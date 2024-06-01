@@ -1,15 +1,22 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import StarToday from './StarToday';
 import axios from 'axios';
 import UserContext from './UserContext';
 
 function LoginHomePage() {
+    const initialSugarGoal = localStorage.getItem('sugarGoal') || '';
+    const initialCaffeineGoal = localStorage.getItem('caffeineGoal') || '';
+
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [todayDate, setTodayDate] = useState(getTodayDate());
-    const [sugarGoal, setSugarGoal] = useState('');
-    const [caffeineGoal, setCaffeineGoal] = useState('');
-    const { user } = useContext(UserContext); // 컨텍스트에서 사용자 정보 가져오기
+    const [sugarGoal, setSugarGoal] = useState(initialSugarGoal);
+    const [caffeineGoal, setCaffeineGoal] = useState(initialCaffeineGoal);
+    const { user } = useContext(UserContext);
+
+    const [deletedSugarAmount, setDeletedSugarAmount] = useState(0);
+    const [deletedCalorieAmount, setDeletedCalorieAmount] = useState(0);
+    const [deletedCaffeineAmount, setDeletedCaffeineAmount] = useState(0);
 
     const openModal = () => {
         setIsModalOpen(true);
@@ -26,20 +33,22 @@ function LoginHomePage() {
         const day = today.getDate();
         return `${year}년 ${month}월 ${day}일`;
     }
-    
+
     const setGoal = async () => {
-        if (user.isLoggedIn) { // 사용자가 로그인 되어 있을 때만 목표 설정
+        if (user.isLoggedIn) {
             try {
                 const response = await axios.put(`http://localhost:8080/api/record/goal?sugar_goal=${sugarGoal}&caffeine_goal=${caffeineGoal}`, {}, {
                     headers: {
-                        'X-Auth-Username': user.email, // 사용자 정보 사용
-                        'X-Auth-Authorities': user.authorities // 사용자 권한 정보 사용
+                        'X-Auth-Username': user.email,
+                        'X-Auth-Authorities': user.authorities
                     }
                 });
                 console.log(response.data);
                 if (response.status === 200) {
-                    setTodayDate(getTodayDate()); // 목표 설정 후 오늘 날짜 갱신
-                    closeModal();
+                    setTodayDate(getTodayDate());
+                    setIsModalOpen(false);
+                    setSugarGoal('');
+                    setCaffeineGoal('');
                 } else {
                     console.log('Error:', response.status);
                 }
@@ -47,38 +56,80 @@ function LoginHomePage() {
                 console.error('Error:', error);
             }
         }
+
+        localStorage.setItem('sugarGoal', sugarGoal);
+        localStorage.setItem('caffeineGoal', caffeineGoal);
     };
-    
+
+    const [sugarIntake, setSugarIntake] = useState(0);
+    const [calorieIntake, setCalorieIntake] = useState(0);
+    const [caffeineIntake, setCaffeineIntake] = useState(0);
+
+    useEffect(() => {
+        const fetchDailyStats = async () => {
+            try {
+                const response = await axios.get('http://localhost:8080/api/record/day');
+                let { sugarIntake, calorieIntake, caffeineIntake } = response.data.dayStat;
+
+                sugarIntake -= deletedSugarAmount;
+                calorieIntake -= deletedCalorieAmount;
+                caffeineIntake -= deletedCaffeineAmount;
+
+                setSugarIntake(sugarIntake);
+                setCalorieIntake(calorieIntake);
+                setCaffeineIntake(caffeineIntake);
+            } catch (error) {
+                console.error('Error fetching daily stats: ', error);
+            }
+        };
+
+        fetchDailyStats();
+    }, [deletedSugarAmount, deletedCalorieAmount, deletedCaffeineAmount]);
+
+    const calculateWidth = (value, goal) => {
+        return (value / goal) * 100 + '%';
+    };
+
     return (
         <div className="App">
             <div className="container">
                 <div className="hello_box">
                     <div className="date">{todayDate} 목표!</div>
                     <img src="dangdang.png" alt="로고" className="hello_logo" />
+
                     <div className="hello_user">
-                        <div className="hello_dang">12g</div>
-                        <div className="hello_ment">더 마실 수 있어요!</div>
+                        {sugarIntake > sugarGoal ? (
+                            <React.Fragment>
+                                <div className="hello_dang">목표량보다 {sugarIntake - sugarGoal}g</div>
+                                <div className="hello_ment">더 섭취했어요..</div>
+                            </React.Fragment>
+                        ) : (
+                            <React.Fragment>
+                                <div className="hello_dang">{sugarGoal - sugarIntake}g</div>
+                                <div className="hello_ment">더 마실 수 있어요!</div>
+                            </React.Fragment>
+                        )}
                     </div>
 
                     <div className="login_dang_caf_kcal">
                         <div className="login_dang">
                             <img src="dang.png" alt="당 이미지" className="dang_img" />
                             <div className="login_dang_graph">
-                                <div className="eat_dang_graph">13g</div>
+                                <div className="eat_dang_graph" style={{ width: calculateWidth(sugarIntake, sugarGoal) }}>{sugarIntake}g</div>
                             </div>
                         </div>
 
                         <div className="login_caf">
                             <img src="caffeine.png" alt="카페인 이미지" className="caf_img" />
                             <div className="login_caf_graph">
-                                <div className="eat_caf_graph">239mg</div>
+                                <div className="eat_caf_graph" style={{ width: calculateWidth(caffeineIntake, caffeineGoal) }}>{caffeineIntake}mg</div>
                             </div>
                         </div>
 
                         <div className="login_kcal">
                             <img src="kcal.png" alt="칼로리 이미지" className="kcal_img" />
                             <div className="login_kcal_graph">
-                                <div className="eat_kcal_graph">43kcal</div>
+                                <div className="eat_kcal_graph">{calorieIntake}kcal</div>
                             </div>
                         </div>
                     </div>
