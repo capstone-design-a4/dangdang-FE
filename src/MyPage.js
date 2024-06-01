@@ -1,9 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';import UserContext from './UserContext';
+import axios from 'axios';
 
 function MyPage() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedFile, setSelectedFile] = useState(null);
     const [previewUrl, setPreviewUrl] = useState(null);
+    const navigate = useNavigate();
+
+    const { user, handleLogout } = useContext(UserContext);
+    const name = user.email ? user.email.split('@')[0] : '';
+
+    const handleLogoutAndRedirect = async () => {
+        await handleLogout(); // 로그아웃 처리
+        navigate('/'); // logouthomepage로 이동
+    };
+
+    const initialSugarGoal = localStorage.getItem('sugarGoal') || '';
+    const initialCaffeineGoal = localStorage.getItem('caffeineGoal') || '';
+    const [todayDate, setTodayDate] = useState(getTodayDate());
+    const [sugarGoal, setSugarGoal] = useState(initialSugarGoal);
+    const [caffeineGoal, setCaffeineGoal] = useState(initialCaffeineGoal);
+
+    function getTodayDate() {
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = today.getMonth() + 1;
+        const day = today.getDate();
+        return `${year}년 ${month}월 ${day}일`;
+    }
 
     const openModal = () => {
         setIsModalOpen(true);
@@ -25,24 +50,21 @@ function MyPage() {
         }
     };
 
-    const [isGoalModalOpen, setIsGoalModalOpen] = useState(false);
-    const [sugarValue, setSugarValue] = useState('');
-    const [caffeineValue, setCaffeineValue] = useState('');
-
-    const openGoalModal = () => {
-        setIsGoalModalOpen(true);
+    const setGoal = () => {
+        localStorage.setItem('sugarGoal', sugarGoal);
+        localStorage.setItem('caffeineGoal', caffeineGoal);
+        setTodayDate(getTodayDate());
+        setIsModalOpen(false);
     };
 
-    const closeGoalModal = () => {
-        setIsGoalModalOpen(false);
+    const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
+
+    const openProfileModal = () => {
+        setIsProfileModalOpen(true);
     };
 
-    const handleConfirm = () => {
-        closeModal();
-        // 확인 버튼을 누르면 값을 저장하고 모달을 닫기
-        // 여기서는 콘솔에 출력하지만 필요한 경우 상태를 업데이트하고 화면에 반영
-        console.log('당 수치:', sugarValue);
-        console.log('카페인 수치:', caffeineValue);
+    const closeProfileModal = () => {
+        setIsProfileModalOpen(false);
     };
 
     const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
@@ -55,6 +77,24 @@ function MyPage() {
         setIsInfoModalOpen(false);
     };
 
+    const handleConfirm = () => {
+        if (previewUrl) {
+            // 백에서 프로필 변경 api 받으면 넣기
+            axios.post('http://example.com/updateProfileImage', { image: previewUrl })
+                .then(response => {
+                    // 이미지 업데이트 성공 시
+                    console.log('프로필 이미지 업데이트 성공:', response.data);
+                })
+                .catch(error => {
+                    // 이미지 업데이트 실패 시
+                    console.error('프로필 이미지 업데이트 에러:', error);
+                });
+        }
+    
+        // 확인 버튼 클릭 후 프로필 모달 닫기
+        setIsProfileModalOpen(false);
+    };
+
     return (
         <div>
             <div className="page">
@@ -63,22 +103,24 @@ function MyPage() {
                         <img src={previewUrl || "dangdang.png"} alt="당당 프로필" className="login_img" />
                     </div>
 
-                    <div className="my_name">당을줄이자 님</div>
+                    <div className="my_name">{name}님</div>
                     <div className="button_list">
-                        <button onClick={openModal} className="imagechange_button">프로필 변경</button>
-                        <button onClick={openGoalModal} className="goal_setting">목표설정하기</button>
+                        <button onClick={openProfileModal} className="imagechange_button">프로필 변경</button>
+                        <button onClick={openModal} className="goal_setting">목표설정하기</button>
                         <div className="goal">
                             <div className="goal_text">목표 설정</div>
-                            <p className="goal_sugar">25g</p>
-                            <p className="goal_caffeine">300mg</p>
+                            <p className="goal_sugar">{sugarGoal}g</p>
+                            <p className="goal_caffeine">{caffeineGoal}mg</p>
                         </div>
                         <button onClick={openInfoModal} type="button" className="information_edit">회원정보수정</button>
-                        <button type="button" className="logout_button">로그아웃</button>
+                        <button type="button" className="logout_button" onClick={handleLogoutAndRedirect}>
+                            로그아웃
+                        </button>
                     </div>
                 </div>
             </div>
 
-            {isModalOpen && (
+            {isProfileModalOpen && (
                 <div className="modal">
                     <div className="modal-content">
                         <span className="close" onClick={closeModal}>&times;</span>
@@ -98,29 +140,20 @@ function MyPage() {
                 </div>
             )}
 
-            {isGoalModalOpen && (
+
+            {isModalOpen && (
                 <div className="modal">
                     <div className="modal-content">
-                        <span className="close" onClick={closeGoalModal}>&times;</span>
+                        <span className="close" onClick={closeModal}>&times;</span>
                         <div className="modal_goal_ment">목표설정하기</div>
 
                         <div className="input_goal">
                             <div className="input_dang">
-                                <input
-                                    type="text"
-                                    className="input_dang_ment"
-                                    value={sugarValue}
-                                    onChange={(e) => setSugarValue(e.target.value)}
-                                />
+                                <input type="text" className="input_dang_ment" value={sugarGoal} onChange={(e) => setSugarGoal(e.target.value)} />
                                 <div className="input_dang_g">g</div>
                             </div>
                             <div className="input_caf">
-                                <input
-                                    type="text"
-                                    className="input_caf_ment"
-                                    value={caffeineValue}
-                                    onChange={(e) => setCaffeineValue(e.target.value)}
-                                />
+                                <input type="text" className="input_caf_ment" value={caffeineGoal} onChange={(e) => setCaffeineGoal(e.target.value)} />
                                 <div className="input_caf_mg">mg</div>
                             </div>
                         </div>
@@ -132,21 +165,15 @@ function MyPage() {
                                 <div className="men_ment">남성</div>
                                 <div className="men_dang">37g</div>
                             </div>
-
-                            <div className="dang_men_women_line"><a href="#">|</a></div>
-
+                            <div className="dang_men_women_line"><a href="">|</a></div>
                             <div className="women">
                                 <div className="women_ment">여성</div>
                                 <div className="women_dang">25g</div>
                             </div>
                         </div>
-
-                        <div className="caf_men_women">
-                            400mg
-                        </div>
-
+                        <div className="caf_men_women">400mg</div>
                         <div className="modal_buttons">
-                            <button type="submit" className="ok_modal_button">확인</button>
+                            <button type="submit" className="ok_modal_button" onClick={setGoal}>확인</button>
                         </div>
                     </div>
                 </div>

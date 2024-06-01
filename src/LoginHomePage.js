@@ -14,9 +14,6 @@ function LoginHomePage() {
     const [caffeineGoal, setCaffeineGoal] = useState(initialCaffeineGoal);
     const { user } = useContext(UserContext);
 
-    const [deletedSugarAmount, setDeletedSugarAmount] = useState(0);
-    const [deletedCalorieAmount, setDeletedCalorieAmount] = useState(0);
-    const [deletedCaffeineAmount, setDeletedCaffeineAmount] = useState(0);
 
     const openModal = () => {
         setIsModalOpen(true);
@@ -33,7 +30,7 @@ function LoginHomePage() {
         const day = today.getDate();
         return `${year}년 ${month}월 ${day}일`;
     }
-
+    
     const setGoal = async () => {
         if (user.isLoggedIn) {
             try {
@@ -60,6 +57,7 @@ function LoginHomePage() {
         localStorage.setItem('sugarGoal', sugarGoal);
         localStorage.setItem('caffeineGoal', caffeineGoal);
     };
+    
 
     const [sugarIntake, setSugarIntake] = useState(0);
     const [calorieIntake, setCalorieIntake] = useState(0);
@@ -69,12 +67,7 @@ function LoginHomePage() {
         const fetchDailyStats = async () => {
             try {
                 const response = await axios.get('http://localhost:8080/api/record/day');
-                let { sugarIntake, calorieIntake, caffeineIntake } = response.data.dayStat;
-
-                sugarIntake -= deletedSugarAmount;
-                calorieIntake -= deletedCalorieAmount;
-                caffeineIntake -= deletedCaffeineAmount;
-
+                const { sugarIntake, calorieIntake, caffeineIntake } = response.data.dayStat;
                 setSugarIntake(sugarIntake);
                 setCalorieIntake(calorieIntake);
                 setCaffeineIntake(caffeineIntake);
@@ -84,19 +77,22 @@ function LoginHomePage() {
         };
 
         fetchDailyStats();
-    }, [deletedSugarAmount, deletedCalorieAmount, deletedCaffeineAmount]);
+    }, []);
 
     const calculateWidth = (value, goal) => {
         return (value / goal) * 100 + '%';
     };
-
+    
     return (
         <div className="App">
             <div className="container">
                 <div className="hello_box">
                     <div className="date">{todayDate} 목표!</div>
                     <img src="dangdang.png" alt="로고" className="hello_logo" />
-
+                    {/* <div className="hello_user">
+                        <div className="hello_dang">12g</div>
+                        <div className="hello_ment">더 마실 수 있어요!</div>
+                    </div> */}
                     <div className="hello_user">
                         {sugarIntake > sugarGoal ? (
                             <React.Fragment>
