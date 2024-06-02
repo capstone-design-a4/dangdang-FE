@@ -31,6 +31,7 @@ import HollysPage from './HollysPage.js';
 import TheventiPage from './TheventiPage.js';
 import GongchaPage from './GongchaPage.js';
 import CheongjaPage from './CheongjaPage.js';
+import CoffeebeanPage from './CoffeebeanPage.js';
 import MyPage from './MyPage.js';
 import TemPwForm from './TemPwForm.js';
 import UserContext, { UserProvider } from './UserContext';
@@ -58,6 +59,7 @@ import './hollyspage.css';
 import './theventipage.css';
 import './gongchapage.css';
 import './cheongjapage.css';
+import './coffeebeanpage.css';
 import './mypage.css';
 import './tempwform.css';
 import axios from 'axios';
@@ -119,6 +121,7 @@ function App() {
                     <Route path="/theventipage" element={<TheventiPage />} />
                     <Route path="/gongchapage" element={<GongchaPage />} />
                     <Route path="/cheongjapage" element={<CheongjaPage />} />
+                    <Route path="/coffeebeanpage" element={<CoffeebeanPage />} />
                     <Route path="/mypage" element={<MyPage />} />
                     <Route path="/tempwform" element={<TemPwForm />} />
                 </Routes>

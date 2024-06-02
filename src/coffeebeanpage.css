@@ -1,0 +1,14 @@
+.coffeebean_logo{
+    width: 85px;
+    height: 85px;
+    border-radius: 15px;
+    border-width: 3px;
+    border-color: #FFFFFF;
+    margin-right: 10px;
+    border-style: solid;
+}
+
+.bkcolor_coffeebean {
+    max-width: 100%;
+    background-color: #492A65;
+}

@@ -16,7 +16,7 @@ function BrandPage() {
                 <a href="/theventipage"><img src="theventi.png" alt="더벤티 로고" /></a>
                 <a href="/gongchapage"><img src="gongcha.png" alt="공차 로고" /></a>
                 <a href="/cheongjapage"><img src="cheongja.png" alt="청자다방 로고" /></a>
-                <a href="#"><img src="bulk.png" alt="벌크 로고" /></a>
+                <a href="/coffeebeanpage"><img src="coffeebean.png" alt="커피빈 로고" /></a>
             </div>
         </div>
     );
