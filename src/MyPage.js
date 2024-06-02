@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';import UserContext from './UserContext';
+import { useNavigate } from 'react-router-dom';
+import UserContext from './UserContext';
 import axios from 'axios';
 
 function MyPage() {
@@ -90,9 +91,13 @@ function MyPage() {
                     console.error('프로필 이미지 업데이트 에러:', error);
                 });
         }
-    
+
         // 확인 버튼 클릭 후 프로필 모달 닫기
         setIsProfileModalOpen(false);
+    };
+
+    const handlePasswordReset = () => {
+        navigate('/searchpwform'); // searchpwform으로 이동
     };
 
     return (
@@ -113,6 +118,7 @@ function MyPage() {
                             <p className="goal_caffeine">{caffeineGoal}mg</p>
                         </div>
                         <button onClick={openInfoModal} type="button" className="information_edit">회원정보수정</button>
+                        <button className="repw_button" onClick={handlePasswordReset}>비밀번호 재설정</button>
                         <button type="button" className="logout_button" onClick={handleLogoutAndRedirect}>
                             로그아웃
                         </button>
@@ -123,7 +129,7 @@ function MyPage() {
             {isProfileModalOpen && (
                 <div className="modal">
                     <div className="modal-content">
-                        <span className="close" onClick={closeModal}>&times;</span>
+                        <span className="close" onClick={closeProfileModal}>&times;</span>
                         <div className="profilechange">프로필 변경</div>
                         <div className="profile_img">
                             {previewUrl ? (
@@ -139,7 +145,6 @@ function MyPage() {
                     </div>
                 </div>
             )}
-
 
             {isModalOpen && (
                 <div className="modal">

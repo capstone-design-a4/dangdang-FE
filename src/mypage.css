@@ -29,7 +29,7 @@
     justify-content: center;
 }
 
-.imagechange_button, .goal_setting, .information_edit, .logout_button{
+.imagechange_button, .goal_setting, .information_edit, .logout_button, .repw_button{
     width: 150%;
     height:45px;
     border-radius: 15px;
@@ -43,8 +43,8 @@
     color: #FFFFFF;
 }
 
-.information_edit, .logout_button{
-    color: #000000;
+.information_edit, .logout_button, .repw_button{
+    color: white;
     background-color: #87C4FF;
 }
 
@@ -94,6 +94,10 @@
 }
 
 .logout_button{
+  margin-top: 5%;
+}
+
+.repw_button {
   margin-top: 5%;
 }
 

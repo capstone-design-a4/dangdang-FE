@@ -9,6 +9,7 @@ import LoginPage from './LoginPage.js';
 import SignFormPage from './SignFormPage.js';
 import LoginFormPage from './LoginFormPage.js';
 import SearchIDPage from './SearchIDPage.js';
+import SearchIdForm from './SearchIdForm.js';
 import SearchPwForm from './SearchPwForm.js';
 import LogoutHomePage from './LogoutHomePage.js';
 import RecommendedMenu from './RecommendedMenu.js';
@@ -31,6 +32,7 @@ import TheventiPage from './TheventiPage.js';
 import GongchaPage from './GongchaPage.js';
 import CheongjaPage from './CheongjaPage.js';
 import MyPage from './MyPage.js';
+import TemPwForm from './TemPwForm.js';
 import UserContext, { UserProvider } from './UserContext';
 
 import './login.css';
@@ -57,6 +59,7 @@ import './theventipage.css';
 import './gongchapage.css';
 import './cheongjapage.css';
 import './mypage.css';
+import './tempwform.css';
 import axios from 'axios';
 
 function KakaoLoginPage() {
@@ -93,6 +96,7 @@ function App() {
                     <Route path="/signformpage" element={<SignFormPage />} />
                     <Route path="/loginformpage" element={<LoginFormPage onLogin={handleLogin} />} />
                     <Route path="/searchidpage" element={<SearchIDPage />} />
+                    <Route path="/searchidform" element={<SearchIdForm />} />
                     <Route path="/searchpwform" element={<SearchPwForm />} />
                     <Route path="/" element={<Navigate to="/logouthomepage" />} />
                     <Route path="/logouthomepage" element={<LogoutHomePage />} />
@@ -116,6 +120,7 @@ function App() {
                     <Route path="/gongchapage" element={<GongchaPage />} />
                     <Route path="/cheongjapage" element={<CheongjaPage />} />
                     <Route path="/mypage" element={<MyPage />} />
+                    <Route path="/tempwform" element={<TemPwForm />} />
                 </Routes>
             </div>
         </Router>

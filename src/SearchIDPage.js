@@ -1,29 +1,31 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import SearchIdForm from './SearchIdForm';
 
 function SearchIDPage() {
     const [phoneNumber, setPhoneNumber] = useState(''); // 핸드폰 번호를 위한 상태
     const [name, setName] = useState(''); // 이름을 위한 상태
-    const [foundId, setFoundId] = useState(''); // 찾은 아이디를 위한 상태
+    const navigate = useNavigate(); // Navigation을 위한 훅
 
     // 아이디 찾기 함수
     const handleSearchId = async () => {
         try {
             // API를 호출하여 아이디를 찾음
-            const response = await axios.get('http://localhost:8080/api/member/info', {
+            const response = await axios.get('http://localhost:8080/findEmail', {
+                params: {
+                    name: name,
+                    phone: phoneNumber,
+                },
                 headers: {
-                    'X-Auth-Username': 'user',
-                    'X-Auth-Authorities': 'USER_ROLE'
+                    'accept': '*/*'
                 }
             });
-            const foundId = response.data.id; // 찾은 아이디
+            const foundEmail = response.data.email; // 찾은 이메일
 
-            // 찾은 아이디를 상태에 저장
-            setFoundId(foundId);
+            // 찾은 이메일을 상태에 저장하고 SearchIdForm으로 이동
+            navigate('/searchidform', { state: { email: foundEmail } });
         } catch (error) {
-            console.error('Error searching for ID:', error);
+            console.error('Error searching for email:', error);
         }
     };
 
@@ -55,11 +57,7 @@ function SearchIDPage() {
                 <button type="button" className="login_button">
                     <Link to="/loginformpage">로그인하기</Link>
                 </button>
-
             </div>
-
-            {/* 아이디가 찾아진 경우에만 표시 */}
-            {foundId && <SearchIdForm email={foundId} />} {/* SearchIdForm 컴포넌트 렌더링 */}
         </div>
     );
 }

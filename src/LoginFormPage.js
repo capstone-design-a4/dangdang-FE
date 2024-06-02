@@ -65,7 +65,7 @@ function LoginFormPage({ onLogin }) {
                     <ul>
                         <li><Link to="/searchidpage">아이디 찾기</Link></li>
                         <li><a href="#">|</a></li>
-                        <li><Link to="/searchpwform">비밀번호 재설정</Link></li>
+                        <li><Link to="/tempwform">임시 비번 전송</Link></li>
                     </ul>
                 </div>
             </div>

@@ -1,7 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
-function SearchIdForm({ email }) {
+function SearchIdForm() {
+    const location = useLocation();
+    const email = location.state?.email || '';
+
     // 'email'가 문자열인지 확인 후, '@' 기준으로 앞부분만 사용하여 username 설정
     const username = typeof email === 'string' ? email.split('@')[0] : '';
 
