@@ -17,7 +17,7 @@ function Navbar() {
             <ul className="nav_menu">
                 <li><Link to={homePage} className="home">홈</Link></li>
                 <li><Link to="/mypage" className="mypage">마이페이지</Link></li>
-                <li><Link to="*" className="community">커뮤니티</Link></li>
+                {/* <li><Link to="*" className="community">커뮤니티</Link></li> */}
             </ul>
             <ul className="nav_login">
                 {user.isLoggedIn ? (
