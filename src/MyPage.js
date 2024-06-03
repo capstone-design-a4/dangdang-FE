@@ -1,7 +1,10 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import UserContext from './UserContext';
 import axios from 'axios';
+import styled from 'styled-components';
+import UserFluctuationChart from './CustomStatChart';
+import CustomStatChart from './CustomStatChart';
 
 function MyPage() {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -22,6 +25,10 @@ function MyPage() {
     const [todayDate, setTodayDate] = useState(getTodayDate());
     const [sugarGoal, setSugarGoal] = useState(initialSugarGoal);
     const [caffeineGoal, setCaffeineGoal] = useState(initialCaffeineGoal);
+
+    const [startDate, setStartDate] = useState('');
+    const [endDate, setEndDate] = useState('');
+    const [dateRange, setDateRange] = useState('7'); // 기본값은 7일
 
     function getTodayDate() {
         const today = new Date();
@@ -100,6 +107,21 @@ function MyPage() {
         navigate('/searchpwform'); // searchpwform으로 이동
     };
 
+    const handlePresetDateChange = (days) => {
+        setDateRange(days);
+        setStartDate('');
+        setEndDate('');
+    };
+
+    const handleCustomDateChange = () => {
+        // 날짜가 올바른지 확인 (유효성 검사 등 추가 가능)
+        if (new Date(startDate) > new Date(endDate)) {
+            alert("시작 날짜가 끝나는 날짜보다 이후일 수 없습니다.");
+            return;
+        }
+        setDateRange(null);
+    };
+
     return (
         <div>
             <div className="page">
@@ -124,6 +146,35 @@ function MyPage() {
                         </button>
                     </div>
                 </div>
+
+                <PageRight className="page_right">
+                    <DateContainer>
+                        <Button onClick={() => handlePresetDateChange('0')}>오늘</Button>
+                        <Button onClick={() => handlePresetDateChange('1')}>어제</Button>
+                        <Button onClick={() => handlePresetDateChange('7')}>7일</Button>
+                        <Button onClick={() => handlePresetDateChange('30')}>30일</Button>
+                        <label>
+                            시작 날짜:
+                            <input
+                                type="date"
+                                value={startDate}
+                                onChange={(e) => setStartDate(e.target.value)}
+                            />
+                        </label>
+                        <label>
+                            끝 날짜:
+                            <input
+                                type="date"
+                                value={endDate}
+                                onChange={(e) => setEndDate(e.target.value)}
+                            />
+                        </label>
+                        <Button onClick={handleCustomDateChange}>조회</Button>
+                    </DateContainer>
+                    <CustomStatChartWrapper>
+                        <CustomStatChart startDate={startDate} endDate={endDate} dateRange={dateRange} />
+                    </CustomStatChartWrapper>
+                </PageRight>
             </div>
 
             {isProfileModalOpen && (
@@ -211,3 +262,53 @@ function MyPage() {
 }
 
 export default MyPage;
+
+const PageRight = styled.div`
+    flex: 4;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 20px;
+`;
+
+const CustomStatChartWrapper = styled.div`
+    width: 100%;
+    height: 80%;
+`;
+
+const DateContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+
+    label {
+        margin: 0 10px;
+    }
+
+    input {
+        margin-left: 5px;
+    }
+
+    button {
+        margin: 0 10px;
+        padding: 5px 10px;
+        border: none;
+        background-color: #007bff;
+        color: white;
+        cursor: pointer;
+        border-radius: 4px;
+    }
+`;
+
+const Button = styled.button`
+    margin: 0 10px;
+    padding: 5px 10px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
+`;
