@@ -10,7 +10,7 @@
     justify-content: center;
     background-color: #EAECEE;
     width: 20%;
-    height: 100vh;
+    height: 110vh;
     margin-right: 3%;
 }
 
@@ -234,5 +234,9 @@
     .goal {
       width: 90%;
       border-radius: 15px;
+    }
+
+    .page_left {
+      height: 120vh;
     }
   }
