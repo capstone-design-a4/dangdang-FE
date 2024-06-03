@@ -276,6 +276,11 @@ const PageRight = styled.div`
 const CustomStatChartWrapper = styled.div`
     width: 100%;
     height: 80%;
+
+    @media (max-width: 960px) {
+        height: 50%;
+        width: 90%;
+    }
 `;
 
 const DateContainer = styled.div`
@@ -300,6 +305,20 @@ const DateContainer = styled.div`
         color: white;
         cursor: pointer;
         border-radius: 4px;
+    }
+
+    @media (max-width: 960px) {
+        button {
+            width: 40px;
+            height: 30px;
+            font-size: 10px;
+            margin: 0 3px;
+            font-weight: bold;s
+        }
+
+        input {
+            width: 15px;
+        }
     }
 `;
 

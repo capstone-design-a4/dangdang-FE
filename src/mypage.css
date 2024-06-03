@@ -179,7 +179,8 @@
     .imagechange_button,
     .goal_setting,
     .information_edit,
-    .logout_button {
+    .logout_button,
+    .repw_button {
       width: 80%;
       font-size: 18px;
     }
@@ -224,7 +225,8 @@
     .imagechange_button,
     .goal_setting,
     .information_edit,
-    .logout_button {
+    .logout_button,
+    .repw_button {
       width: 90%;
       font-size: 16px;
     }
