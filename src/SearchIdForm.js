@@ -18,9 +18,9 @@ function SearchIdForm() {
                 <button type="button" className="login_button">
                     <Link to="/loginformpage">로그인하기</Link>
                 </button>
-                <button type="button" className="pw_re_button">
+                {/* <button type="button" className="pw_re_button">
                     <Link to="/searchpwform">비밀번호 재설정</Link>
-                </button>
+                </button> */}
             </div>
         </div>
     );
