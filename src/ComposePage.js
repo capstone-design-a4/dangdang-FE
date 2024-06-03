@@ -3,7 +3,7 @@ import axios from 'axios';
 import MenuCard from './MenuCard';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
-// import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import UserContext from './UserContext';
 
 function ComposePage() {
@@ -13,6 +13,8 @@ function ComposePage() {
     const [buttonTexts, setButtonTexts] = useState({});
     const { user } = useContext(UserContext);
     const [todayDrinks, setTodayDrinks] = useState([]);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [filteredData, setFilteredData] = useState([]);
 
     const itemsPerPage = 10;
     const pagesPerGroup = 10;
@@ -82,6 +84,7 @@ function ComposePage() {
                     initialButtonTexts[item.id] = '담기';
                 });
                 setButtonTexts(initialButtonTexts);
+                setFilteredData(response.data);
             } else {
                 console.error('The response data is not an array:', response.data);
             }
@@ -91,9 +94,21 @@ function ComposePage() {
         });
     }, [user.authorities, user.email]);
 
+    useEffect(() => {
+        if (searchTerm === '') {
+            setFilteredData(menuData);
+        } else {
+            setFilteredData(menuData.filter(data =>
+                data.name.toLowerCase().includes(searchTerm.toLowerCase())
+            ));
+        }
+        setCurrentPage(1);
+        setPageGroup(0);
+    }, [searchTerm, menuData]);
+
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = menuData.slice(indexOfFirstItem, indexOfLastItem);
+    const currentItems = filteredData.slice(indexOfFirstItem, indexOfLastItem);
 
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
@@ -111,21 +126,39 @@ function ComposePage() {
         }
     };
 
-    const totalPages = Math.ceil(menuData.length / itemsPerPage);
+    const totalPages = Math.ceil(filteredData.length / itemsPerPage);
     const startPage = pageGroup * pagesPerGroup + 1;
     const endPage = Math.min(startPage + pagesPerGroup - 1, totalPages);
+
+    const handleSearchChange = (event) => {
+        setSearchTerm(event.target.value);
+    };
+
+    const handleLogoClick = () => {
+        setSearchTerm('');
+        setCurrentPage(1);
+        setPageGroup(0);
+    };
 
     return (
         <div>
             <div className="bkcolor_compose">
                 <div className="bdbox">
-                    <img src="compose.png" alt="로고" className="compose_logo" />
-                    <div className="bdboxup">컴포즈커피</div>
+                    <div className="logobox">
+                        <img src="compose.png" alt="로고" className="compose_logo" onClick={handleLogoClick} />
+                        <div className="bdboxup">컴포즈커피</div>
+                    </div>
                     <div className="bdboxdown">
-                         {/* <div className="bdsrh">
-                            <input type="text" className="bdtext" placeholder=" 음료 검색하기" />
+                        <div className="bdsrh">
+                            <input
+                                type="text"
+                                className="bdtext"
+                                placeholder="음료 검색하기"
+                                value={searchTerm}
+                                onChange={handleSearchChange}
+                            />
                             <button type="submit"><FontAwesomeIcon icon={faMagnifyingGlass} /></button>
-                        </div> */}
+                        </div>
                     </div>
                 </div>
             </div>

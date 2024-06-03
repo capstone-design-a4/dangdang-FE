@@ -13,7 +13,7 @@ function StarToday() {
     const [bookmarkedDrinks, setBookmarkedDrinks] = useState([]);
     const [todayDrinks, setTodayDrinks] = useState([]);
     const [heartColors, setHeartColors] = useState({});
-    const { user } = useContext(UserContext);
+    const { user, dailyStats, setDailyStats } = useContext(UserContext);
 
     useEffect(() => {
         const fetchBookmarkedDrinks = async () => {
@@ -78,8 +78,12 @@ function StarToday() {
         try {
             const response = await axios.post(`http://localhost:8080/api/drink-record?drinkId=${drinkId}`);
             if (response.status === 200) {
-                const response = await axios.get('http://localhost:8080/api/drink-record');
-                setTodayDrinks(response.data);
+                const response2 = await axios.get('http://localhost:8080/api/drink-record');
+                setTodayDrinks(response2.data);
+
+                const response3 = await axios.get('http://localhost:8080/api/record/day');
+                const { sugarIntake, calorieIntake, caffeineIntake } = response3.data.dayStat;
+                setDailyStats({ sugarIntake, calorieIntake, caffeineIntake });
             } else {
                 console.error("Failed to add drink to today's drinks, server responded with a status other than 200");
             }
@@ -93,6 +97,10 @@ function StarToday() {
             const response = await axios.delete(`http://localhost:8080/api/drink-record?drinkRecordId=${drinkRecordId}`);
             if (response.status === 200) {
                 setTodayDrinks(todayDrinks.filter(drink => drink.id !== drinkRecordId));
+
+                const response2 = await axios.get('http://localhost:8080/api/record/day');
+                const { sugarIntake, calorieIntake, caffeineIntake } = response2.data.dayStat;
+                setDailyStats({ sugarIntake, calorieIntake, caffeineIntake });
             } else {
                 console.error("Failed to delete the drink record from the API");
             }
@@ -152,6 +160,7 @@ function StarToday() {
                         />
                         <div className="today_right">
                             <FontAwesomeIcon icon={faHeart} style={{ color: getHeartColor(todayDrinks[0]?.drink?.id), fontSize: '40px' }} onClick={() => handleHeartClick(todayDrinks[0]?.drink?.id, getHeartColor(todayDrinks[0]?.drink?.id) === "#ff0000")} />
+
                             <button className="today_click" onClick={() => handleDeleteClick(todayDrinks[0]?.id)}>삭제</button>
                         </div>
                     </div>

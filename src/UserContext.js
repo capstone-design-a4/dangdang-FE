@@ -10,6 +10,12 @@ export const UserProvider = ({ children }) => {
         authorities: 'USER_ROLE'
     });
 
+    const [dailyStats, setDailyStats] = useState({
+        sugarIntake: 0,
+        caffeineIntake: 0,
+        calorieIntake: 0
+    });
+
     useEffect(() => {
         const storedIsLoggedIn = localStorage.getItem('isLoggedIn');
         const storedUserId = localStorage.getItem('email');
@@ -44,7 +50,7 @@ export const UserProvider = ({ children }) => {
     };
 
     return (
-        <UserContext.Provider value={{ user, handleLogin, handleLogout }}>
+        <UserContext.Provider value={{ user, handleLogin, handleLogout, dailyStats, setDailyStats }}>
             {children}
         </UserContext.Provider>
     );
