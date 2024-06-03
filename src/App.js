@@ -34,6 +34,9 @@ import CheongjaPage from './CheongjaPage.js';
 import CoffeebeanPage from './CoffeebeanPage.js';
 import MyPage from './MyPage.js';
 import TemPwForm from './TemPwForm.js';
+import CustomChartLegend from './CustomChartLegend.js';
+import CustomChartTooltip from './CustomChartTooltip.js';
+import CustomStatChart from './CustomStatChart.js';
 import UserContext, { UserProvider } from './UserContext';
 
 import './login.css';
@@ -124,6 +127,9 @@ function App() {
                     <Route path="/coffeebeanpage" element={<CoffeebeanPage />} />
                     <Route path="/mypage" element={<MyPage />} />
                     <Route path="/tempwform" element={<TemPwForm />} />
+                    <Route path="/customchartlegend" element={<CustomChartLegend />} />
+                    <Route path="/customcharttooltip" element={<CustomChartTooltip />} />
+                    <Route path="/customstatchart" element={<CustomStatChart />} />
                 </Routes>
             </div>
         </Router>
