@@ -130,21 +130,52 @@ function MyPage() {
                         <img src={previewUrl || "dangdang.png"} alt="당당 프로필" className="login_img" />
                     </div>
 
-                    <div className="my_name">{name}님</div>
+                    <div className="my_name">{name} 님</div>
                     <div className="button_list">
-                        <button onClick={openProfileModal} className="imagechange_button">프로필 변경</button>
-                        <button onClick={openModal} className="goal_setting">목표설정하기</button>
-                        <div className="goal">
-                            <div className="goal_text">목표 설정</div>
+                        <div className="sugar">
+                            <img src="dangbw.png" alt="당함량 이미지" className="dang_img"/>
                             <p className="goal_sugar">{sugarGoal}g</p>
+                        </div>
+
+                        <div className="caffeine">
+                            <img src="caffeinebw.png" alt="카페인함량 이미지" className="caf_img"/>
                             <p className="goal_caffeine">{caffeineGoal}mg</p>
                         </div>
-                        <button onClick={openInfoModal} type="button" className="information_edit">회원정보수정</button>
-                        <button className="repw_button" onClick={handlePasswordReset}>비밀번호 재설정</button>
-                        <button type="button" className="logout_button" onClick={handleLogoutAndRedirect}>
-                            로그아웃
-                        </button>
+                            
+                        <div className="boxup">
+                            <div className="imgedit_box" onClick={openProfileModal}>
+                                <img src="imgedit.png" alt="프로필변경 이미지" className="imgedit_img"/>
+                                프로필 변경
+                            </div>
+
+                            <div className="goalset_box" onClick={openModal}>
+                                <img src="goalset.png" alt="목표설정 이미지" className="goalset_img"/>
+                                목표설정
+                            </div>
+                        </div>
+
+                        <div className="boxdown">
+                            <div className="infoedit_box" onClick={openInfoModal}>
+                                <img src="infoedit.png" alt="회원정보수정 이미지" className="infoedit_img"/>
+                                회원정보수정
+                            </div>
+
+                            <div className="pwdre_box" onClick={handlePasswordReset}>
+                                <img src="pwdre.png" alt="비번재설정 이미지" className="pwdre_img"/>
+                                비밀번호 재설정
+                            </div>
+                        </div>
+
+                        {/* <button onClick={openProfileModal} className="imagechange_button">프로필 변경</button> */}
+                        {/* <button onClick={openModal} className="goal_setting">목표설정하기</button> */}
+                        {/* <button onClick={openInfoModal} type="button" className="information_edit">회원정보수정</button> */}
+                        {/* <button className="repw_button" onClick={handlePasswordReset}>비밀번호 재설정</button> */}
+                        {/* <button type="button" className="logout_button" onClick={handleLogoutAndRedirect}>로그아웃</button> */}
                     </div>
+                    <div className="logout_box" onClick={handleLogoutAndRedirect}>
+                            <img src="logout.png" alt="비번재설정 이미지" className="logout_img"/>
+                            로그아웃
+                        </div>
                 </div>
 
                 <PageRight className="page_right">

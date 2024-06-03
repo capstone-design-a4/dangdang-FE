@@ -7,8 +7,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    background-color: #EAECEE;
+    /* justify-content: center; */
+    /* background-color: #EAECEE; */
     width: 20%;
     height: 110vh;
     margin-right: 3%;
@@ -22,11 +22,82 @@
     margin-bottom: 10%;
 }
 
-.button_list{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+.my_name{
+  font-size: 25px;
+  color: #39A7FF;
+  font-weight: bold;
+}
+
+.button_list img, .logout_box img{
+  width: 80px;
+  height: 80px;
+}
+
+.button_list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 300px; 
+  border: 4px solid #87C4FF;
+  border-radius: 15px;
+  margin-top: 50px;
+  margin-bottom: 80px;
+}
+
+.button_list div{
+  font-size: 19px;
+  font-weight: bold;
+}
+
+.sugar, .caffeine {
+  display: flex;
+  border-bottom: 1px solid #87C4FF;
+  align-items: center;
+  justify-content: center;
+  width:300px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.sugar p, .caffeine p{
+  width:180px;
+}
+
+.boxup, .boxdown {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.boxup{
+  border-bottom: 1px solid #87C4FF;
+}
+
+.imgedit_box, .infoedit_box{
+  border-right: 1px solid #87C4FF;
+}
+
+.imgedit_box, .goalset_box, .infoedit_box, .pwdre_box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 150px;
+  height: 100px;
+  flex-direction: column;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  cursor: pointer;
+}
+
+.logout_box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100px;
+  cursor: pointer;
+  font-size: 19px;
+  font-weight: bold;
 }
 
 .imagechange_button, .goal_setting, .information_edit, .logout_button, .repw_button{

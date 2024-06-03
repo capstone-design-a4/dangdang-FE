@@ -85,7 +85,7 @@ function LoginHomePage() {
                         {dailyStats.sugarIntake > sugarGoal ? (
                             <React.Fragment>
                                 <div className="hello_dang">목표량보다 {dailyStats.sugarIntake - sugarGoal}g</div>
-                                <div className="hello_ment">더 섭취했어요..</div>
+                                <div className="hello_ment">더 섭취했어요</div>
                             </React.Fragment>
                         ) : (
                             <React.Fragment>
