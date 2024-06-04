@@ -7,8 +7,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* justify-content: center; */
-    /* background-color: #EAECEE; */
     width: 20%;
     height: 110vh;
     margin-right: 3%;
@@ -26,6 +24,11 @@
   font-size: 25px;
   color: #39A7FF;
   font-weight: bold;
+}
+
+.my_name::after {
+  color: black;
+  content: " 님";
 }
 
 .button_list img, .logout_box img{
@@ -69,15 +72,15 @@
   justify-content: center;
 }
 
-.boxup{
+.boxup, .boxdown{
   border-bottom: 1px solid #87C4FF;
 }
 
-.imgedit_box, .infoedit_box{
+.imgedit_box, .pwdre_box{
   border-right: 1px solid #87C4FF;
 }
 
-.imgedit_box, .goalset_box, .infoedit_box, .pwdre_box {
+.imgedit_box, .goalset_box, .pwdre_box, .logout_box{
   display: flex;
   align-items: center;
   justify-content: center;
@@ -87,55 +90,6 @@
   padding-top: 15px;
   padding-bottom: 15px;
   cursor: pointer;
-}
-
-.logout_box {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100px;
-  cursor: pointer;
-  font-size: 19px;
-  font-weight: bold;
-}
-
-.imagechange_button, .goal_setting, .information_edit, .logout_button, .repw_button{
-    width: 150%;
-    height:45px;
-    border-radius: 15px;
-    font-weight: 700;
-    font-size: 20px;
-    border-style: none;
-    text-align: center;
-}
-
-.imagechange_button, .goal_setting{
-    color: #FFFFFF;
-}
-
-.information_edit, .logout_button, .repw_button{
-    color: white;
-    background-color: #87C4FF;
-}
-
-.imagechange_button{
-    margin-top: 5%;
-    background-color: #87C4FF;
-    margin-bottom: 5%;
-}
-
-.goal_setting{
-    background-color: #39A7FF;
-    margin-bottom: 15%;
-}
-
-.goal {
-  background-color: #D9D9D9;
-  height: 200px;
-  border-radius: 15%;
-  width: 150%;
-  text-align: center;
 }
 
 .goal_text,
@@ -158,18 +112,6 @@
 .goal_caffeine {
   font-size: 30px;
   font-weight: bold;
-}
-
-.information_edit{
-  margin-top: 10%;
-}
-
-.logout_button{
-  margin-top: 5%;
-}
-
-.repw_button {
-  margin-top: 5%;
 }
 
 .profile_img > img {
@@ -246,15 +188,7 @@
     .button_list {
       width: 80%;
     }
-  
-    .imagechange_button,
-    .goal_setting,
-    .information_edit,
-    .logout_button,
-    .repw_button {
-      width: 80%;
-      font-size: 18px;
-    }
+
   
     .goal {
       width: 80%;
@@ -281,8 +215,6 @@
     }
   }
   
-
-
   @media only screen and (max-width: 960px) {
     .search {
       width: 50%;
@@ -292,16 +224,7 @@
     .button_list {
       width: 90%;
     }
-  
-    .imagechange_button,
-    .goal_setting,
-    .information_edit,
-    .logout_button,
-    .repw_button {
-      width: 90%;
-      font-size: 16px;
-    }
-  
+
     .goal {
       width: 90%;
       border-radius: 15px;
