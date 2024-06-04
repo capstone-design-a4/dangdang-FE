@@ -5,8 +5,10 @@ import UserContext from './UserContext';
 
 function Navbar() {
     const { user, handleLogout } = useContext(UserContext);
-    const name = user.email ? user.email.split('@')[0] : ''; // email이 유효한 경우에만 사용
+    const name = user.email ? user.email.split('@')[0] : '';
     const homePage = user.isLoggedIn ? '/loginhomepage' : '/';
+
+    const myPageLink = user.isLoggedIn ? '/mypage' : '/loginpage';
 
     return (
         <div className="nav">
@@ -16,8 +18,7 @@ function Navbar() {
             </div>
             <ul className="nav_menu">
                 <li><Link to={homePage} className="home">홈</Link></li>
-                <li><Link to="/mypage" className="mypage">마이페이지</Link></li>
-                {/* <li><Link to="*" className="community">커뮤니티</Link></li> */}
+                <li><Link to={myPageLink} className="mypage">마이페이지</Link></li>
             </ul>
             <ul className="nav_login">
                 {user.isLoggedIn ? (
