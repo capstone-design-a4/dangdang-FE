@@ -2,8 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import MenuCard from './MenuCard';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart } from '@fortawesome/free-solid-svg-icons';
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { faHeart, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import UserContext from './UserContext';
 
 function StarbucksPage() {
@@ -29,33 +28,39 @@ function StarbucksPage() {
 
     const handleHeartClick = async (id, isBookmarked) => {
         try {
-            const response = isBookmarked 
-                ? await axios.delete(`http://localhost:8080/api/bookmark?drinkId=${id}`, {
-                    headers: {
-                        'X-Auth-Username': user.email,
-                        'X-Auth-Authorities': user.authorities
-                    }
-                })
-                : await axios.post(`http://localhost:8080/api/bookmark?drinkId=${id}`, null, {
+            let response;
+            if (isBookmarked) {
+                response = await axios.delete(`http://localhost:8080/api/bookmark?drinkId=${id}`, {
                     headers: {
                         'X-Auth-Username': user.email,
                         'X-Auth-Authorities': user.authorities
                     }
                 });
-
+            } else {
+                response = await axios.post(`http://localhost:8080/api/bookmark?drinkId=${id}`, null, {
+                    headers: {
+                        'X-Auth-Username': user.email,
+                        'X-Auth-Authorities': user.authorities
+                    }
+                });
+            }
+    
             if (response.status === 200) {
-                setMenuData(prevMenuData => prevMenuData.map(item => item.id === id ? { ...item, bookmarked: !isBookmarked } : item));
+                const updatedData = filteredData.map(item =>
+                    item.id === id ? { ...item, bookmarked: !isBookmarked } : item
+                );
+                setFilteredData(updatedData);
             } else {
                 console.error(`Failed to ${isBookmarked ? 'remove from' : 'add to'} bookmarks, server responded with a status other than 200`);
             }
         } catch (error) {
             console.error(`Error toggling bookmark: ${error}`);
         }
-    };
+    };    
 
     const handleButtonClick = async (id) => {
         const drinkToAdd = menuData.find(item => item.id === id);
-    
+
         if (drinkToAdd) {
             try {
                 const response = await axios.post(`http://localhost:8080/api/drink-record?drinkId=${id}`, null, {
@@ -64,9 +69,13 @@ function StarbucksPage() {
                         'X-Auth-Authorities': user.authorities
                     }
                 });
-    
+
                 if (response.status === 200) {
                     setTodayDrinks([...todayDrinks, drinkToAdd]);
+                    setButtonTexts(prevTexts => ({
+                        ...prevTexts,
+                        [id]: '추가됨' // 또는 원하는 텍스트로 변경
+                    }));
                 } else {
                     console.error("Failed to add the selected drink to today's drinks.");
                 }
@@ -107,8 +116,9 @@ function StarbucksPage() {
         if (searchTerm === '') {
             setFilteredData(menuData);
         } else {
+            const lowercasedSearchTerm = searchTerm.toLowerCase();
             setFilteredData(menuData.filter(data =>
-                data.name.toLowerCase().includes(searchTerm.toLowerCase())
+                data.name.toLowerCase().includes(lowercasedSearchTerm)
             ));
         }
         setCurrentPage(1);
@@ -158,7 +168,7 @@ function StarbucksPage() {
                         <div className="bdboxup">스타벅스</div>
                     </div>
                     <div className="bdboxdown">
-                         <div className="bdsrh">
+                        <div className="bdsrh">
                             <input
                                 type="text"
                                 className="bdtext"
@@ -173,25 +183,29 @@ function StarbucksPage() {
             </div>
 
             <div className="star_menu">
-            {Array.isArray(currentItems) &&
-                currentItems.map((data) => (
-                    <div className="first_menu" key={data.id}>
-                        <MenuCard
-                            key={data.id}
-                            imageSrc={data.imageUrl}
-                            brand={data.cafeName}
-                            name={data.name}
-                            sugar={`${data.sugar}g`}
-                            calorie={`${data.calorie}kcal`}
-                            caffeine={`${data.caffeine}mg`}
-                            bookmarked={data.bookmarked}
-                        />
-                    <div className="menu_right">
-                        <FontAwesomeIcon icon={faHeart} style={{ color: data.bookmarked ? 'red' : '#D9D9D9', fontSize: '40px', cursor:'pointer'}} onClick={() => handleHeartClick(data.id, data.bookmarked)}/>
-                        <button className="today_click" onClick={() => handleButtonClick(data.id)}> {buttonTexts[data.id]}</button>
-                    </div>
-                </div>
-                ))}
+                {Array.isArray(currentItems) &&
+                    currentItems.map((data) => (
+                        <div className="first_menu" key={data.id}>
+                            <MenuCard
+                                imageSrc={data.imageUrl}
+                                brand={data.cafeName}
+                                name={data.name}
+                                sugar={`${data.sugar}g`}
+                                calorie={`${data.calorie}kcal`}
+                                caffeine={`${data.caffeine}mg`}
+                                bookmarked={data.bookmarked}
+                            />
+                            <div className="menu_right">
+                                <FontAwesomeIcon 
+                                    icon={faHeart} 
+                                    style={{ color: data.bookmarked ? 'red' : '#D9D9D9', fontSize: '40px', cursor: 'pointer' }} 
+                                    onClick={() => handleHeartClick(data.id, data.bookmarked)} 
+                                />
+                                <button className="today_click" onClick={() => handleButtonClick(data.id)}>{buttonTexts[data.id]}</button>
+                            </div>
+                        </div>
+                    ))
+                }
             </div>
 
             <div className="pagination">
@@ -211,7 +225,6 @@ function StarbucksPage() {
                     <button onClick={handleNextPageGroup}>&gt;</button>
                 )}
             </div>
-
         </div>
     );
 }

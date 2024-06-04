@@ -227,10 +227,47 @@ i {
         margin-left: 1%;
     }
 
+    .bdboxup{
+        display: flex;
+        align-items: center;
+        font-size:50px;
+    }
+
+    .bdsrh{
+        width:300px;
+    }
+}
+
+@media (max-width:690px) {
+    .bdboxup{
+        font-size:50px;
+    }
+
+    .bdsrh{
+        width:250px;
+    }
+}
+
+@media (max-width:645px) {
+    .bdboxup{
+        font-size:40px;
+    }
+
+    .bdsrh{
+        width:200px;
+    }
 }
 
 @media (max-width:520px) {
     .first_name{
         font-size: 17px;
+    }
+
+    .bdboxup{
+        font-size:30px;
+    }
+
+    .bdsrh{
+        width:150px;
     }
 }
