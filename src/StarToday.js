@@ -133,7 +133,7 @@ function StarToday() {
                             calorie={`${bookmarkedDrinks[0]?.calorie}kcal`}
                         />
                         <div className="star_right">
-                            <FontAwesomeIcon icon={faHeart} style={{ color: getHeartColor(bookmarkedDrinks[0]?.id), fontSize: '40px' }} onClick={() => handleHeartClick(bookmarkedDrinks[0]?.id, true)} />
+                            <FontAwesomeIcon icon={faHeart} style={{ color: getHeartColor(bookmarkedDrinks[0]?.id), fontSize: '40px', cursor:'pointer' }} onClick={() => handleHeartClick(bookmarkedDrinks[0]?.id, true)} />
                             <button className="star_click" onClick={() => handleStarClick(bookmarkedDrinks[0]?.id)}>담기</button>
                         </div>
                     </div>
@@ -159,7 +159,7 @@ function StarToday() {
                             calorie={`${todayDrinks[0]?.drink?.calorie}kcal`}
                         />
                         <div className="today_right">
-                            <FontAwesomeIcon icon={faHeart} style={{ color: getHeartColor(todayDrinks[0]?.drink?.id), fontSize: '40px' }} onClick={() => handleHeartClick(todayDrinks[0]?.drink?.id, getHeartColor(todayDrinks[0]?.drink?.id) === "#ff0000")} />
+                            <FontAwesomeIcon icon={faHeart} style={{ color: getHeartColor(todayDrinks[0]?.drink?.id), fontSize: '40px', cursor:'pointer' }} onClick={() => handleHeartClick(todayDrinks[0]?.drink?.id, getHeartColor(todayDrinks[0]?.drink?.id) === "#ff0000")} />
 
                             <button className="today_click" onClick={() => handleDeleteClick(todayDrinks[0]?.id)}>삭제</button>
                         </div>

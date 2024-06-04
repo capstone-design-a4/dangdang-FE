@@ -5,13 +5,10 @@ import axios from 'axios';
 import UserContext from './UserContext';
 
 function LoginHomePage() {
-    const initialSugarGoal = localStorage.getItem('sugarGoal') || '';
-    const initialCaffeineGoal = localStorage.getItem('caffeineGoal') || '';
-
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [todayDate, setTodayDate] = useState(getTodayDate());
-    const [sugarGoal, setSugarGoal] = useState(initialSugarGoal);
-    const [caffeineGoal, setCaffeineGoal] = useState(initialCaffeineGoal);
+    const [sugarGoal, setSugarGoal] = useState('');
+    const [caffeineGoal, setCaffeineGoal] = useState('');
     const { user, dailyStats, setDailyStats } = useContext(UserContext);
 
     const openModal = () => {
@@ -43,8 +40,6 @@ function LoginHomePage() {
                 if (response.status === 200) {
                     setTodayDate(getTodayDate());
                     setIsModalOpen(false);
-                    setSugarGoal('');
-                    setCaffeineGoal('');
                 } else {
                     console.log('Error:', response.status);
                 }
@@ -52,24 +47,28 @@ function LoginHomePage() {
                 console.error('Error:', error);
             }
         }
-
-        localStorage.setItem('sugarGoal', sugarGoal);
-        localStorage.setItem('caffeineGoal', caffeineGoal);
     };
 
     useEffect(() => {
-        const fetchDailyStats = async () => {
+        const fetchUserGoals = async () => {
             try {
-                const response = await axios.get('http://localhost:8080/api/record/day');
+                const response = await axios.get('http://localhost:8080/api/record/day', {
+                    headers: {
+                        'X-Auth-Username': user.email,
+                        'X-Auth-Authorities': user.authorities
+                    }
+                });
+                setSugarGoal(response.data.sugar_goal);
+                setCaffeineGoal(response.data.caffeine_goal);
                 const { sugarIntake, calorieIntake, caffeineIntake } = response.data.dayStat;
                 setDailyStats({ sugarIntake, calorieIntake, caffeineIntake });
             } catch (error) {
-                console.error('Error fetching daily stats: ', error);
+                console.error('Error fetching user goals: ', error);
             }
         };
 
-        fetchDailyStats();
-    }, [setDailyStats]);
+        fetchUserGoals();
+    }, [user, setDailyStats]);
 
     const calculateWidth = (value, goal) => {
         return (value / goal) * 100 + '%';
@@ -83,15 +82,15 @@ function LoginHomePage() {
                     <img src="dangdang.png" alt="로고" className="hello_logo" />
                     <div className="hello_user">
                         {dailyStats.sugarIntake > sugarGoal ? (
-                            <React.Fragment>
+                            <>
                                 <div className="hello_dang">목표량보다 {dailyStats.sugarIntake - sugarGoal}g</div>
                                 <div className="hello_ment">더 섭취했어요</div>
-                            </React.Fragment>
+                            </>
                         ) : (
-                            <React.Fragment>
+                            <>
                                 <div className="hello_dang">{sugarGoal - dailyStats.sugarIntake}g</div>
                                 <div className="hello_ment">더 마실 수 있어요!</div>
-                            </React.Fragment>
+                            </>
                         )}
                     </div>
 

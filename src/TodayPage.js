@@ -145,7 +145,7 @@ function TodayPage() {
                                 calorie={`${record.drink.calorie}kcal`}
                             />
                             <div className="menu_right">
-                                <FontAwesomeIcon icon={faHeart} style={{ color: getHeartColor(record.drink.id), fontSize: '40px' }} onClick={() => handleHeartClick(record.drink.id)} />
+                                <FontAwesomeIcon icon={faHeart} style={{ color: getHeartColor(record.drink.id), fontSize: '40px', cursor:'pointer' }} onClick={() => handleHeartClick(record.drink.id)} />
                                 <button className="today_click" onClick={() => handleDeleteClick(record.id)}>삭제</button>
                             </div>
                         </div>

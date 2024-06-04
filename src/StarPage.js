@@ -105,7 +105,7 @@ function StarPage() {
                                 calorie={`${bookmarkedDrink.calorie}kcal`}
                             />
                             <div className="menu_right">
-                                <FontAwesomeIcon icon={faHeart} style={{ color: '#ff0000', fontSize: '40px' }} onClick={() => handleHeartClick(bookmarkedDrink.id)} />
+                                <FontAwesomeIcon icon={faHeart} style={{ color: '#ff0000', fontSize: '40px', cursor:'pointer' }} onClick={() => handleHeartClick(bookmarkedDrink.id)} />
                                 <button className="star_click" onClick={() => handleStarClick(bookmarkedDrink.id)}>담기</button>
                             </div>
                         </div>

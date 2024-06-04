@@ -178,7 +178,7 @@ function CheongjaPage() {
                             bookmarked={data.bookmarked}
                         />
                     <div className="menu_right">
-                        <FontAwesomeIcon icon={faHeart} style={{ color: data.bookmarked ? 'red' : '#D9D9D9', fontSize: '40px' }} onClick={() => handleHeartClick(data.id, data.bookmarked)}/>
+                        <FontAwesomeIcon icon={faHeart} style={{ color: data.bookmarked ? 'red' : '#D9D9D9', fontSize: '40px', cursor:'pointer' }} onClick={() => handleHeartClick(data.id, data.bookmarked)}/>
                         <button className="today_click" onClick={() => handleButtonClick(data.id)}> {buttonTexts[data.id]}</button>
                     </div>
                 </div>

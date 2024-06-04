@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import UserContext from './UserContext';
 import axios from 'axios';
 import styled from 'styled-components';
-import UserFluctuationChart from './CustomStatChart';
 import CustomStatChart from './CustomStatChart';
 
 function MyPage() {
@@ -20,11 +19,9 @@ function MyPage() {
         navigate('/'); // logouthomepage로 이동
     };
 
-    const initialSugarGoal = localStorage.getItem('sugarGoal') || '';
-    const initialCaffeineGoal = localStorage.getItem('caffeineGoal') || '';
     const [todayDate, setTodayDate] = useState(getTodayDate());
-    const [sugarGoal, setSugarGoal] = useState(initialSugarGoal);
-    const [caffeineGoal, setCaffeineGoal] = useState(initialCaffeineGoal);
+    const [sugarGoal, setSugarGoal] = useState('');
+    const [caffeineGoal, setCaffeineGoal] = useState('');
 
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
@@ -38,6 +35,25 @@ function MyPage() {
         return `${year}년 ${month}월 ${day}일`;
     }
 
+    useEffect(() => {
+        const fetchUserGoals = async () => {
+            try {
+                const response = await axios.get('http://localhost:8080/api/record/day', {
+                    headers: {
+                        'X-Auth-Username': user.email,
+                        'X-Auth-Authorities': user.authorities
+                    }
+                });
+                setSugarGoal(response.data.sugar_goal);
+                setCaffeineGoal(response.data.caffeine_goal);
+            } catch (error) {
+                console.error('Error fetching user goals: ', error);
+            }
+        };
+
+        fetchUserGoals();
+    }, [user]);
+
     const openModal = () => {
         setIsModalOpen(true);
     };
@@ -49,6 +65,7 @@ function MyPage() {
     const handleFileChange = (event) => {
         const file = event.target.files[0];
         setSelectedFile(file);
+
         if (file) {
             const reader = new FileReader();
             reader.onloadend = () => {
@@ -58,11 +75,46 @@ function MyPage() {
         }
     };
 
-    const setGoal = () => {
-        localStorage.setItem('sugarGoal', sugarGoal);
-        localStorage.setItem('caffeineGoal', caffeineGoal);
-        setTodayDate(getTodayDate());
-        setIsModalOpen(false);
+    const handleFileUpload = () => {
+        if (selectedFile) {
+            const formData = new FormData();
+            formData.append('file', selectedFile);
+
+            axios.post('http://localhost:8080/api/user/profile-picture', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'X-Auth-Username': user.email,
+                    'X-Auth-Authorities': user.authorities
+                }
+            })
+                .then(response => {
+                    console.log('File uploaded successfully');
+                })
+                .catch(error => {
+                    console.error('Error uploading file:', error);
+                });
+        }
+    };
+
+    const setGoal = async () => {
+        if (user.isLoggedIn) {
+            try {
+                const response = await axios.put(`http://localhost:8080/api/record/goal?sugar_goal=${sugarGoal}&caffeine_goal=${caffeineGoal}`, {}, {
+                    headers: {
+                        'X-Auth-Username': user.email,
+                        'X-Auth-Authorities': user.authorities
+                    }
+                });
+                console.log(response.data);
+                if (response.status === 200) {
+                    setIsModalOpen(false);
+                } else {
+                    console.log('Error:', response.status);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
     };
 
     const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
@@ -114,7 +166,6 @@ function MyPage() {
     };
 
     const handleCustomDateChange = () => {
-        // 날짜가 올바른지 확인 (유효성 검사 등 추가 가능)
         if (new Date(startDate) > new Date(endDate)) {
             alert("시작 날짜가 끝나는 날짜보다 이후일 수 없습니다.");
             return;
@@ -161,7 +212,7 @@ function MyPage() {
                             </div>
 
                             <div className="logout_box" onClick={handleLogoutAndRedirect}>
-                            <img src="logout.png" alt="비번재설정 이미지" className="logout_img"/>
+                            <img src="logout.png" alt="로그아웃 이미지" className="logout_img"/>
                             로그아웃
                             </div>
                         </div>
