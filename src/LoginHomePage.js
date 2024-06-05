@@ -10,6 +10,7 @@ function LoginHomePage() {
     const [sugarGoal, setSugarGoal] = useState('');
     const [caffeineGoal, setCaffeineGoal] = useState('');
     const { user, dailyStats, setDailyStats } = useContext(UserContext);
+    const [imageUrl, setImageUrl] = useState('');
 
     const openModal = () => {
         setIsModalOpen(true);
@@ -70,6 +71,32 @@ function LoginHomePage() {
         fetchUserGoals();
     }, [user, setDailyStats]);
 
+    useEffect(() => {
+        const fetchUserImage = async () => {
+            try {
+                const response = await axios.get(`http://localhost:8080/api/member/image/${user.id}`, {
+                    responseType: 'blob',
+                    headers: {
+                        'accept': 'image/jpeg'
+                    }
+                });
+
+                const imageURL = URL.createObjectURL(response.data);
+                setImageUrl(imageURL);
+                localStorage.setItem(`userImageUrl_${user.id}`, imageURL);
+            } catch (error) {
+                console.error('Error fetching user image: ', error);
+            }
+        };
+
+        const storedImageUrl = localStorage.getItem(`userImageUrl_${user.id}`);
+        if (storedImageUrl) {
+            setImageUrl(storedImageUrl);
+        } else {
+            fetchUserImage();
+        }
+    }, [user.id]);
+
     const calculateWidth = (value, goal) => {
         return (value / goal) * 100 + '%';
     };
@@ -79,7 +106,7 @@ function LoginHomePage() {
             <div className="container">
                 <div className="hello_box">
                     <div className="date">{todayDate} 목표!</div>
-                    <img src="dangdang.png" alt="로고" className="hello_logo" />
+                    <img src={imageUrl ? imageUrl : "dangdang.png"} alt="로고" className="hello_logo" />
                     <div className="hello_user">
                         {dailyStats.sugarIntake > sugarGoal ? (
                             <>

@@ -11,21 +11,25 @@ function MyPage() {
     const [previewUrl, setPreviewUrl] = useState(null);
     const navigate = useNavigate();
 
+    const [imageUrl, setImageUrl] = useState('');
+
     const { user, handleLogout } = useContext(UserContext);
     const name = user.email ? user.email.split('@')[0] : '';
 
     const handleLogoutAndRedirect = async () => {
+        localStorage.removeItem(`userImageUrl_${user.id}`); // 로그아웃 시 로컬스토리지에서 이미지 URL 삭제
         await handleLogout(); // 로그아웃 처리
         navigate('/'); // logouthomepage로 이동
     };
 
-    const [todayDate, setTodayDate] = useState(getTodayDate());
     const [sugarGoal, setSugarGoal] = useState('');
     const [caffeineGoal, setCaffeineGoal] = useState('');
 
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
     const [dateRange, setDateRange] = useState('7'); // 기본값은 7일
+
+    const [memberId, setMemberId] = useState(user.id);
 
     function getTodayDate() {
         const today = new Date();
@@ -54,6 +58,32 @@ function MyPage() {
         fetchUserGoals();
     }, [user]);
 
+    useEffect(() => {
+        const fetchUserImage = async () => {
+            try {
+                const response = await axios.get(`http://localhost:8080/api/member/image/${memberId}`, {
+                    responseType: 'blob',
+                    headers: {
+                        'accept': 'image/jpeg'
+                    }
+                });
+
+                const imageURL = URL.createObjectURL(response.data);
+                setImageUrl(imageURL);
+                localStorage.setItem(`userImageUrl_${memberId}`, imageURL); // Store imageUrl in localStorage with memberId
+            } catch (error) {
+                console.error('Error fetching user image: ', error);
+            }
+        };
+
+        const storedImageUrl = localStorage.getItem(`userImageUrl_${memberId}`);
+        if (storedImageUrl) {
+            setImageUrl(storedImageUrl);
+        } else {
+            fetchUserImage();
+        }
+    }, [memberId]);
+
     const openModal = () => {
         setIsModalOpen(true);
     };
@@ -72,27 +102,6 @@ function MyPage() {
                 setPreviewUrl(reader.result);
             };
             reader.readAsDataURL(file);
-        }
-    };
-
-    const handleFileUpload = () => {
-        if (selectedFile) {
-            const formData = new FormData();
-            formData.append('file', selectedFile);
-
-            axios.post('http://localhost:8080/api/user/profile-picture', formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                    'X-Auth-Username': user.email,
-                    'X-Auth-Authorities': user.authorities
-                }
-            })
-                .then(response => {
-                    console.log('File uploaded successfully');
-                })
-                .catch(error => {
-                    console.error('Error uploading file:', error);
-                });
         }
     };
 
@@ -127,30 +136,26 @@ function MyPage() {
         setIsProfileModalOpen(false);
     };
 
-    const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
-
-    const openInfoModal = () => {
-        setIsInfoModalOpen(true);
-    };
-
-    const closeInfoModal = () => {
-        setIsInfoModalOpen(false);
-    };
-
     const handleConfirm = () => {
         if (previewUrl) {
-            // 백에서 프로필 변경 api 받으면 넣기
-            axios.post('http://example.com/updateProfileImage', { image: previewUrl })
+            const formData = new FormData();
+            formData.append('file', selectedFile);
+
+            axios.post('http://localhost:8080/api/member/image', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                }
+            })
                 .then(response => {
-                    // 이미지 업데이트 성공 시
-                    console.log('프로필 이미지 업데이트 성공:', response.data);
+                    console.log('File uploaded successfully');
+                    // 이미지 업로드에 성공한 경우 작업 추가
+                    setImageUrl(previewUrl); // 업로드된 이미지를 즉시 반영
+                    localStorage.setItem(`userImageUrl_${memberId}`, previewUrl); // 저장소에도 반영
                 })
                 .catch(error => {
-                    // 이미지 업데이트 실패 시
-                    console.error('프로필 이미지 업데이트 에러:', error);
+                    console.error('Error uploading file:', error);
                 });
         }
-
         // 확인 버튼 클릭 후 프로필 모달 닫기
         setIsProfileModalOpen(false);
     };
@@ -178,7 +183,7 @@ function MyPage() {
             <div className="page">
                 <div className="page_left">
                     <div className="page_box">
-                        <img src={previewUrl || "dangdang.png"} alt="당당 프로필" className="login_img" />
+                        <img src={imageUrl ? imageUrl : "dangdang.png"} alt="당당 프로필" className="login_img" />
                     </div>
 
                     <div className="my_name">{name}</div>
@@ -306,34 +311,12 @@ function MyPage() {
                     </div>
                 </div>
             )}
-
-            {isInfoModalOpen && (
-                <div className="modal">
-                    <div className="modal-content">
-                        <span className="close" onClick={closeInfoModal}>&times;</span>
-                        <div className="infochange">회원정보 수정</div>
-
-                        <div className="input-container">
-                            <input type="text" className="name" name="name" placeholder="이름" />
-                            <input type="tel" className="phonenumber" name="phonenumber" placeholder="핸드폰번호(-없이 입력해주세요)" />
-                            <input type="email" className="email" name="email" placeholder="이메일 주소" />
-                            <select name="gender" className="gender">
-                                <option value="MALE">남자</option>
-                                <option value="FEMALE">여자</option>
-                            </select>
-                        </div>
-
-                        <div className="modal_buttons">
-                            <button type="submit" className="ok_modal_button">확인</button>
-                        </div>
-                    </div>
-                </div>
-            )}
         </div>
     );
 }
 
 export default MyPage;
+
 
 const PageRight = styled.div`
     flex: 4;
