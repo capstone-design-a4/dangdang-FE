@@ -74,28 +74,32 @@ function LoginHomePage() {
     useEffect(() => {
         const fetchUserImage = async () => {
             try {
-                const response = await axios.get(`http://localhost:8080/api/member/image/${user.id}`, {
+                const response = await axios.get(`http://localhost:8080/api/member/info`, {
+                    headers: {
+                        'X-Auth-Username': user.email,
+                        'X-Auth-Authorities': user.authorities
+                    }
+                });
+    
+                const memberId = response.data.id;
+                const responseImage = await axios.get(`http://localhost:8080/api/member/image/${memberId}`, {
                     responseType: 'blob',
                     headers: {
                         'accept': 'image/jpeg'
                     }
                 });
-
-                const imageURL = URL.createObjectURL(response.data);
+    
+                const imageURL = URL.createObjectURL(responseImage.data);
                 setImageUrl(imageURL);
-                localStorage.setItem(`userImageUrl_${user.id}`, imageURL);
+                localStorage.setItem(`userImageUrl_${memberId}`, imageURL);
             } catch (error) {
                 console.error('Error fetching user image: ', error);
             }
         };
-
-        const storedImageUrl = localStorage.getItem(`userImageUrl_${user.id}`);
-        if (storedImageUrl) {
-            setImageUrl(storedImageUrl);
-        } else {
-            fetchUserImage();
-        }
-    }, [user.id]);
+    
+        fetchUserImage();
+    }, [user.id, user.email, user.authorities]);
+    
 
     const calculateWidth = (value, goal) => {
         return (value / goal) * 100 + '%';

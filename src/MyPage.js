@@ -61,28 +61,32 @@ function MyPage() {
     useEffect(() => {
         const fetchUserImage = async () => {
             try {
-                const response = await axios.get(`http://localhost:8080/api/member/image/${memberId}`, {
+                const response = await axios.get(`http://localhost:8080/api/member/info`, {
+                    headers: {
+                        'X-Auth-Username': user.email,
+                        'X-Auth-Authorities': user.authorities
+                    }
+                });
+    
+                const memberId = response.data.id;
+                const responseImage = await axios.get(`http://localhost:8080/api/member/image/${memberId}`, {
                     responseType: 'blob',
                     headers: {
                         'accept': 'image/jpeg'
                     }
                 });
-
-                const imageURL = URL.createObjectURL(response.data);
+    
+                const imageURL = URL.createObjectURL(responseImage.data);
                 setImageUrl(imageURL);
-                localStorage.setItem(`userImageUrl_${memberId}`, imageURL); // Store imageUrl in localStorage with memberId
+                localStorage.setItem(`userImageUrl_${memberId}`, imageURL);
             } catch (error) {
                 console.error('Error fetching user image: ', error);
             }
         };
-
-        const storedImageUrl = localStorage.getItem(`userImageUrl_${memberId}`);
-        if (storedImageUrl) {
-            setImageUrl(storedImageUrl);
-        } else {
-            fetchUserImage();
-        }
-    }, [memberId]);
+    
+        fetchUserImage();
+    }, [user.id, user.email, user.authorities]);
+    
 
     const openModal = () => {
         setIsModalOpen(true);
