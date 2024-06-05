@@ -6,7 +6,6 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import UserContext from './UserContext';
 
-// axios 기본 설정 추가
 axios.defaults.withCredentials = true;
 
 function StarToday() {

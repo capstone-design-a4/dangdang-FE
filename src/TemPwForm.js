@@ -3,16 +3,15 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 function TemPwForm() {
-    const [phoneNumber, setPhoneNumber] = useState(''); // 핸드폰 번호를 위한 상태
-    const [name, setName] = useState(''); // 이름을 위한 상태
-    const [email, setEmail] = useState(''); // 이메일을 위한 상태
-    const [showModal, setShowModal] = useState(false); // 모달창 상태
-    const navigate = useNavigate(); // Navigation을 위한 훅
+    const [phoneNumber, setPhoneNumber] = useState('');
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState(''); 
+    const [showModal, setShowModal] = useState(false);
+    const navigate = useNavigate();
 
     // 임시 비밀번호 전송 함수
     const handleSendTempPw = async () => {
         try {
-            // API를 호출하여 임시 비밀번호를 전송
             const response = await axios.post('http://localhost:8080/sendEmail', null, {
                 params: {
                     name: name,
@@ -24,7 +23,7 @@ function TemPwForm() {
                 }
             });
             if (response.data === '임시 비밀번호가 발송되었습니다.') {
-                setShowModal(true); // 모달창 표시
+                setShowModal(true);
             }
         } catch (error) {
             console.error('Error sending temporary password:', error);
@@ -33,7 +32,7 @@ function TemPwForm() {
 
     const closeModal = () => {
         setShowModal(false);
-        navigate('/loginformpage'); // 모달창을 닫으면 로그인 페이지로 이동
+        navigate('/loginformpage');
     };
 
     return (

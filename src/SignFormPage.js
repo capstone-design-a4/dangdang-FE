@@ -13,6 +13,15 @@ function SignFormPage() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        const password = e.target.password.value;
+        const passwordCheck = e.target.passwordCheck.value;
+
+        if (password !== passwordCheck) {
+            setErrorMessage('비밀번호가 일치하지 않습니다.');
+            setShowModal(true);
+            return;
+        }
+
         try {
             const joinData = {
                 email: e.target.email.value,
@@ -56,10 +65,35 @@ function SignFormPage() {
                 <form onSubmit={handleSubmit}>
                     <div className="form">
                         <input type="email" className="email" name="email" placeholder="이메일 주소" required />
-                        <input type="password" className="password" name="password" placeholder="비밀번호(8자~12자, 영문+숫자)" required />
+                        <input 
+                            type="password" 
+                            pattern="(?=.*\d)(?=.*[a-zA-Z]).{8,12}" 
+                            className="password" 
+                            name="password" 
+                            placeholder="비밀번호(8자~12자, 영문+숫자)" 
+                            title="비밀번호는 8-12자의 영문과 숫자를 포함해야 합니다." 
+                            required 
+                        />
                         <input type="password" className="password" name="passwordCheck" placeholder="비밀번호 재입력(8자~12자, 영문+숫자)" required />
                         <input type="text" className="name" name="name" placeholder="이름" required />
-                        <input type="tel" className="phonenumber" name="phone" placeholder="핸드폰번호(-없이 입력해주세요)" required />
+                        <input 
+                            type="tel" 
+                            className="phonenumber" 
+                            name="phone" 
+                            placeholder="핸드폰번호(-없이 입력해주세요)" 
+                            required 
+                            maxLength="11"
+                            pattern="[0-9]{11}"
+                            title="휴대전화 번호 형식은 '01012345678'과 같이 숫자 11자리로 입력해주세요."
+                            onInput={(e) => {
+                                e.target.value = e.target.value.replace(/[^\d]/g, '');
+
+                                if (e.target.value.length > 3) {
+                                    e.target.value = e.target.value.replace(/(\d{3})(\d{0,4})(\d{0,4})/, '$1$2$3');
+                                }
+                            }}
+                        />
+
                         <select name="gender" className="gender" required>
                             <option value="MALE">남자</option>
                             <option value="FEMALE">여자</option>
@@ -69,7 +103,6 @@ function SignFormPage() {
                 </form>
             </div>
 
-            {/* 회원가입 실패 모달 */}
             {showModal && (
                 <div className="sign-modal">
                     <div className="sign-modal-content">
@@ -80,7 +113,6 @@ function SignFormPage() {
                 </div>
             )}
 
-            {/* 회원가입 성공 모달 */}
             {isSignUpSuccess && (
                 <div className="sign-modal">
                     <div className="sign-modal-content">

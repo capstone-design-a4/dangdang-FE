@@ -74,7 +74,7 @@ function EdiyaPage() {
                     setTodayDrinks([...todayDrinks, drinkToAdd]);
                     setButtonTexts(prevTexts => ({
                         ...prevTexts,
-                        [id]: '추가됨' // 또는 원하는 텍스트로 변경
+                        [id]: '추가됨'
                     }));
                 } else {
                     console.error("Failed to add the selected drink to today's drinks.");

@@ -79,7 +79,6 @@ function TodayPage() {
                     setDrinkRecords(updatedDrinkRecords);
                     setHeartColors({ ...heartColors, [id]: "#ff0000" });
                 } else if (response.status === 409) {
-                    // 북마크 추가가 이미 되어 있을 경우 Conflict 상태 처리
                     const updatedDrinkRecords = drinkRecords.map(record =>
                         record.drink.id === id ? { ...record, drink: { ...record.drink, bookmarked: true } } : record
                     );
@@ -92,7 +91,6 @@ function TodayPage() {
             }
         } catch (error) {
             if (error.response && error.response.status === 409) {
-                // 북마크 추가가 이미 되어 있을 경우 Conflict 상태 처리
                 const updatedDrinkRecords = drinkRecords.map(record =>
                     record.drink.id === id ? { ...record, drink: { ...record.drink, bookmarked: true } } : record
                 );

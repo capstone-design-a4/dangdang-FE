@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom'; // Link 컴포넌트 추가
+import { Link } from 'react-router-dom';
 
 function LoginFormPage({ onLogin }) {
-    const [errorMessage, setErrorMessage] = useState(''); // 오류 메시지 상태
-    const [showModal, setShowModal] = useState(false); // 모달 표시 여부 상태
+    const [errorMessage, setErrorMessage] = useState('');
+    const [showModal, setShowModal] = useState(false);
 
-    // 모달 닫기 함수
     const closeModal = () => {
         setShowModal(false);
     };

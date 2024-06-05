@@ -2,7 +2,6 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 function Question() {
-    // 현재 페이지의 경로를 가져옴
     const location = useLocation();
 
     // 현재 경로가 '/login'인지 여부를 확인하여 문구를 설정

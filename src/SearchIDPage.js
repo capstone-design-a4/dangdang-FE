@@ -3,14 +3,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 function SearchIDPage() {
-    const [phoneNumber, setPhoneNumber] = useState(''); // 핸드폰 번호를 위한 상태
-    const [name, setName] = useState(''); // 이름을 위한 상태
-    const navigate = useNavigate(); // Navigation을 위한 훅
+    const [phoneNumber, setPhoneNumber] = useState('');
+    const [name, setName] = useState('');
+    const navigate = useNavigate();
 
     // 아이디 찾기 함수
     const handleSearchId = async () => {
         try {
-            // API를 호출하여 아이디를 찾음
             const response = await axios.get('http://localhost:8080/findEmail', {
                 params: {
                     name: name,
@@ -20,9 +19,8 @@ function SearchIDPage() {
                     'accept': '*/*'
                 }
             });
-            const foundEmail = response.data.email; // 찾은 이메일
+            const foundEmail = response.data.email;
 
-            // 찾은 이메일을 상태에 저장하고 SearchIdForm으로 이동
             navigate('/searchidform', { state: { email: foundEmail } });
         } catch (error) {
             console.error('Error searching for email:', error);

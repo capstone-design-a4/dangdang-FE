@@ -17,8 +17,8 @@ function MyPage() {
     const name = user.email ? user.email.split('@')[0] : '';
 
     const handleLogoutAndRedirect = async () => {
-        localStorage.removeItem(`userImageUrl_${user.id}`); // 로그아웃 시 로컬스토리지에서 이미지 URL 삭제
-        await handleLogout(); // 로그아웃 처리
+        localStorage.removeItem(`userImageUrl_${user.id}`);
+        await handleLogout();
         navigate('/'); // logouthomepage로 이동
     };
 
@@ -152,7 +152,6 @@ function MyPage() {
             })
                 .then(response => {
                     console.log('File uploaded successfully');
-                    // 이미지 업로드에 성공한 경우 작업 추가
                     setImageUrl(previewUrl); // 업로드된 이미지를 즉시 반영
                     localStorage.setItem(`userImageUrl_${memberId}`, previewUrl); // 저장소에도 반영
                 })
@@ -160,12 +159,11 @@ function MyPage() {
                     console.error('Error uploading file:', error);
                 });
         }
-        // 확인 버튼 클릭 후 프로필 모달 닫기
         setIsProfileModalOpen(false);
     };
 
     const handlePasswordReset = () => {
-        navigate('/searchpwform'); // searchpwform으로 이동
+        navigate('/searchpwform');
     };
 
     const handlePresetDateChange = (days) => {

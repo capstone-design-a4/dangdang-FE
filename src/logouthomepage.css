@@ -165,18 +165,18 @@
 
 .menu_detail {
   z-index: 1;
-  transform: rotateY(180deg); /* 뒷면으로 회전 */
+  transform: rotateY(180deg);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  position: absolute; /* 이미지를 기준으로 절대 위치 설정 */
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #eee; /* 뒷면 배경색 */
-  backface-visibility: hidden; /* 뒷면 감춤 */
+  background-color: #eee;
+  backface-visibility: hidden;
   font-size: 16px;
   font-weight: bold;
 }
@@ -188,11 +188,11 @@
 .menuGrid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-gap: 20px; /* 메뉴 카드 간의 간격 조절 */
+  grid-gap: 20px;
 }
 
 .menuGrid > * {
-  width: 100%; /* 각 메뉴 카드를 그리드 셀에 가득 채우도록 설정 */
+  width: 100%;
 }
 
 
@@ -405,9 +405,4 @@ height: 40%;
     grid-template-columns: repeat(1, 1fr);
     grid-gap: 5px;
   }
-
-  /* .menu_image {
-    width: 80px;
-    height: 80px;
-  } */
 }

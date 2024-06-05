@@ -4,14 +4,13 @@ import axios from 'axios';
 import Modal from './Modal';
 
 function SearchPwForm() {
-    const [password, setPassword] = useState(''); // 비밀번호 상태
-    const [passwordCheck, setPasswordCheck] = useState(''); // 비밀번호 확인 상태
-    const [showModal, setShowModal] = useState(false); // 모달 표시 여부를 나타내는 상태
-    const navigate = useNavigate(); // Navigation을 위한 훅
+    const [password, setPassword] = useState('');
+    const [passwordCheck, setPasswordCheck] = useState('');
+    const [showModal, setShowModal] = useState(false);
+    const navigate = useNavigate();
 
     const handlePasswordReset = async () => {
         try {
-            // 비밀번호 재설정 요청 수행
             const response = await axios.post(`http://localhost:8080/api/member/setPassword`, null, {
                 params: {
                     password: password,
@@ -22,11 +21,9 @@ function SearchPwForm() {
                 }
             });
 
-            // 비밀번호 재설정 성공 시 모달 표시
             if (response.data === "비밀번호가 재설정 되었습니다.") {
                 setShowModal(true);
             } else {
-                // 실패 시 적절한 에러 처리를 여기에 추가할 수 있습니다.
                 console.error('비밀번호 재설정 실패:', response.data);
             }
         } catch (error) {

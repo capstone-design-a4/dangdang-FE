@@ -1,6 +1,5 @@
 import React, { createContext, useState, useEffect } from 'react';
 
-// 초기 값 설정
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
@@ -24,7 +23,7 @@ export const UserProvider = ({ children }) => {
             setUser({
                 isLoggedIn: storedIsLoggedIn === 'true',
                 email: storedUserId,
-                authorities: 'USER_ROLE' // 기본 권한
+                authorities: 'USER_ROLE'
             });
         }
     }, []);
@@ -33,7 +32,7 @@ export const UserProvider = ({ children }) => {
         setUser({
             isLoggedIn: true,
             email,
-            authorities: 'USER_ROLE' // 기본 권한
+            authorities: 'USER_ROLE'
         });
         localStorage.setItem('isLoggedIn', 'true');
         localStorage.setItem('email', email);
@@ -43,7 +42,7 @@ export const UserProvider = ({ children }) => {
         setUser({
             isLoggedIn: false,
             email: '',
-            authorities: 'USER_ROLE' // 기본 권한
+            authorities: 'USER_ROLE'
         });
         localStorage.removeItem('isLoggedIn');
         localStorage.removeItem('email');
