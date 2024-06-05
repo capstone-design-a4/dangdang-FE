@@ -272,6 +272,7 @@ function MyPage() {
                         </div>
                         <div className="file_select">
                             <input type="file" onChange={handleFileChange} className="file_button" />
+                            <p>⭐︎png와 jpeg 형식만 삽입 가능합니다⭐︎</p>
                         </div>
                         <button type="button" onClick={handleConfirm} className="yes_button">확인</button>
                     </div>

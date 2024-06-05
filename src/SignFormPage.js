@@ -20,7 +20,7 @@ function SignFormPage() {
                 passwordCheck: e.target.passwordCheck.value,
                 name: e.target.name.value,
                 gender: e.target.gender.value,
-                phone: e.target.phone.value // phoneNumber를 phone으로 변경
+                phone: e.target.phone.value
             };
 
             const response = await axios.post('http://localhost:8080/join', joinData);
@@ -59,7 +59,7 @@ function SignFormPage() {
                         <input type="password" className="password" name="password" placeholder="비밀번호(8자~12자, 영문+숫자)" required />
                         <input type="password" className="password" name="passwordCheck" placeholder="비밀번호 재입력(8자~12자, 영문+숫자)" required />
                         <input type="text" className="name" name="name" placeholder="이름" required />
-                        <input type="tel" className="phonenumber" name="phone" placeholder="핸드폰번호(-없이 입력해주세요)" required /> {/* name 속성을 phone으로 변경 */}
+                        <input type="tel" className="phonenumber" name="phone" placeholder="핸드폰번호(-없이 입력해주세요)" required />
                         <select name="gender" className="gender" required>
                             <option value="MALE">남자</option>
                             <option value="FEMALE">여자</option>
