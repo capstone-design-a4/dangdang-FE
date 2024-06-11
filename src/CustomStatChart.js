@@ -33,14 +33,21 @@ const fetchData = async (startDate, endDate) => {
   }
 };
 
-const parseChartData = (data) => {
+const parseChartData = (data, startDate, endDate) => {
   if (!data.customStat || !data.customStat.dayStatList) return [];
-  return data.customStat.dayStatList.map((item, index) => ({
-    date: moment().subtract(data.customStat.dayStatList.length - 1 - index, 'days').format('YYYY-MM-DD'),
-    sugar: item.sugarIntake,
-    caffeine: item.caffeineIntake,
-    calorie: item.calorieIntake,
-  }));
+
+  const start = moment(startDate);
+  const end = moment(endDate);
+
+  return data.customStat.dayStatList.map((item, index) => {
+    const date = start.clone().add(index, 'days').format('YYYY-MM-DD');
+    return {
+      date: date,
+      sugar: item.sugarIntake,
+      caffeine: item.caffeineIntake,
+      calorie: item.calorieIntake,
+    };
+  });
 };
 
 const CustomStatChart = ({ startDate, endDate, dateRange }) => {
@@ -50,7 +57,7 @@ const CustomStatChart = ({ startDate, endDate, dateRange }) => {
   useEffect(() => {
     const initializeData = async (startDate, endDate) => {
       const fetchedData = await fetchData(startDate, endDate);
-      const chartData = parseChartData(fetchedData);
+      const chartData = parseChartData(fetchedData, startDate, endDate);
       setData(chartData);
     };
 
@@ -164,19 +171,3 @@ const chartStyle = {
   fill: '#b8b8b8',
   fontWeight: 'bold',
 };
-
-const ButtonContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-
-  button {
-    margin: 0 5px;
-    padding: 5px 10px;
-    border: none;
-    background-color: #007bff;
-    color: white;
-    cursor: pointer;
-    border-radius: 4px;
-  }
-`;
