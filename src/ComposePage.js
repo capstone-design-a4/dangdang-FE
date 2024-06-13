@@ -14,6 +14,7 @@ function ComposePage() {
     const [todayDrinks, setTodayDrinks] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [filteredData, setFilteredData] = useState([]);
+    const [sortCond, setSortCond] = useState('');
 
     const itemsPerPage = 10;
     const pagesPerGroup = 10;
@@ -113,17 +114,22 @@ function ComposePage() {
     }, [sessionAuthorities, sessionEmail]);
 
     useEffect(() => {
-        if (searchTerm === '') {
-            setFilteredData(menuData);
-        } else {
+        let newFilteredData = menuData;
+        if (searchTerm !== '') {
             const lowercasedSearchTerm = searchTerm.toLowerCase();
-            setFilteredData(menuData.filter(data =>
+            newFilteredData = menuData.filter(data =>
                 data.name.toLowerCase().includes(lowercasedSearchTerm)
-            ));
+            );
         }
+
+        if (sortCond !== '') {
+            newFilteredData = [...newFilteredData].sort((a, b) => a[sortCond] - b[sortCond]);
+        }
+
+        setFilteredData(newFilteredData);
         setCurrentPage(1);
         setPageGroup(0);
-    }, [searchTerm, menuData]);
+    }, [searchTerm, sortCond, menuData]);
 
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -159,12 +165,20 @@ function ComposePage() {
         setPageGroup(0);
     };
 
+    const handleSortClick = (sortCondition) => {
+        setSortCond(sortCondition);
+    };
+
+    const getColor = (condition) => {
+        return sortCond === condition ? '#FFDC00' : 'white';
+    }
+
     return (
         <div>
             <div className="bkcolor_compose">
                 <div className="bdbox">
                     <div className="logobox">
-                        <img src="compose.png" alt="로고" className="compose_logo" onClick={handleLogoClick} />
+                        <img src="compose.png" alt="로고" className="fran_logo" onClick={handleLogoClick} />
                         <div className="bdboxup">컴포즈커피</div>
                     </div>
                     <div className="bdboxdown">
@@ -177,6 +191,34 @@ function ComposePage() {
                                 onChange={handleSearchChange}
                             />
                             <button type="submit"><FontAwesomeIcon icon={faMagnifyingGlass} /></button>
+                        </div>
+                        <div className="sortbtn">
+                            <button 
+                                type="button" 
+                                className="sugarsort" 
+                                style={{ color: getColor('sugar') }} 
+                                onClick={() => handleSortClick('sugar')}
+                            >
+                                당순
+                            </button>
+                            <div>|</div>
+                            <button 
+                                type="button" 
+                                className="caffeinesort" 
+                                style={{ color: getColor('caffeine') }} 
+                                onClick={() => handleSortClick('caffeine')}
+                            >
+                                카페인순
+                            </button>
+                            <div>|</div>
+                            <button 
+                                type="button" 
+                                className="caloriesort" 
+                                style={{ color: getColor('calorie') }} 
+                                onClick={() => handleSortClick('calorie')}
+                            >
+                                칼로리순
+                            </button>
                         </div>
                     </div>
                 </div>

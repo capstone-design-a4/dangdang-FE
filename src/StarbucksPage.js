@@ -14,7 +14,7 @@ function StarbucksPage() {
     const [todayDrinks, setTodayDrinks] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [filteredData, setFilteredData] = useState([]);
-    const [sortCond, setSortCond] = useState(''); // 새로운 상태 추가
+    const [sortCond, setSortCond] = useState('');
 
     const itemsPerPage = 10;
     const pagesPerGroup = 10;
@@ -169,12 +169,16 @@ function StarbucksPage() {
         setSortCond(sortCondition);
     };
 
+    const getColor = (condition) => {
+        return sortCond === condition ? 'black' : 'white';
+    }
+
     return (
         <div>
             <div className="bkcolor">
                 <div className="bdbox">
                     <div className="logobox">
-                        <img src="starbucks.png" alt="로고" className="starbucks_logo" onClick={handleLogoClick} />
+                        <img src="starbucks.png" alt="로고" className="fran_logo" onClick={handleLogoClick} />
                         <div className="bdboxup">스타벅스</div>
                     </div>
                     <div className="bdboxdown">
@@ -189,11 +193,32 @@ function StarbucksPage() {
                             <button type="submit"><FontAwesomeIcon icon={faMagnifyingGlass} /></button>
                         </div>
                         <div className="sortbtn">
-                            <button type="button" className="sugarsort" onClick={() => handleSortClick('sugar')}>당순</button>
+                            <button 
+                                type="button" 
+                                className="sugarsort" 
+                                style={{ color: getColor('sugar') }} 
+                                onClick={() => handleSortClick('sugar')}
+                            >
+                                당순
+                            </button>
                             <div>|</div>
-                            <button type="button" className="caffeinesort" onClick={() => handleSortClick('caffeine')}>카페인순</button>
+                            <button 
+                                type="button" 
+                                className="caffeinesort" 
+                                style={{ color: getColor('caffeine') }} 
+                                onClick={() => handleSortClick('caffeine')}
+                            >
+                                카페인순
+                            </button>
                             <div>|</div>
-                            <button type="button" className="caloriesort" onClick={() => handleSortClick('calorie')}>칼로리순</button>
+                            <button 
+                                type="button" 
+                                className="caloriesort" 
+                                style={{ color: getColor('calorie') }} 
+                                onClick={() => handleSortClick('calorie')}
+                            >
+                                칼로리순
+                            </button>
                         </div>
                     </div>
                 </div>

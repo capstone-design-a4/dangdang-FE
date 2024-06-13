@@ -16,13 +16,13 @@ export const UserProvider = ({ children }) => {
     });
 
     useEffect(() => {
-        const storedIsLoggedIn = localStorage.getItem('isLoggedIn');
-        const storedUserId = localStorage.getItem('email');
+        const storedIsLoggedIn = sessionStorage.getItem('isLoggedIn');
+        const storedEmail = sessionStorage.getItem('email');
 
-        if (storedIsLoggedIn && storedUserId) {
+        if (storedIsLoggedIn && storedEmail) {
             setUser({
                 isLoggedIn: storedIsLoggedIn === 'true',
-                email: storedUserId,
+                email: storedEmail,
                 authorities: 'USER_ROLE'
             });
         }
@@ -34,8 +34,8 @@ export const UserProvider = ({ children }) => {
             email,
             authorities: 'USER_ROLE'
         });
-        localStorage.setItem('isLoggedIn', 'true');
-        localStorage.setItem('email', email);
+        sessionStorage.setItem('isLoggedIn', 'true');
+        sessionStorage.setItem('email', email);
     };
 
     const handleLogout = () => {
@@ -44,8 +44,8 @@ export const UserProvider = ({ children }) => {
             email: '',
             authorities: 'USER_ROLE'
         });
-        localStorage.removeItem('isLoggedIn');
-        localStorage.removeItem('email');
+        sessionStorage.removeItem('isLoggedIn');
+        sessionStorage.removeItem('email');
     };
 
     return (
