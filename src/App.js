@@ -19,9 +19,7 @@ import LoginHomePage from './LoginHomePage.js';
 import StarToday from './StarToday.js';
 import StarPage from './StarPage.js';
 import TodayPage from './TodayPage.js';
-import CommunityPage from './CommunityPage.js';
 import PostPage from './PostPage.js';
-import CommentPage from './CommentPage.js';
 import StarbucksPage from './StarbucksPage.js';
 import ComposePage from './ComposePage.js';
 import MegaPage from './MegaPage.js';
@@ -50,9 +48,7 @@ import './logouthomepage.css';
 import './brand.css';
 import './loginhomepage.css';
 import './star.css';
-import './community.css';
 import './post.css';
-import './comment.css';
 import './starbuckspage.css';
 import './composepage.css';
 import './megapage.css';
@@ -65,7 +61,6 @@ import './cheongjapage.css';
 import './coffeebeanpage.css';
 import './mypage.css';
 import './tempwform.css';
-import axios from 'axios';
 
 function KakaoLoginPage() {
     return (
@@ -112,9 +107,7 @@ function App() {
                     <Route path="/startoday" element={<StarToday />} />
                     <Route path="/starpage" element={<StarPage />} />
                     <Route path="/todaypage" element={<TodayPage />} />
-                    <Route path="/communitypage" element={<CommunityPage />} />
                     <Route path="/postpage" element={<PostPage />} />
-                    <Route path="/commentpage" element={<CommentPage />} />
                     <Route path="/starbuckspage" element={<StarbucksPage />} />
                     <Route path="/composepage" element={<ComposePage />} />
                     <Route path="/megapage" element={<MegaPage />} />

@@ -24,13 +24,13 @@ function Navbar() {
                 {user.isLoggedIn ? (
                     <>
                         <li><span>{name}님</span></li>
-                        <li><a href="#">|</a></li>
+                        <li>|</li>
                         <li><a href="/" onClick={handleLogout}>로그아웃</a></li>
                     </>
                 ) : (
                     <>
                         <li><Link to="/loginpage">로그인</Link></li>
-                        <li><a href="#">|</a></li>
+                        <li>|</li>
                         <li><Link to="/signuppage">회원가입</Link></li>
                     </>
                 )}

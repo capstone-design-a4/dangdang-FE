@@ -177,7 +177,7 @@ function LoginHomePage() {
                                 <div className="men_dang">37g</div>
                             </div>
 
-                            <div className="dang_men_women_line"><a href="">|</a></div>
+                            <div className="dang_men_women_line">|</div>
 
                             <div className="women">
                                 <div className="women_ment">여성</div>

@@ -12,7 +12,7 @@ function StarToday() {
     const [bookmarkedDrinks, setBookmarkedDrinks] = useState([]);
     const [todayDrinks, setTodayDrinks] = useState([]);
     const [heartColors, setHeartColors] = useState({});
-    const { user, dailyStats, setDailyStats } = useContext(UserContext);
+    const { setDailyStats } = useContext(UserContext);
 
     useEffect(() => {
         const fetchBookmarkedDrinks = async () => {

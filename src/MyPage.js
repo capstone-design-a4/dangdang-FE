@@ -29,15 +29,7 @@ function MyPage() {
     const [endDate, setEndDate] = useState('');
     const [dateRange, setDateRange] = useState('7'); // 기본값은 7일
 
-    const [memberId, setMemberId] = useState(user.id);
-
-    function getTodayDate() {
-        const today = new Date();
-        const year = today.getFullYear();
-        const month = today.getMonth() + 1;
-        const day = today.getDate();
-        return `${year}년 ${month}월 ${day}일`;
-    }
+    const [memberId] = useState(user.id);
 
     useEffect(() => {
         const fetchUserGoals = async () => {
@@ -301,7 +293,7 @@ function MyPage() {
                                 <div className="men_ment">남성</div>
                                 <div className="men_dang">37g</div>
                             </div>
-                            <div className="dang_men_women_line"><a href="">|</a></div>
+                            <div className="dang_men_women_line">|</div>
                             <div className="women">
                                 <div className="women_ment">여성</div>
                                 <div className="women_dang">25g</div>

@@ -63,7 +63,7 @@ function LoginFormPage({ onLogin }) {
                 <div className="id_pw">
                     <ul>
                         <li><Link to="/searchidpage">아이디 찾기</Link></li>
-                        <li><a href="#">|</a></li>
+                        <li>|</li>
                         <li><Link to="/tempwform">임시 비번 전송</Link></li>
                     </ul>
                 </div>
