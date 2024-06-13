@@ -1,6 +1,6 @@
 .starbucks_logo{
-    width: 85px;
-    height: 85px;
+    width: 40px;
+    height: 40px;
     border-radius: 15px;
     border-width: 3px;
     border-color: #FFFFFF;
@@ -17,6 +17,7 @@
 
 .logobox{
     display: flex;
+    align-items: center;
 }
 
 .bdbox{
@@ -24,14 +25,13 @@
     max-width: 90%;
     height: 100px;
     margin: 0 auto;
-    align-items: center;
-    justify-content: space-between;
+    flex-direction: column;
 }
 
 .bdboxup{
     color: #FFFFFF;
     font-weight: bold;
-    font-size:70px;
+    font-size:40px;
     text-align: center;
 }
 
@@ -43,14 +43,12 @@
 .bdsrh{
     width:500px;
     height: 40px;
-    position: relative;
     display: flex;
     top:15px;
 }
 
 .bdsrh input{
     width: 100%;
-    border-radius: 15px;
     font-size: 1rem;
     font-weight: bold;
     border-style: none;
@@ -59,11 +57,9 @@
 }
 
 .bdsrh button{
-    position: absolute;
     top: 5px;
     bottom: 5px;
     right: 5px;
-    border-radius: 15px;
     border-style: none;
     background-color: #87C4FF;
 }
@@ -75,23 +71,27 @@
     width: 5%;
 }
 
-.bdsort {
-    display: flex; 
-    list-style: none;
-    padding-left: 0;
-    font-weight: bold;
+.sortbtn{
+    display: flex;
+}
+
+.sortbtn div{  
+    display: flex;
+    text-align: center;
+    height: 38px;
+    align-items: center;
     color:#D7D7D7;
+    font-weight: bold;
 }
 
-.bdsort li {
-    padding-left: 10px;
-
+.sugarsort, .caffeinesort, .caloriesort{
+    height: 40px;
+    color:#D7D7D7;
+    font-weight: bold;
+    background-color:transparent;
+    border: none;
+    cursor: pointer;
 }
-
-.basic{
-    color: #000000;
-}
-
 
 .star_menu {
     width: 90%;

@@ -178,7 +178,16 @@ function StarbucksPage() {
                             />
                             <button type="submit"><FontAwesomeIcon icon={faMagnifyingGlass} /></button>
                         </div>
+                        <div className="sortbtn">
+                            <button type="button" className="sugarsort">당순</button>
+                            <div>|</div>
+                            <button type="button" className="caffeinesort">카페인순</button>
+                            <div>|</div>
+                            <button type="button" className="caloriesort">칼로리순</button>
+                        </div>
+
                     </div>
+
                 </div>
             </div>
 
