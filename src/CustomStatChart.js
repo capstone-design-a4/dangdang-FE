@@ -37,7 +37,6 @@ const parseChartData = (data, startDate, endDate) => {
   if (!data.customStat || !data.customStat.dayStatList) return [];
 
   const start = moment(startDate);
-  const end = moment(endDate);
 
   return data.customStat.dayStatList.map((item, index) => {
     const date = start.clone().add(index, 'days').format('YYYY-MM-DD');
