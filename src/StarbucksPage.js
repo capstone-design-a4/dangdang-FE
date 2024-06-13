@@ -14,6 +14,7 @@ function StarbucksPage() {
     const [todayDrinks, setTodayDrinks] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [filteredData, setFilteredData] = useState([]);
+    const [sortCond, setSortCond] = useState(''); // 새로운 상태 추가
 
     const itemsPerPage = 10;
     const pagesPerGroup = 10;
@@ -113,17 +114,22 @@ function StarbucksPage() {
     }, [sessionAuthorities, sessionEmail]);
 
     useEffect(() => {
-        if (searchTerm === '') {
-            setFilteredData(menuData);
-        } else {
+        let newFilteredData = menuData;
+        if (searchTerm !== '') {
             const lowercasedSearchTerm = searchTerm.toLowerCase();
-            setFilteredData(menuData.filter(data =>
+            newFilteredData = menuData.filter(data =>
                 data.name.toLowerCase().includes(lowercasedSearchTerm)
-            ));
+            );
         }
+
+        if (sortCond !== '') {
+            newFilteredData = [...newFilteredData].sort((a, b) => a[sortCond] - b[sortCond]);
+        }
+
+        setFilteredData(newFilteredData);
         setCurrentPage(1);
         setPageGroup(0);
-    }, [searchTerm, menuData]);
+    }, [searchTerm, sortCond, menuData]);
 
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -159,6 +165,10 @@ function StarbucksPage() {
         setPageGroup(0);
     };
 
+    const handleSortClick = (sortCondition) => {
+        setSortCond(sortCondition);
+    };
+
     return (
         <div>
             <div className="bkcolor">
@@ -179,15 +189,13 @@ function StarbucksPage() {
                             <button type="submit"><FontAwesomeIcon icon={faMagnifyingGlass} /></button>
                         </div>
                         <div className="sortbtn">
-                            <button type="button" className="sugarsort">당순</button>
+                            <button type="button" className="sugarsort" onClick={() => handleSortClick('sugar')}>당순</button>
                             <div>|</div>
-                            <button type="button" className="caffeinesort">카페인순</button>
+                            <button type="button" className="caffeinesort" onClick={() => handleSortClick('caffeine')}>카페인순</button>
                             <div>|</div>
-                            <button type="button" className="caloriesort">칼로리순</button>
+                            <button type="button" className="caloriesort" onClick={() => handleSortClick('calorie')}>칼로리순</button>
                         </div>
-
                     </div>
-
                 </div>
             </div>
 
