@@ -6,7 +6,7 @@ function RecommendedMenu() {
     const [menuItems, setMenuItems] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:8080/api/drink/most-bookmarked-list')
+        axios.get('http://3.38.119.135:8080/api/drink/most-bookmarked-list')
             .then(response => {
                 setMenuItems(response.data);
             })

@@ -31,14 +31,14 @@ function MegaPage() {
         try {
             let response;
             if (isBookmarked) {
-                response = await axios.delete(`http://localhost:8080/api/bookmark?drinkId=${id}`, {
+                response = await axios.delete(`http://3.38.119.135:8080/api/bookmark?drinkId=${id}`, {
                     headers: {
                         'X-Auth-Username': user.email,
                         'X-Auth-Authorities': user.authorities
                     }
                 });
             } else {
-                response = await axios.post(`http://localhost:8080/api/bookmark?drinkId=${id}`, null, {
+                response = await axios.post(`http://3.38.119.135:8080/api/bookmark?drinkId=${id}`, null, {
                     headers: {
                         'X-Auth-Username': user.email,
                         'X-Auth-Authorities': user.authorities
@@ -64,7 +64,7 @@ function MegaPage() {
 
         if (drinkToAdd) {
             try {
-                const response = await axios.post(`http://localhost:8080/api/drink-record?drinkId=${id}`, null, {
+                const response = await axios.post(`http://3.38.119.135:8080/api/drink-record?drinkId=${id}`, null, {
                     headers: {
                         'X-Auth-Username': user.email,
                         'X-Auth-Authorities': user.authorities
@@ -87,7 +87,7 @@ function MegaPage() {
     };
 
     useEffect(() => {
-        axios.get('http://localhost:8080/api/drink/list/메가커피', {
+        axios.get('http://3.38.119.135:8080/api/drink/list/메가커피', {
             headers: {
                 'X-Auth-Username': sessionEmail,
                 'X-Auth-Authorities': sessionAuthorities

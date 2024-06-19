@@ -1,6 +1,0 @@
-{
-    "compilerOptions": {
-      "baseUrl": "3.38.119.135:8080"
-    },
-    "include": ["src"]
-  }

@@ -18,7 +18,7 @@ function LoginFormPage({ onLogin }) {
                 email: e.target.email.value,
                 password: e.target.password.value,
             };
-            const response = await axios.post('http://localhost:8080/login', {}, { params, withCredentials: true });
+            const response = await axios.post('http://3.38.119.135:8080/login', {}, { params, withCredentials: true });
    
             if (response.status === 200) {
                 // 로그인 성공

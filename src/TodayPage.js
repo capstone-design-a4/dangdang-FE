@@ -14,14 +14,14 @@ function TodayPage() {
         const fetchData = async () => {
             if (user.isLoggedIn) {
                 try {
-                    const result = await axios.get('http://localhost:8080/api/drink-record', {
+                    const result = await axios.get('http://3.38.119.135:8080/api/drink-record', {
                         headers: {
                             'accept': '*/*',
                         }
                     });
                     setDrinkRecords(result.data);
 
-                    const bookmarkResponse = await axios.get('http://localhost:8080/api/drink/bookmark', {
+                    const bookmarkResponse = await axios.get('http://3.38.119.135:8080/api/drink/bookmark', {
                         headers: {
                             'X-Auth-Username': user.email,
                             'X-Auth-Authorities': user.authorities
@@ -47,7 +47,7 @@ function TodayPage() {
         try {
             if (isBookmarked) {
                 // 북마크 해제
-                const response = await axios.delete(`http://localhost:8080/api/bookmark?drinkId=${id}`, {
+                const response = await axios.delete(`http://3.38.119.135:8080/api/bookmark?drinkId=${id}`, {
                     headers: {
                         'X-Auth-Username': user.email,
                         'X-Auth-Authorities': user.authorities
@@ -65,7 +65,7 @@ function TodayPage() {
                 }
             } else {
                 // 북마크 추가
-                const response = await axios.post(`http://localhost:8080/api/bookmark?drinkId=${id}`, null, {
+                const response = await axios.post(`http://3.38.119.135:8080/api/bookmark?drinkId=${id}`, null, {
                     headers: {
                         'X-Auth-Username': user.email,
                         'X-Auth-Authorities': user.authorities
@@ -105,7 +105,7 @@ function TodayPage() {
 
     const handleDeleteClick = async (id) => {
         try {
-            const response = await axios.delete(`http://localhost:8080/api/drink-record?drinkRecordId=${id}`, {
+            const response = await axios.delete(`http://3.38.119.135:8080/api/drink-record?drinkRecordId=${id}`, {
                 headers: {
                     accept: '*/*',
                     'X-Auth-Username': user.email,

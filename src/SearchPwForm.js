@@ -32,7 +32,7 @@ function SearchPwForm() {
         }
     
         try {
-            const response = await axios.post('http://localhost:8080/api/member/setPassword', null, {
+            const response = await axios.post('http://3.38.119.135:8080/api/member/setPassword', null, {
                 params: {
                     password: password,
                     passwordCheck: passwordCheck

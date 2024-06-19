@@ -10,7 +10,7 @@ function SearchIDPage() {
     // 아이디 찾기 함수
     const handleSearchId = async () => {
         try {
-            const response = await axios.get('http://localhost:8080/findEmail', {
+            const response = await axios.get('http://3.38.119.135:8080/findEmail', {
                 params: {
                     name: name,
                     phone: phoneNumber,

@@ -14,7 +14,7 @@ function StarPage() {
         const fetchBookmarkedDrinks = async () => {
             if (user.isLoggedIn) {
                 try {
-                    const response = await axios.get('http://localhost:8080/api/drink/bookmark', {
+                    const response = await axios.get('http://3.38.119.135:8080/api/drink/bookmark', {
                         headers: {
                             'X-Auth-Username': user.email,
                             'X-Auth-Authorities': user.authorities
@@ -33,7 +33,7 @@ function StarPage() {
         const fetchTodayDrinks = async () => {
             if (user.isLoggedIn) {
                 try {
-                    const response = await axios.get('http://localhost:8080/api/drink-record', {
+                    const response = await axios.get('http://3.38.119.135:8080/api/drink-record', {
                         headers: {
                             'X-Auth-Username': user.email,
                             'X-Auth-Authorities': user.authorities
@@ -55,7 +55,7 @@ function StarPage() {
 
     const handleHeartClick = async (id) => {
         try {
-            await axios.delete(`http://localhost:8080/api/bookmark?drinkId=${id}`, {
+            await axios.delete(`http://3.38.119.135:8080/api/bookmark?drinkId=${id}`, {
                 headers: {
                     'X-Auth-Username': user.email,
                     'X-Auth-Authorities': user.authorities
@@ -73,7 +73,7 @@ function StarPage() {
         const drinkToAdd = bookmarkedDrinks.find(drink => drink.id === id);
         if (drinkToAdd) {
             try {
-                await axios.post(`http://localhost:8080/api/drink-record?drinkId=${id}`, null, {
+                await axios.post(`http://3.38.119.135:8080/api/drink-record?drinkId=${id}`, null, {
                     headers: {
                         'X-Auth-Username': user.email,
                         'X-Auth-Authorities': user.authorities

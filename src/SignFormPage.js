@@ -32,7 +32,7 @@ function SignFormPage() {
                 phone: e.target.phone.value
             };
 
-            const response = await axios.post('http://localhost:8080/join', joinData);
+            const response = await axios.post('http://3.38.119.135:8080/join', joinData);
 
             console.log(response.data);
 

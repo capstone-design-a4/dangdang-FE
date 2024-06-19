@@ -12,7 +12,7 @@ function TemPwForm() {
     // 임시 비밀번호 전송 함수
     const handleSendTempPw = async () => {
         try {
-            const response = await axios.post('http://localhost:8080/sendEmail', null, {
+            const response = await axios.post('http://3.38.119.135:8080/sendEmail', null, {
                 params: {
                     name: name,
                     phone: phoneNumber,

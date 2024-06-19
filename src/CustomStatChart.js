@@ -16,7 +16,7 @@ import {
 import CustomChartLegend from './CustomChartLegend';
 import CustomChartTooltip from './CustomChartTooltip';
 
-const API_BASE_URL = 'http://localhost:8080/api/record/customStat';
+const API_BASE_URL = 'http://3.38.119.135:8080/api/record/customStat';
 
 const fetchData = async (startDate, endDate) => {
   try {
