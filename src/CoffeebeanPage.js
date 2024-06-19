@@ -5,6 +5,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import UserContext from './UserContext';
 
+const host = window.location.hostname === "localhost"
+  ? 'http://3.38.119.135:8080'
+  : "/api";
+
+const apiClient = axios.create({
+  baseURL: host,
+});
+
 function CoffeebeanPage() {
     const [menuData, setMenuData] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
@@ -31,14 +39,14 @@ function CoffeebeanPage() {
         try {
             let response;
             if (isBookmarked) {
-                response = await axios.delete(`http://3.38.119.135:8080/api/bookmark?drinkId=${id}`, {
+                response = await apiClient.delete(`/api/bookmark?drinkId=${id}`, {
                     headers: {
                         'X-Auth-Username': user.email,
                         'X-Auth-Authorities': user.authorities
                     }
                 });
             } else {
-                response = await axios.post(`http://3.38.119.135:8080/api/bookmark?drinkId=${id}`, null, {
+                response = await apiClient.post(`/api/bookmark?drinkId=${id}`, null, {
                     headers: {
                         'X-Auth-Username': user.email,
                         'X-Auth-Authorities': user.authorities
@@ -64,7 +72,7 @@ function CoffeebeanPage() {
 
         if (drinkToAdd) {
             try {
-                const response = await axios.post(`http://3.38.119.135:8080/api/drink-record?drinkId=${id}`, null, {
+                const response = await apiClient.post(`/api/drink-record?drinkId=${id}`, null, {
                     headers: {
                         'X-Auth-Username': user.email,
                         'X-Auth-Authorities': user.authorities
@@ -87,7 +95,7 @@ function CoffeebeanPage() {
     };
 
     useEffect(() => {
-        axios.get('http://3.38.119.135:8080/api/drink/list/커피빈', {
+        apiClient.get('/api/drink/list/커피빈', {
             headers: {
                 'X-Auth-Username': sessionEmail,
                 'X-Auth-Authorities': sessionAuthorities

@@ -8,6 +8,14 @@ import UserContext from './UserContext';
 
 axios.defaults.withCredentials = true;
 
+const host = window.location.hostname === "localhost"
+  ? 'http://3.38.119.135:8080'
+  : "/api";
+
+const apiClient = axios.create({
+  baseURL: host,
+});
+
 function StarToday() {
     const [bookmarkedDrinks, setBookmarkedDrinks] = useState([]);
     const [todayDrinks, setTodayDrinks] = useState([]);
@@ -17,7 +25,7 @@ function StarToday() {
     useEffect(() => {
         const fetchBookmarkedDrinks = async () => {
             try {
-                const response = await axios.get('http://3.38.119.135:8080/api/drink/bookmark');
+                const response = await apiClient.get('/api/drink/bookmark');
                 console.log("bookmarkedDrinks response:", response.data);
                 if (Array.isArray(response.data)) {
                     setBookmarkedDrinks(response.data);
@@ -36,7 +44,7 @@ function StarToday() {
 
         const fetchTodayDrinks = async () => {
             try {
-                const response = await axios.get('http://3.38.119.135:8080/api/drink-record');
+                const response = await apiClient.get('/api/drink-record');
                 console.log("todayDrinks response:", response.data);
                 if (Array.isArray(response.data)) {
                     setTodayDrinks(response.data);
@@ -56,12 +64,12 @@ function StarToday() {
         try {
             if (isBookmarked) {
                 // 음료가 북마크 되어 있는 경우, 삭제 요청
-                await axios.delete(`http://3.38.119.135:8080/api/bookmark?drinkId=${drinkId}`);
+                await apiClient.delete(`/api/bookmark?drinkId=${drinkId}`);
                 setBookmarkedDrinks(bookmarkedDrinks.filter(drink => drink.id !== drinkId));
                 setHeartColors({ ...heartColors, [drinkId]: "#cccccc" });
             } else {
                 // 음료가 북마크 되어 있지 않은 경우, 추가 요청
-                await axios.post(`http://3.38.119.135:8080/api/bookmark?drinkId=${drinkId}`);
+                await apiClient.post(`/api/bookmark?drinkId=${drinkId}`);
                 const drinkToAdd = todayDrinks.find(record => record.drink.id === drinkId)?.drink;
                 if (drinkToAdd) {
                     setBookmarkedDrinks([...bookmarkedDrinks, drinkToAdd]);
@@ -75,12 +83,12 @@ function StarToday() {
 
     const handleStarClick = async (drinkId) => {
         try {
-            const response = await axios.post(`http://3.38.119.135:8080/api/drink-record?drinkId=${drinkId}`);
+            const response = await apiClient.post(`/api/drink-record?drinkId=${drinkId}`);
             if (response.status === 200) {
-                const response2 = await axios.get('http://3.38.119.135:8080/api/drink-record');
+                const response2 = await apiClient.get('/api/drink-record');
                 setTodayDrinks(response2.data);
 
-                const response3 = await axios.get('http://3.38.119.135:8080/api/record/day');
+                const response3 = await apiClient.get('/api/record/day');
                 const { sugarIntake, calorieIntake, caffeineIntake } = response3.data.dayStat;
                 setDailyStats({ sugarIntake, calorieIntake, caffeineIntake });
             } else {
@@ -93,11 +101,11 @@ function StarToday() {
 
     const handleDeleteClick = async (drinkRecordId) => {
         try {
-            const response = await axios.delete(`http://3.38.119.135:8080/api/drink-record?drinkRecordId=${drinkRecordId}`);
+            const response = await apiClient.delete(`/api/drink-record?drinkRecordId=${drinkRecordId}`);
             if (response.status === 200) {
                 setTodayDrinks(todayDrinks.filter(drink => drink.id !== drinkRecordId));
 
-                const response2 = await axios.get('http://3.38.119.135:8080/api/record/day');
+                const response2 = await apiClient.get('/api/record/day');
                 const { sugarIntake, calorieIntake, caffeineIntake } = response2.data.dayStat;
                 setDailyStats({ sugarIntake, calorieIntake, caffeineIntake });
             } else {

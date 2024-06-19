@@ -5,6 +5,14 @@ import MenuCard from './MenuCard';
 import axios from 'axios';
 import UserContext from './UserContext';
 
+const host = window.location.hostname === "localhost"
+  ? 'http://3.38.119.135:8080'
+  : "/api";
+
+const apiClient = axios.create({
+  baseURL: host,
+});
+
 function StarPage() {
     const [bookmarkedDrinks, setBookmarkedDrinks] = useState([]);
     const [todayDrinks, setTodayDrinks] = useState([]);
@@ -14,7 +22,7 @@ function StarPage() {
         const fetchBookmarkedDrinks = async () => {
             if (user.isLoggedIn) {
                 try {
-                    const response = await axios.get('http://3.38.119.135:8080/api/drink/bookmark', {
+                    const response = await apiClient.get('/api/drink/bookmark', {
                         headers: {
                             'X-Auth-Username': user.email,
                             'X-Auth-Authorities': user.authorities
@@ -33,7 +41,7 @@ function StarPage() {
         const fetchTodayDrinks = async () => {
             if (user.isLoggedIn) {
                 try {
-                    const response = await axios.get('http://3.38.119.135:8080/api/drink-record', {
+                    const response = await apiClient.get('/api/drink-record', {
                         headers: {
                             'X-Auth-Username': user.email,
                             'X-Auth-Authorities': user.authorities
@@ -55,7 +63,7 @@ function StarPage() {
 
     const handleHeartClick = async (id) => {
         try {
-            await axios.delete(`http://3.38.119.135:8080/api/bookmark?drinkId=${id}`, {
+            await apiClient.delete(`/api/bookmark?drinkId=${id}`, {
                 headers: {
                     'X-Auth-Username': user.email,
                     'X-Auth-Authorities': user.authorities
@@ -73,7 +81,7 @@ function StarPage() {
         const drinkToAdd = bookmarkedDrinks.find(drink => drink.id === id);
         if (drinkToAdd) {
             try {
-                await axios.post(`http://3.38.119.135:8080/api/drink-record?drinkId=${id}`, null, {
+                await apiClient.post(`/api/drink-record?drinkId=${id}`, null, {
                     headers: {
                         'X-Auth-Username': user.email,
                         'X-Auth-Authorities': user.authorities

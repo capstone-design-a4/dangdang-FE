@@ -2,11 +2,19 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import MenuCard from './MenuCard';
 
+const host = window.location.hostname === "localhost"
+  ? 'http://3.38.119.135:8080'
+  : "/api";
+
+const apiClient = axios.create({
+  baseURL: host,
+});
+
 function RecommendedMenu() {
     const [menuItems, setMenuItems] = useState([]);
 
     useEffect(() => {
-        axios.get('http://3.38.119.135:8080/api/drink/most-bookmarked-list')
+        apiClient.get('/api/drink/most-bookmarked-list')
             .then(response => {
                 setMenuItems(response.data);
             })

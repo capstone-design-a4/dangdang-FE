@@ -2,6 +2,14 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
+const host = window.location.hostname === "localhost"
+  ? 'http://3.38.119.135:8080'
+  : "/api";
+
+const apiClient = axios.create({
+  baseURL: host,
+});
+
 function SearchIDPage() {
     const [phoneNumber, setPhoneNumber] = useState('');
     const [name, setName] = useState('');
@@ -10,7 +18,7 @@ function SearchIDPage() {
     // 아이디 찾기 함수
     const handleSearchId = async () => {
         try {
-            const response = await axios.get('http://3.38.119.135:8080/findEmail', {
+            const response = await apiClient.get('/findEmail', {
                 params: {
                     name: name,
                     phone: phoneNumber,

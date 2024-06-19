@@ -2,6 +2,14 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
+const host = window.location.hostname === "localhost"
+  ? 'http://3.38.119.135:8080'
+  : "/api";
+
+const apiClient = axios.create({
+  baseURL: host,
+});
+
 function SearchPwForm() {
     const [password, setPassword] = useState('');
     const [passwordCheck, setPasswordCheck] = useState('');
@@ -32,7 +40,7 @@ function SearchPwForm() {
         }
     
         try {
-            const response = await axios.post('http://3.38.119.135:8080/api/member/setPassword', null, {
+            const response = await apiClient.post('/api/member/setPassword', null, {
                 params: {
                     password: password,
                     passwordCheck: passwordCheck

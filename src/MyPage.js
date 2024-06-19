@@ -5,6 +5,14 @@ import axios from 'axios';
 import styled from 'styled-components';
 import CustomStatChart from './CustomStatChart';
 
+const host = window.location.hostname === "localhost"
+  ? 'http://3.38.119.135:8080'
+  : "/api";
+
+const apiClient = axios.create({
+  baseURL: host,
+});
+
 function MyPage() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedFile, setSelectedFile] = useState(null);
@@ -34,7 +42,7 @@ function MyPage() {
     useEffect(() => {
         const fetchUserGoals = async () => {
             try {
-                const response = await axios.get('http://3.38.119.135:8080/api/record/day', {
+                const response = await apiClient.get('/api/record/day', {
                     headers: {
                         'X-Auth-Username': user.email,
                         'X-Auth-Authorities': user.authorities
@@ -53,7 +61,7 @@ function MyPage() {
     useEffect(() => {
         const fetchUserImage = async () => {
             try {
-                const response = await axios.get(`http://3.38.119.135:8080/api/member/info`, {
+                const response = await apiClient.get(`/api/member/info`, {
                     headers: {
                         'X-Auth-Username': user.email,
                         'X-Auth-Authorities': user.authorities
@@ -61,7 +69,7 @@ function MyPage() {
                 });
     
                 const memberId = response.data.id;
-                const responseImage = await axios.get(`http://3.38.119.135:8080/api/member/image/${memberId}`, {
+                const responseImage = await apiClient.get(`/api/member/image/${memberId}`, {
                     responseType: 'blob',
                     headers: {
                         'accept': 'image/jpeg'
@@ -104,7 +112,7 @@ function MyPage() {
     const setGoal = async () => {
         if (user.isLoggedIn) {
             try {
-                const response = await axios.put(`http://3.38.119.135:8080/api/record/goal?sugar_goal=${sugarGoal}&caffeine_goal=${caffeineGoal}`, {}, {
+                const response = await apiClient.put(`/api/record/goal?sugar_goal=${sugarGoal}&caffeine_goal=${caffeineGoal}`, {}, {
                     headers: {
                         'X-Auth-Username': user.email,
                         'X-Auth-Authorities': user.authorities
@@ -137,7 +145,7 @@ function MyPage() {
             const formData = new FormData();
             formData.append('file', selectedFile);
 
-            axios.post('http://3.38.119.135:8080/api/member/image', formData, {
+            apiClient.post('/api/member/image', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 }

@@ -2,6 +2,14 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
+const host = window.location.hostname === "localhost"
+  ? 'http://3.38.119.135:8080'
+  : "/api";
+
+const apiClient = axios.create({
+  baseURL: host,
+});
+
 function TemPwForm() {
     const [phoneNumber, setPhoneNumber] = useState('');
     const [name, setName] = useState('');
@@ -12,7 +20,7 @@ function TemPwForm() {
     // 임시 비밀번호 전송 함수
     const handleSendTempPw = async () => {
         try {
-            const response = await axios.post('http://3.38.119.135:8080/sendEmail', null, {
+            const response = await apiClient.post('/sendEmail', null, {
                 params: {
                     name: name,
                     phone: phoneNumber,

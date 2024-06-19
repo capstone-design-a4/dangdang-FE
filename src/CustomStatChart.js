@@ -16,11 +16,17 @@ import {
 import CustomChartLegend from './CustomChartLegend';
 import CustomChartTooltip from './CustomChartTooltip';
 
-const API_BASE_URL = 'http://3.38.119.135:8080/api/record/customStat';
+const host = window.location.hostname === "localhost"
+  ? 'http://3.38.119.135:8080'
+  : "/api";
+
+const apiClient = axios.create({
+  baseURL: host,
+});
 
 const fetchData = async (startDate, endDate) => {
   try {
-    const response = await axios.get(API_BASE_URL, {
+    const response = await apiClient.get('/api/record/customStat', {
       params: {
         startDate,
         endDate,

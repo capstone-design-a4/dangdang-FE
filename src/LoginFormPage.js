@@ -2,6 +2,14 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
+const host = window.location.hostname === "localhost"
+  ? 'http://3.38.119.135:8080'
+  : "/api";
+
+const apiClient = axios.create({
+  baseURL: host,
+});
+
 function LoginFormPage({ onLogin }) {
     const [errorMessage, setErrorMessage] = useState('');
     const [showModal, setShowModal] = useState(false);
@@ -18,7 +26,7 @@ function LoginFormPage({ onLogin }) {
                 email: e.target.email.value,
                 password: e.target.password.value,
             };
-            const response = await axios.post('http://3.38.119.135:8080/login', {}, { params, withCredentials: true });
+            const response = await apiClient.post('/login', {}, { params, withCredentials: true });
    
             if (response.status === 200) {
                 // 로그인 성공
