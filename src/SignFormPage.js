@@ -1,6 +1,14 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
+const host = window.location.hostname === "localhost"
+  ? 'http://3.38.119.135:8080'
+  : "/api";
+
+const apiClient = axios.create({
+  baseURL: host,
+});
+
 function SignFormPage() {
     const [isSignUpSuccess, setIsSignUpSuccess] = useState(false);
     const [showModal, setShowModal] = useState(false);
@@ -32,7 +40,7 @@ function SignFormPage() {
                 phone: e.target.phone.value
             };
 
-            const response = await axios.post('//3.38.119.135:8080/join', joinData);
+            const response = await apiClient.post('/join', joinData);
 
             console.log(response.data);
 
